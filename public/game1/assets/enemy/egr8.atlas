@@ -1,0 +1,235 @@
+﻿{
+  "frames": {
+    "sprite 7530000": {
+      "frame": {
+        "x": 1,
+        "y": 1,
+        "w": 74,
+        "h": 92
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 75,
+        "h": 93
+      },
+      "sourceSize": {
+        "w": 75,
+        "h": 93
+      }
+    },
+    "sprite 7530001": {
+      "frame": {
+        "x": 76,
+        "y": 1,
+        "w": 65,
+        "h": 91
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 5,
+        "y": 1,
+        "w": 75,
+        "h": 93
+      },
+      "sourceSize": {
+        "w": 75,
+        "h": 93
+      }
+    },
+    "sprite 7530002": {
+      "frame": {
+        "x": 142,
+        "y": 1,
+        "w": 61,
+        "h": 92
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 10,
+        "y": 1,
+        "w": 75,
+        "h": 93
+      },
+      "sourceSize": {
+        "w": 75,
+        "h": 93
+      }
+    },
+    "sprite 7530003": {
+      "frame": {
+        "x": 204,
+        "y": 1,
+        "w": 64,
+        "h": 90
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 8,
+        "y": 2,
+        "w": 75,
+        "h": 93
+      },
+      "sourceSize": {
+        "w": 75,
+        "h": 93
+      }
+    },
+    "sprite 7530004": {
+      "frame": {
+        "x": 269,
+        "y": 1,
+        "w": 69,
+        "h": 89
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 4,
+        "y": 2,
+        "w": 75,
+        "h": 93
+      },
+      "sourceSize": {
+        "w": 75,
+        "h": 93
+      }
+    },
+    "sprite 7530005": {
+      "frame": {
+        "x": 339,
+        "y": 1,
+        "w": 75,
+        "h": 87
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 3,
+        "w": 75,
+        "h": 93
+      },
+      "sourceSize": {
+        "w": 75,
+        "h": 93
+      }
+    },
+    "sprite 7530006": {
+      "frame": {
+        "x": 415,
+        "y": 1,
+        "w": 69,
+        "h": 90
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 4,
+        "y": 2,
+        "w": 75,
+        "h": 93
+      },
+      "sourceSize": {
+        "w": 75,
+        "h": 93
+      }
+    },
+    "sprite 7530007": {
+      "frame": {
+        "x": 1,
+        "y": 94,
+        "w": 64,
+        "h": 90
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 8,
+        "y": 2,
+        "w": 75,
+        "h": 93
+      },
+      "sourceSize": {
+        "w": 75,
+        "h": 93
+      }
+    },
+    "sprite 7530008": {
+      "frame": {
+        "x": 66,
+        "y": 94,
+        "w": 61,
+        "h": 91
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 10,
+        "y": 1,
+        "w": 75,
+        "h": 93
+      },
+      "sourceSize": {
+        "w": 75,
+        "h": 93
+      }
+    },
+    "sprite 7530009": {
+      "frame": {
+        "x": 128,
+        "y": 94,
+        "w": 65,
+        "h": 91
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 5,
+        "y": 1,
+        "w": 75,
+        "h": 93
+      },
+      "sourceSize": {
+        "w": 75,
+        "h": 93
+      }
+    },
+    "sprite 7530010": {
+      "frame": {
+        "x": 1,
+        "y": 1,
+        "w": 74,
+        "h": 92
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 75,
+        "h": 93
+      },
+      "sourceSize": {
+        "w": 75,
+        "h": 93
+      }
+    }
+  },
+  "meta": {
+    "app": "Adobe Animate",
+    "version": "24.0.0.305",
+    "image": "egr8.png",
+    "format": "RGBA8888",
+    "size": {
+      "w": 512,
+      "h": 256
+    },
+    "scale": "1"
+  }
+}

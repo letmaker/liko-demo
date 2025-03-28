@@ -1,0 +1,67 @@
+﻿{"frames": {
+
+"sprite 10200000":
+{
+	"frame": {"x":1,"y":1,"w":57,"h":57},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":6,"w":65,"h":65},
+	"sourceSize": {"w":65,"h":65}
+},
+"sprite 10200001":
+{
+	"frame": {"x":59,"y":1,"w":57,"h":57},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":6,"w":65,"h":65},
+	"sourceSize": {"w":65,"h":65}
+},
+"sprite 10200002":
+{
+	"frame": {"x":117,"y":1,"w":57,"h":57},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":6,"w":65,"h":65},
+	"sourceSize": {"w":65,"h":65}
+},
+"sprite 10200003":
+{
+	"frame": {"x":175,"y":1,"w":65,"h":65},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":65,"h":65},
+	"sourceSize": {"w":65,"h":65}
+},
+"sprite 10200004":
+{
+	"frame": {"x":1,"y":67,"w":57,"h":63},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":2,"w":65,"h":65},
+	"sourceSize": {"w":65,"h":65}
+},
+"sprite 10200005":
+{
+	"frame": {"x":59,"y":67,"w":57,"h":57},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":6,"w":65,"h":65},
+	"sourceSize": {"w":65,"h":65}
+},
+"sprite 10200006":
+{
+	"frame": {"x":117,"y":67,"w":58,"h":57},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":4,"y":6,"w":65,"h":65},
+	"sourceSize": {"w":65,"h":65}
+}},
+"meta": {
+	"app": "Adobe Animate",
+	"version": "24.0.0.305",
+	"image": "boom_bullet.png",
+	"format": "RGBA8888",
+	"size": {"w":256,"h":256},
+	"scale": "1"
+}
+}

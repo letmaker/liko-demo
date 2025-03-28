@@ -1,0 +1,59 @@
+﻿{"frames": {
+
+"sprite 4970000":
+{
+	"frame": {"x":1,"y":1,"w":101,"h":42},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":105,"h":42},
+	"sourceSize": {"w":105,"h":42}
+},
+"sprite 4970001":
+{
+	"frame": {"x":103,"y":1,"w":101,"h":42},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":105,"h":42},
+	"sourceSize": {"w":105,"h":42}
+},
+"sprite 4970002":
+{
+	"frame": {"x":1,"y":44,"w":101,"h":42},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":105,"h":42},
+	"sourceSize": {"w":105,"h":42}
+},
+"sprite 4970003":
+{
+	"frame": {"x":103,"y":44,"w":105,"h":42},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":105,"h":42},
+	"sourceSize": {"w":105,"h":42}
+},
+"sprite 4970004":
+{
+	"frame": {"x":1,"y":87,"w":101,"h":42},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":105,"h":42},
+	"sourceSize": {"w":105,"h":42}
+},
+"sprite 4970005":
+{
+	"frame": {"x":1,"y":1,"w":101,"h":42},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":105,"h":42},
+	"sourceSize": {"w":105,"h":42}
+}},
+"meta": {
+	"app": "Adobe Animate",
+	"version": "24.0.0.305",
+	"image": "hero1_gun.png",
+	"format": "RGBA8888",
+	"size": {"w":256,"h":256},
+	"scale": "1"
+}
+}

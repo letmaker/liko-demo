@@ -1,0 +1,524 @@
+{
+  "id": "1",
+  "type": "Scene",
+  "props": {
+    "label": "scene1",
+    "pos": {
+      "x": 0,
+      "y": 0
+    },
+    "pivot": {
+      "x": 0,
+      "y": 0
+    },
+    "scale": {
+      "x": 1,
+      "y": 1
+    },
+    "angle": 0,
+    "width": 720,
+    "height": 540,
+    "alpha": 1,
+    "visible": true
+  },
+  "scripts": [
+    {
+      "id": "171066849919884",
+      "type": "Script",
+      "props": {
+        "script": "Camera",
+        "label": "Camera",
+        "lookTargetId": "container654"
+      }
+    }
+  ],
+  "children": [
+    {
+      "id": "container713",
+      "type": "Container",
+      "props": {
+        "label": "landscape",
+        "pos": {
+          "x": 2.165588378902669,
+          "y": 271.5476379394398
+        },
+        "pivot": {
+          "x": 0,
+          "y": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1
+        },
+        "angle": 0,
+        "width": 1829.9582769381204,
+        "height": 214.20251100955824,
+        "alpha": 1,
+        "visible": true
+      },
+      "children": [
+        {
+          "id": "node176",
+          "type": "Sprite",
+          "props": {
+            "url": "game1/assets/landscape.png",
+            "label": "landscape",
+            "pos": {
+              "x": 914.9582769381,
+              "y": 0.20251100956102164
+            },
+            "pivot": {
+              "x": 0,
+              "y": 0
+            },
+            "scale": {
+              "x": 1.0000000000000226,
+              "y": 0.9999999999999863
+            },
+            "angle": 0,
+            "width": 915,
+            "height": 214,
+            "alpha": 1,
+            "visible": true
+          }
+        },
+        {
+          "id": "node23",
+          "type": "Sprite",
+          "props": {
+            "url": "game1/assets/landscape.png",
+            "label": "landscape",
+            "pos": {
+              "x": 2.842170943040401e-14,
+              "y": -1.1368683772161603e-13
+            },
+            "pivot": {
+              "x": 0,
+              "y": 0
+            },
+            "scale": {
+              "x": 1.000000000000026,
+              "y": 1
+            },
+            "angle": 0,
+            "width": 915,
+            "height": 214,
+            "alpha": 1,
+            "visible": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "container1521",
+      "type": "Container",
+      "props": {
+        "label": "ground",
+        "pos": {
+          "x": -2.1462097167975003,
+          "y": 439.18365478515415
+        },
+        "pivot": {
+          "x": 0,
+          "y": 0
+        },
+        "scale": {
+          "x": 1,
+          "y": 1
+        },
+        "angle": 0,
+        "width": 2346.088648289719,
+        "height": 99.0406658171737,
+        "alpha": 1,
+        "visible": true
+      },
+      "children": [
+        {
+          "id": "node921",
+          "type": "Sprite",
+          "props": {
+            "url": "game1/assets/ground.png",
+            "label": "ground",
+            "pos": {
+              "x": 778.75231933593,
+              "y": -0.5504150390649443
+            },
+            "pivot": {
+              "x": 0,
+              "y": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1
+            },
+            "angle": 0,
+            "width": 783,
+            "height": 99,
+            "alpha": 1,
+            "visible": true
+          }
+        },
+        {
+          "id": "node82",
+          "type": "Sprite",
+          "props": {
+            "url": "game1/assets/ground.png",
+            "label": "ground",
+            "pos": {
+              "x": 0,
+              "y": 0
+            },
+            "pivot": {
+              "x": 0,
+              "y": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1
+            },
+            "angle": 0,
+            "width": 783,
+            "height": 99,
+            "alpha": 1,
+            "visible": true
+          },
+          "scripts": [
+            {
+              "id": "rigidBody101",
+              "type": "Script",
+              "props": {
+                "script": "RigidBody",
+                "label": "RigidBody",
+                "rigidType": "static",
+                "shapes": [
+                  {
+                    "shapeType": "box",
+                    "height": 90,
+                    "offset": {
+                      "x": 0,
+                      "y": 10
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "children": []
+        },
+        {
+          "id": "node565",
+          "type": "Sprite",
+          "props": {
+            "url": "game1/assets/ground.png",
+            "label": "ground",
+            "pos": {
+              "x": 1563.088648289719,
+              "y": 0.040665817173703545
+            },
+            "pivot": {
+              "x": 0,
+              "y": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1
+            },
+            "angle": 0,
+            "width": 783,
+            "height": 99,
+            "alpha": 1,
+            "visible": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "container654",
+      "type": "Container",
+      "props": {
+        "label": "hero",
+        "pos": {
+          "x": 234.8928842136945,
+          "y": 446.02965734664673
+        },
+        "pivot": {
+          "x": 30,
+          "y": 76
+        },
+        "scale": {
+          "x": 0.999999999999998,
+          "y": 0.999999999999998
+        },
+        "angle": 0,
+        "width": 105.00000000000001,
+        "height": 81.65977071660998,
+        "alpha": 1,
+        "visible": true
+      },
+      "scripts": [
+        {
+          "id": "script130",
+          "type": "Script",
+          "props": {
+            "script": "Hero",
+            "label": "Hero"
+          }
+        },
+        {
+          "id": "rigidBody83",
+          "type": "Script",
+          "props": {
+            "script": "RigidBody",
+            "label": "RigidBody",
+            "rigidType": "dynamic",
+            "shapes": [
+              {
+                "shapeType": "box",
+                "width": 50,
+                "offset": {
+                  "x": 5,
+                  "y": 0
+                }
+              }
+            ],
+            "gravityScale": 0,
+            "angularDamping": 0,
+            "linearDamping": 1,
+            "category": "主角",
+            "categoryAccepted": "敌人子弹，我方堡垒，敌方堡垒"
+          }
+        }
+      ],
+      "children": [
+        {
+          "id": "node203",
+          "type": "SpriteAnimation",
+          "props": {
+            "url": "game1/assets/hero/hero1_body.atlas",
+            "label": "body",
+            "pos": {
+              "x": 6.361382363227449,
+              "y": 27.659770716611035
+            },
+            "pivot": {
+              "x": 0,
+              "y": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1
+            },
+            "angle": 0,
+            "width": 45,
+            "height": 54,
+            "alpha": 1,
+            "visible": true
+          }
+        },
+        {
+          "id": "node462",
+          "type": "SpriteAnimation",
+          "props": {
+            "url": "game1/assets/hero/hero1_gun.atlas",
+            "label": "gun",
+            "pos": {
+              "x": 30.084918482197367,
+              "y": 43.74175606401198
+            },
+            "pivot": {
+              "x": 30,
+              "y": 20
+            },
+            "scale": {
+              "x": 1,
+              "y": 1
+            },
+            "angle": 0,
+            "width": 105,
+            "height": 42,
+            "alpha": 1,
+            "visible": true
+          }
+        },
+        {
+          "id": "node527",
+          "type": "Sprite",
+          "props": {
+            "url": "game1/assets/hero/hero1_head.png",
+            "label": "head",
+            "pos": {
+              "x": 28.87318591365235,
+              "y": 42.99268835756368
+            },
+            "pivot": {
+              "x": 22,
+              "y": 46
+            },
+            "scale": {
+              "x": 1,
+              "y": 1
+            },
+            "angle": 0,
+            "width": 44,
+            "height": 46,
+            "alpha": 1,
+            "visible": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "1710672389604283",
+      "type": "SpriteAnimation",
+      "props": {
+        "url": "game1/assets/enemy/egr8.atlas",
+        "label": "enemy1",
+        "pos": {
+          "x": 2217.144806881262,
+          "y": 357.2096977758632
+        },
+        "pivot": {
+          "x": 0,
+          "y": 0
+        },
+        "scale": {
+          "x": 0.999999999999977,
+          "y": 0.9999999999999312
+        },
+        "angle": 0,
+        "width": 75,
+        "height": 93,
+        "alpha": 1,
+        "visible": true
+      },
+      "scripts": [
+        {
+          "id": "1710672423972478",
+          "type": "Script",
+          "props": {
+            "script": "Enemy1",
+            "label": "Enemy1"
+          }
+        },
+        {
+          "id": "1710673835178139",
+          "type": "Script",
+          "props": {
+            "script": "RigidBody",
+            "label": "RigidBody",
+            "rigidType": "dynamic",
+            "linearVelocity": {
+              "x": 0,
+              "y": 0
+            },
+            "shapes": [
+              {
+                "shapeType": "box",
+                "isSensor": false
+              }
+            ],
+            "gravityScale": 0,
+            "category": "怪物",
+            "categoryAccepted": "子弹，我方堡垒"
+          }
+        }
+      ],
+      "children": []
+    },
+    {
+      "id": "171067224213964",
+      "type": "Sprite",
+      "props": {
+        "url": "game1/assets/apple.png",
+        "label": "enemyHouse",
+        "pos": {
+          "x": 2112.0539178608287,
+          "y": 83.51275979991381
+        },
+        "pivot": {
+          "x": 0,
+          "y": 0
+        },
+        "scale": {
+          "x": 0.999999999999996,
+          "y": 0.999999999999996
+        },
+        "angle": 0,
+        "width": 320,
+        "height": 372,
+        "alpha": 1,
+        "visible": true
+      },
+      "scripts": [
+        {
+          "id": "1710672266176248",
+          "type": "Script",
+          "props": {
+            "script": "EnemyCreator",
+            "label": "EnemyCreator"
+          }
+        },
+        {
+          "id": "1710673777882128",
+          "type": "Script",
+          "props": {
+            "script": "RigidBody",
+            "label": "RigidBody",
+            "rigidType": "static",
+            "shapes": [
+              {
+                "shapeType": "box",
+                "width": 300,
+                "height": 300,
+                "offset": {
+                  "x": 0,
+                  "y": 70
+                }
+              }
+            ],
+            "category": "敌方堡垒"
+          }
+        }
+      ],
+      "children": []
+    },
+    {
+      "id": "171067924931581",
+      "type": "Sprite",
+      "props": {
+        "url": "game1/assets/strawberry.png",
+        "label": "myHouse",
+        "pos": {
+          "x": -4.670654296876151,
+          "y": 343.90200805663966
+        },
+        "pivot": {
+          "x": 0,
+          "y": 0
+        },
+        "scale": {
+          "x": 0.3385009765625,
+          "y": 0.3385009765625
+        },
+        "angle": 0,
+        "width": 350,
+        "height": 350,
+        "alpha": 1,
+        "visible": true
+      },
+      "scripts": [
+        {
+          "id": "1710679264540476",
+          "type": "Script",
+          "props": {
+            "script": "RigidBody",
+            "label": "RigidBody",
+            "rigidType": "static",
+            "category": "我方堡垒"
+          }
+        }
+      ],
+      "children": []
+    }
+  ]
+}
