@@ -1,0 +1,19 @@
+{
+  "name": "liko-demo",
+  "license": "MIT",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "liko": "^1.0.7"
+  },
+  "devDependencies": {
+    "prettier": "^3.5.3",
+    "typescript": "~5.7.2",
+    "vite": "^6.2.0"
+  }
+}
