@@ -1,10 +1,10 @@
-import { Ease, EventType, loader, RigidBody, ScriptBlock, SpriteAnimation, Tween, Node, ICollision } from 'liko';
+import { Ease, EventType, loader, RigidBody, SpriteAnimation, Tween, type Node, type ICollision, Script } from "liko";
 
 /**
  * 敌人生成器脚本
  * 负责定时创建敌人、处理碰撞逻辑和生成特效
  */
-export class EnemyCreator extends ScriptBlock {
+export class EnemyCreator extends Script {
   /** 敌人生成器的生命值 */
   hp = 100;
 
@@ -22,7 +22,7 @@ export class EnemyCreator extends ScriptBlock {
    */
   private _createEnemy() {
     // 克隆指定ID的敌人模板
-    const enemy = this.scene?.clone('1710672389604283');
+    const enemy = this.scene?.clone("1710672389604283");
     if (enemy) {
       // 设置敌人初始位置为生成器的位置
       enemy.pos.x = this.target.pos.x;
@@ -43,7 +43,7 @@ export class EnemyCreator extends ScriptBlock {
   async onCollisionStart(e: ICollision): Promise<void> {
     const bullet = e.other.target as Node;
     // 如果碰撞物体不是子弹，则忽略
-    if (bullet.label !== 'bullet') return;
+    if (bullet.label !== "bullet") return;
     // 销毁子弹
     bullet.destroy();
 
@@ -78,11 +78,11 @@ export class EnemyCreator extends ScriptBlock {
    */
   private async _createDieBoom(parent: Node, x: number, y: number) {
     // 加载绿色爆炸动画资源
-    const textures = await loader.load('game1/assets/hero/boom_green.atlas');
+    const textures = await loader.load("game1/assets/hero/boom_green.atlas");
 
     // 创建爆炸动画
     const sheet = new SpriteAnimation(textures);
-    sheet.label = 'boom_green';
+    sheet.label = "boom_green";
     sheet.pos.set(x, y);
     parent.addChild(sheet);
 
@@ -103,14 +103,14 @@ export class EnemyCreator extends ScriptBlock {
    */
   private async _createHitBoom(parent: Node, x: number, y: number) {
     // 加载子弹爆炸动画资源
-    const textures = await loader.load('game1/assets/hero/boom_bullet.atlas');
+    const textures = await loader.load("game1/assets/hero/boom_bullet.atlas");
 
     // 如果目标已被销毁，则不创建特效
     if (!this.target || this.target.destroyed) return;
 
     // 创建爆炸动画
     const sheet = new SpriteAnimation(textures);
-    sheet.label = 'boom_bullet';
+    sheet.label = "boom_bullet";
     sheet.pos.set(x, y);
     parent.addChild(sheet);
 

@@ -1,4 +1,4 @@
-import { Script, Node } from 'liko';
+import { Script, type Node } from "liko";
 
 /**
  * 滚动背景脚本

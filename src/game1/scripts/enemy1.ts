@@ -3,19 +3,19 @@ import {
   EventType,
   loader,
   RigidBody,
-  ScriptBlock,
   Sprite,
   SpriteAnimation,
   Tween,
-  Node,
-  ICollision,
-} from 'liko';
+  type Node,
+  type ICollision,
+  Script,
+} from "liko";
 
 /**
  * 敌人类型1脚本
  * 实现敌人的移动、攻击、受伤和死亡逻辑
  */
-export class Enemy1 extends ScriptBlock {
+export class Enemy1 extends Script {
   /** 下一次攻击的时间戳 */
   private _nextAttackTime = 0;
   /** 敌人的刚体组件引用 */
@@ -39,7 +39,7 @@ export class Enemy1 extends ScriptBlock {
       this.target.play();
     }
     // 获取场景中的英雄角色
-    this.hero = this.scene?.getChild('hero');
+    this.hero = this.scene?.getChild("hero");
     // 获取刚体组件
     this._rigidBody = this.target.getScript(RigidBody);
     // 初始化移动速度
@@ -82,11 +82,11 @@ export class Enemy1 extends ScriptBlock {
     const pos = { x: 0, y: this.target.height / 3 };
     this.target.toWorldPoint(pos, pos, this.scene);
     // 加载子弹纹理
-    const texture = await loader.load('game1/assets/hero/bullet.png');
+    const texture = await loader.load("game1/assets/hero/bullet.png");
 
     // 创建子弹精灵
     const bullet = new Sprite();
-    bullet.label = 'bullet';
+    bullet.label = "bullet";
     bullet.texture = texture;
     bullet.pivot.set(texture.width / 2, texture.height / 2);
     bullet.pos.set(pos.x, pos.y);
@@ -98,10 +98,10 @@ export class Enemy1 extends ScriptBlock {
     // 为子弹添加刚体组件
     const boxRigid = new RigidBody();
     boxRigid.label = bullet.label;
-    boxRigid.rigidType = 'dynamic';
+    boxRigid.rigidType = "dynamic";
     boxRigid.gravityScale = 0;
-    boxRigid.category = '敌人子弹';
-    boxRigid.shapes = [{ shapeType: 'box', isSensor: true }];
+    boxRigid.category = "敌人子弹";
+    boxRigid.shapes = [{ shapeType: "box", isSensor: true }];
 
     // 设置子弹向左飞行
     boxRigid.setVelocity(-5, 0);
@@ -121,7 +121,7 @@ export class Enemy1 extends ScriptBlock {
   async onCollisionStart(e: ICollision): Promise<void> {
     const bullet = e.other.target as Node;
     // 如果碰撞物体不是子弹，则忽略
-    if (bullet.label !== 'bullet') return;
+    if (bullet.label !== "bullet") return;
     // 销毁子弹
     bullet.destroy();
 
@@ -156,11 +156,11 @@ export class Enemy1 extends ScriptBlock {
    */
   private async _createDieBoom(parent: Node, x: number, y: number) {
     // 加载绿色爆炸动画资源
-    const textures = await loader.load('game1/assets/hero/boom_green.atlas');
+    const textures = await loader.load("game1/assets/hero/boom_green.atlas");
 
     // 创建爆炸动画
     const sheet = new SpriteAnimation(textures);
-    sheet.label = 'boom_green';
+    sheet.label = "boom_green";
     sheet.pos.set(x, y);
     parent.addChild(sheet);
     // 播放爆炸动画
@@ -179,13 +179,13 @@ export class Enemy1 extends ScriptBlock {
    */
   private async _createHitBoom(parent: Node, x: number, y: number) {
     // 加载子弹爆炸动画资源
-    const textures = await loader.load('game1/assets/hero/boom_bullet.atlas');
+    const textures = await loader.load("game1/assets/hero/boom_bullet.atlas");
     // 如果目标已被销毁，则不创建特效
     if (!this.target || this.target.destroyed) return;
 
     // 创建爆炸动画
     const sheet = new SpriteAnimation(textures);
-    sheet.label = 'boom_bullet';
+    sheet.label = "boom_bullet";
     sheet.pos.set(x, y);
     parent.addChild(sheet);
     // 播放爆炸动画

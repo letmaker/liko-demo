@@ -1,4 +1,4 @@
-import { EventType, Point, Script, Node } from 'liko';
+import { EventType, Point, Script, type Node } from "liko";
 
 /**
  * 相机控制脚本，配置在场景的 json 内，由场景自动创建和管理
@@ -10,14 +10,14 @@ export class Camera extends Script {
   /** 相机跟随的目标节点 */
   private _lookTarget?: Node;
   /** 目标节点的ID，用于在场景中查找目标 */
-  lookTargetId = '';
+  lookTargetId = "";
 
   /**
    * 脚本唤醒时调用
    * 根据lookTargetId查找目标节点并开始跟随
    */
   onAwake(): void {
-    this._lookTarget = this.target.getChild('#' + this.lookTargetId);
+    this._lookTarget = this.target.getChild(this.lookTargetId);
     if (this._lookTarget) this.lookAt(this._lookTarget);
   }
 

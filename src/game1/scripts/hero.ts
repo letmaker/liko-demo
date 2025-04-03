@@ -1,10 +1,21 @@
-import { Ease, loader, Point, RigidBody, ScriptBlock, Sprite, SpriteAnimation, Tween, Node, ICollision } from 'liko';
+import {
+  Ease,
+  loader,
+  Point,
+  RigidBody,
+  Sprite,
+  type SpriteAnimation,
+  Tween,
+  type Node,
+  type ICollision,
+  Script,
+} from "liko";
 
 /**
  * 英雄角色脚本
  * 实现玩家控制的角色移动、射击和受伤逻辑
  */
-export class Hero extends ScriptBlock {
+export class Hero extends Script {
   /** 英雄生命值 */
   hp = 20;
   /** 英雄头部节点引用 */
@@ -26,9 +37,9 @@ export class Hero extends ScriptBlock {
    */
   onAwake(): void {
     // 获取各个子节点引用
-    this.head = this.target.getChild('head');
-    this.body = this.target.getChild('body') as SpriteAnimation;
-    this.gun = this.target.getChild('gun') as SpriteAnimation;
+    this.head = this.target.getChild("head");
+    this.body = this.target.getChild("body") as SpriteAnimation;
+    this.gun = this.target.getChild("gun") as SpriteAnimation;
     // 获取刚体组件
     this.rigidBody = this.target.getScript(RigidBody);
 
@@ -53,7 +64,7 @@ export class Hero extends ScriptBlock {
     if (!this.rigidBody || !this.body) return;
 
     // 向右移动
-    if (e.key === 'ArrowRight' || e.key === 'd') {
+    if (e.key === "ArrowRight" || e.key === "d") {
       this.rigidBody.linearVelocity = { x: 2, y: 0 };
       // 设置朝向为右
       this.target.scale.x = Math.abs(this.target.scale.x);
@@ -61,7 +72,7 @@ export class Hero extends ScriptBlock {
       this.body.play();
     }
     // 向左移动
-    else if (e.key === 'ArrowLeft' || e.key === 'a') {
+    else if (e.key === "ArrowLeft" || e.key === "a") {
       this.rigidBody.linearVelocity = { x: -2, y: 0 };
       // 设置朝向为左
       this.target.scale.x = Math.abs(this.target.scale.x) * -1;
@@ -81,7 +92,7 @@ export class Hero extends ScriptBlock {
     if (!this.rigidBody || !this.body) return;
 
     // 停止左右移动
-    if (e.key === 'ArrowRight' || e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'd') {
+    if (e.key === "ArrowRight" || e.key === "ArrowLeft" || e.key === "a" || e.key === "d") {
       // 停止移动
       this.rigidBody.linearVelocity = { x: 0, y: 0 };
       // 停止行走动画并重置到第一帧
@@ -100,11 +111,11 @@ export class Hero extends ScriptBlock {
     // 计算子弹生成位置，从枪口发射
     const pos = this.gun!.toWorldPoint(this.bulletPos.set(50, 10), this.bulletPos, this.scene);
     // 加载子弹纹理
-    const texture = await loader.load('game1/assets/hero/bullet.png');
+    const texture = await loader.load("game1/assets/hero/bullet.png");
 
     // 创建子弹精灵
     const bullet = new Sprite();
-    bullet.label = 'bullet';
+    bullet.label = "bullet";
     bullet.texture = texture;
     bullet.pivot.set(0, texture.height / 2);
     bullet.pos.set(pos.x, pos.y + texture.height / 2);
@@ -113,10 +124,10 @@ export class Hero extends ScriptBlock {
     // 为子弹添加刚体组件
     const boxRigid = new RigidBody();
     boxRigid.label = bullet.label;
-    boxRigid.rigidType = 'dynamic';
+    boxRigid.rigidType = "dynamic";
     boxRigid.gravityScale = 0;
-    boxRigid.category = '子弹';
-    boxRigid.shapes = [{ shapeType: 'box', isSensor: true }];
+    boxRigid.category = "子弹";
+    boxRigid.shapes = [{ shapeType: "box", isSensor: true }];
     // 根据角色朝向设置子弹飞行方向
     boxRigid.setVelocity(Math.sign(this.target.scale.x) * 10, 0);
     bullet.addScript(boxRigid);
@@ -135,7 +146,7 @@ export class Hero extends ScriptBlock {
   async onCollisionStart(e: ICollision): Promise<void> {
     const bullet = e.other.target as Node;
     // 如果碰撞物体不是子弹，则忽略
-    if (bullet.label !== 'bullet') return;
+    if (bullet.label !== "bullet") return;
     // 销毁子弹
     bullet.destroy();
 
@@ -151,12 +162,12 @@ export class Hero extends ScriptBlock {
 
     // 减少生命值
     this.hp--;
-    console.log('hero hp', this.hp);
+    console.log("hero hp", this.hp);
 
     // 如果生命值归零，销毁英雄并结束游戏
     if (this.hp <= 0) {
       this.target.destroy();
-      console.log('game over');
+      console.log("game over");
     }
   }
 }

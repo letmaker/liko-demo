@@ -1,6 +1,6 @@
 // 使用liko测试缓动动画能力
 
-import { App, Sprite, Tween, EventType, Timer } from "../../../liko/src";
+import { App, Sprite, Tween, EventType, Timer } from "liko";
 
 async function test() {
   // 创建应用实例

@@ -1,5 +1,5 @@
 // 使用liko引擎加载场景 json，渲染显示场景内容
-import { App, regScript, Script, Scene } from '../../../liko/src';
+import { App, regScript, Script, Scene } from "liko";
 
 async function test() {
   // 创建应用实例
@@ -8,14 +8,14 @@ async function test() {
   await app.init({ width: 800, height: 800, bgColor: 0x333333 });
 
   // 注册自定义脚本类，使场景JSON可以引用此脚本
-  regScript('TestScript', TestScript);
+  regScript("TestScript", TestScript);
 
   // 创建场景实例
   const scene = new Scene();
   // 将场景添加到应用舞台
   app.stage.addChild(scene);
   // 从JSON文件加载场景配置
-  scene.load('scenes/test-scene.json');
+  scene.load("scenes/test-scene.json");
   // 开始播放场景
   scene.play();
 }
@@ -30,7 +30,7 @@ class TestScript extends Script {
    * 当对象被创建时调用
    */
   onAwake(): void {
-    console.log('awake');
+    console.log("awake");
   }
 
   /**
