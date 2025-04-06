@@ -1,5 +1,5 @@
 // 使用liko引擎加载场景 json，渲染显示场景内容
-import { App, regScript, Script, Scene } from "liko";
+import { App, regScript, Script, Scene } from "../../../liko/src";
 
 async function test() {
   // 创建应用实例
@@ -16,8 +16,6 @@ async function test() {
   app.stage.addChild(scene);
   // 从JSON文件加载场景配置
   scene.load("scenes/test-scene.json");
-  // 开始播放场景
-  scene.play();
 }
 test();
 
