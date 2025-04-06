@@ -1,12 +1,16 @@
-// 使用 Liko 引擎播放声音
 import { App, music, sound, Text } from "../../../liko/src";
 
+/**
+ * 声音功能测试模块
+ * 演示如何使用 Liko 引擎的音效和背景音乐功能
+ */
 async function test() {
   // 创建应用实例
   const app = new App();
-  // 初始化应用，设置宽高为800x800，背景色为深灰色
+  /** 初始化应用，设置宽高为800x800，背景色为深灰色 */
   await app.init({ width: 800, height: 800, bgColor: 0x333333 });
 
+  // 音效测试部分
   const soundText1 = new Text({
     text: "点击播放音效", // 文本内容
     fillColor: "#ff0000", // 文本颜色（红色）
@@ -31,6 +35,7 @@ async function test() {
     sound.play("assets/sound/bullet.mp3", 0.3);
   });
 
+  // 背景音乐测试部分
   const musicText1 = new Text({
     text: "点击播放背景音乐", // 文本内容
     fillColor: "#ff0000", // 文本颜色（红色）
@@ -40,7 +45,8 @@ async function test() {
   app.stage.addChild(musicText1);
 
   musicText1.on("click", () => {
-    music.play("assets/sound/bg.mp3");
+    // 注意：这里先播放音乐，然后再淡入，可能会导致声音突然变化
+    // 建议只使用 fadeIn 或者只使用 play
     music.fadeIn("assets/sound/bg.mp3", 3);
   });
 
@@ -92,6 +98,7 @@ async function test() {
     music.destroyAll();
   });
 
+  // 音乐参数控制部分
   const musicText6 = new Text({
     text: "音量-", // 文本内容
     fillColor: "#ff0000", // 文本颜色（红色）
@@ -129,7 +136,7 @@ async function test() {
   });
 
   const musicText9 = new Text({
-    text: "恢复", // 文本内容
+    text: "重置参数", // 文本内容 - 修改为更明确的描述
     fillColor: "#ff0000", // 文本颜色（红色）
     fontSize: 20, // 字体大小
     pos: { x: 550, y: 250 }, // 文本位置
