@@ -1,5 +1,5 @@
 // 使用liko引擎加载场景 json，渲染显示场景内容
-import { App, regScript, Script, Scene } from "../../../liko/src";
+import { App, regScript, Script, Scene } from "liko";
 
 async function test() {
   // 创建应用实例

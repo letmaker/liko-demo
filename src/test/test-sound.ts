@@ -1,4 +1,4 @@
-import { App, music, sound, Text } from "../../../liko/src";
+import { App, music, sound, Text } from "liko";
 
 /**
  * 声音功能测试模块
@@ -16,9 +16,8 @@ async function test() {
     fillColor: "#ff0000", // 文本颜色（红色）
     fontSize: 20, // 字体大小
     pos: { x: 50, y: 100 }, // 文本位置
+    parent: app.stage, // 父节点为舞台
   });
-  app.stage.addChild(soundText1);
-
   soundText1.on("click", () => {
     sound.play("assets/sound/bullet.mp3");
   });
@@ -28,8 +27,8 @@ async function test() {
     fillColor: "#ff0000", // 文本颜色（红色）
     fontSize: 20, // 字体大小
     pos: { x: 250, y: 100 }, // 文本位置
+    parent: app.stage, // 父节点为舞台
   });
-  app.stage.addChild(soundText2);
 
   soundText2.on("click", () => {
     sound.play("assets/sound/bullet.mp3", 0.3);
@@ -41,13 +40,11 @@ async function test() {
     fillColor: "#ff0000", // 文本颜色（红色）
     fontSize: 20, // 字体大小
     pos: { x: 50, y: 200 }, // 文本位置
+    parent: app.stage, // 父节点为舞台
   });
-  app.stage.addChild(musicText1);
 
   musicText1.on("click", () => {
-    // 注意：这里先播放音乐，然后再淡入，可能会导致声音突然变化
-    // 建议只使用 fadeIn 或者只使用 play
-    music.fadeIn("assets/sound/bg.mp3", 3);
+    music.play("assets/sound/bg.mp3").fadeIn(3);
   });
 
   const musicText2 = new Text({
@@ -55,8 +52,8 @@ async function test() {
     fillColor: "#ff0000", // 文本颜色（红色）
     fontSize: 20, // 字体大小
     pos: { x: 250, y: 200 }, // 文本位置
+    parent: app.stage, // 父节点为舞台
   });
-  app.stage.addChild(musicText2);
 
   musicText2.on("click", () => {
     music.pause("assets/sound/bg.mp3");
@@ -67,8 +64,8 @@ async function test() {
     fillColor: "#ff0000", // 文本颜色（红色）
     fontSize: 20, // 字体大小
     pos: { x: 350, y: 200 }, // 文本位置
+    parent: app.stage, // 父节点为舞台
   });
-  app.stage.addChild(musicText3);
 
   musicText3.on("click", () => {
     music.resume("assets/sound/bg.mp3");
@@ -79,8 +76,8 @@ async function test() {
     fillColor: "#ff0000", // 文本颜色（红色）
     fontSize: 20, // 字体大小
     pos: { x: 450, y: 200 }, // 文本位置
+    parent: app.stage, // 父节点为舞台
   });
-  app.stage.addChild(musicText4);
 
   musicText4.on("click", () => {
     music.stopAll();
@@ -91,8 +88,8 @@ async function test() {
     fillColor: "#ff0000", // 文本颜色（红色）
     fontSize: 20, // 字体大小
     pos: { x: 550, y: 200 }, // 文本位置
+    parent: app.stage, // 父节点为舞台
   });
-  app.stage.addChild(musicText5);
 
   musicText5.on("click", () => {
     music.destroyAll();
@@ -104,8 +101,8 @@ async function test() {
     fillColor: "#ff0000", // 文本颜色（红色）
     fontSize: 20, // 字体大小
     pos: { x: 250, y: 250 }, // 文本位置
+    parent: app.stage, // 父节点为舞台
   });
-  app.stage.addChild(musicText6);
 
   musicText6.on("click", () => {
     music.setVolume("assets/sound/bg.mp3", 0.5);
@@ -116,8 +113,8 @@ async function test() {
     fillColor: "#ff0000", // 文本颜色（红色）
     fontSize: 20, // 字体大小
     pos: { x: 350, y: 250 }, // 文本位置
+    parent: app.stage, // 父节点为舞台
   });
-  app.stage.addChild(musicText7);
 
   musicText7.on("click", () => {
     music.setPlaybackRate("assets/sound/bg.mp3", 2);
@@ -128,8 +125,8 @@ async function test() {
     fillColor: "#ff0000", // 文本颜色（红色）
     fontSize: 20, // 字体大小
     pos: { x: 450, y: 250 }, // 文本位置
+    parent: app.stage, // 父节点为舞台
   });
-  app.stage.addChild(musicText8);
 
   musicText8.on("click", () => {
     music.setLoop("assets/sound/bg.mp3", false);
@@ -140,8 +137,8 @@ async function test() {
     fillColor: "#ff0000", // 文本颜色（红色）
     fontSize: 20, // 字体大小
     pos: { x: 550, y: 250 }, // 文本位置
+    parent: app.stage, // 父节点为舞台
   });
-  app.stage.addChild(musicText9);
 
   musicText9.on("click", () => {
     music.setVolumeAll(1);
