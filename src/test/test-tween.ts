@@ -62,8 +62,8 @@ async function test() {
     url: "assets/boy.png",
     pos: { x: 400, y: 400 },
     pivot: { x: 66 / 2, y: 92 / 2 },
+    parent: app.stage,
   });
-  app.stage.addChild(boy); // 将男孩添加到舞台
 
   boy.on(EventType.click, () => {
     if (Timer.system.paused) {

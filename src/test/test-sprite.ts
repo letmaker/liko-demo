@@ -1,5 +1,5 @@
 // 使用liko引擎，在屏幕上绘制精灵
-import { App, Sprite, Texture } from 'liko';
+import { App, Sprite, Texture } from "liko";
 
 async function test() {
   // 创建应用实例
@@ -9,20 +9,20 @@ async function test() {
 
   // 创建背景精灵
   const bg = new Sprite();
-  bg.url = 'assets/bg2.webp'; // 设置背景图片路径
+  bg.url = "assets/bg2.webp"; // 设置背景图片路径
   bg.scale.set(0.5); // 将背景缩放为原来的一半大小
   app.stage.addChild(bg); // 将背景添加到舞台
 
   // 创建苹果精灵
   const apple = new Sprite();
-  apple.url = 'assets/apple.png'; // 设置苹果图片路径
+  apple.url = "assets/apple.png"; // 设置苹果图片路径
   apple.scale.set(0.5); // 将苹果缩放为原来的一半大小
   apple.pos.set(300); // 设置苹果位置为(300,300)
   app.stage.addChild(apple); // 将苹果添加到舞台
 
   // 创建草莓精灵
   const strawberry = new Sprite();
-  strawberry.url = 'assets/strawberry.png'; // 设置草莓图片路径
+  strawberry.url = "assets/strawberry.png"; // 设置草莓图片路径
   strawberry.pos.x = 500; // 设置草莓的x坐标为500
   strawberry.pos.y = 300; // 设置草莓的y坐标为300
   strawberry.width = 200; // 设置草莓宽度为200
@@ -32,7 +32,7 @@ async function test() {
 
   // 创建砖块精灵
   const brick = new Sprite();
-  brick.load('assets/brick.png'); // 使用load方法加载砖块图片
+  brick.load("assets/brick.png"); // 使用load方法加载砖块图片
   brick.pos.set(300, 500); // 设置砖块位置为(300,500)
   brick.alpha = 0.5; // 设置砖块透明度为0.5
   brick.angle = 45; // 设置砖块旋转角度为45度
@@ -40,13 +40,13 @@ async function test() {
 
   // 创建男孩精灵，使用构造函数参数直接设置属性
   const boy = new Sprite({
-    url: 'assets/boy.png',
+    url: "assets/boy.png",
     pos: { x: 500, y: 600 },
+    parent: app.stage,
   });
-  app.stage.addChild(boy); // 将男孩添加到舞台
 
   // 创建女孩精灵，使用Texture.from方法先加载纹理
-  const texture = await Texture.from('assets/girl.png');
+  const texture = await Texture.from("assets/girl.png");
   const girl = new Sprite();
   girl.texture = texture; // 设置女孩精灵的纹理
   girl.pos.set(600, 600); // 设置女孩位置为(600,600)
