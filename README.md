@@ -3,7 +3,7 @@
 ## How to use
 
 ```bash
-npm install liko
+npm install
 ```
 
 ```bash
