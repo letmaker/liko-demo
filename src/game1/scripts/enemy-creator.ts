@@ -22,12 +22,12 @@ export class EnemyCreator extends Script {
    */
   private _createEnemy() {
     // 克隆指定ID的敌人模板
-    const enemy = this.scene?.clone("1710672389604283");
+    const enemy = this.scene?.clone({ id: "1710672389604283" });
     if (enemy) {
       // 设置敌人初始位置为生成器的位置
       enemy.pos.x = this.target.pos.x;
       // 获取敌人的刚体组件
-      const rigidBody = enemy.getScript(RigidBody);
+      const rigidBody = enemy.getScript<RigidBody>({ Class: RigidBody });
       // 设置敌人向左移动的随机速度
       if (rigidBody) rigidBody.linearVelocity.x = -0.5 * Math.random() - 0.5;
       // 将敌人添加到场景中
@@ -80,6 +80,8 @@ export class EnemyCreator extends Script {
     // 加载绿色爆炸动画资源
     const textures = await loader.load("game1/assets/hero/boom_green.atlas");
 
+    if (!textures) return;
+
     // 创建爆炸动画
     const sheet = new SpriteAnimation(textures);
     sheet.label = "boom_green";
@@ -106,7 +108,7 @@ export class EnemyCreator extends Script {
     const textures = await loader.load("game1/assets/hero/boom_bullet.atlas");
 
     // 如果目标已被销毁，则不创建特效
-    if (!this.target || this.target.destroyed) return;
+    if (!this.target || this.target.destroyed || !textures) return;
 
     // 创建爆炸动画
     const sheet = new SpriteAnimation(textures);

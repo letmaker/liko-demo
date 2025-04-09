@@ -1,0 +1,194 @@
+{
+  "id": "1",
+  "type": "Scene",
+  "props": {
+    "label": "scene1",
+    "width": 480,
+    "height": 700,
+    "description": "飞机射击游戏第一关"
+  },
+  "scripts": [
+    {
+      "id": "11",
+      "type": "Script",
+      "description": "场景管理脚本，实现游戏逻辑管理",
+      "props": {
+        "script": "Scene1",
+        "label": "Scene1"
+      }
+    }
+  ],
+  "children": [
+    {
+      "id": "2",
+      "type": "Sprite",
+      "description": "游戏背景图片，作为所有游戏元素的容器",
+      "props": {
+        "label": "bg",
+        "url": "game2/背景.png",
+        "pos": { "x": 0, "y": 0 },
+        "width": 480,
+        "height": 700
+      },
+      "children": [
+        {
+          "id": "3",
+          "type": "Sprite",
+          "description": "玩家控制的主角飞机",
+          "props": {
+            "label": "hero",
+            "url": "game2/主角1.png",
+            "pos": { "x": 200, "y": 500 },
+            "width": 102,
+            "height": 126
+          },
+          "scripts": [
+            {
+              "id": "31",
+              "type": "Script",
+              "description": "主角飞机控制脚本，处理移动、射击和生命值",
+              "props": {
+                "script": "Hero",
+                "label": "Hero",
+                "hp": 1,
+                "fireRate": 3
+              }
+            }
+          ]
+        },
+        {
+          "id": "100",
+          "type": "Sprite",
+          "description": "主角飞机发射的子弹模板",
+          "props": {
+            "label": "主角子弹",
+            "url": "game2/主角子弹.png",
+            "pos": { "x": 200, "y": 600 },
+            "width": 10,
+            "height": 20,
+            "editorOnly": true
+          },
+          "scripts": [
+            {
+              "id": "110",
+              "type": "Script",
+              "description": "主角子弹行为脚本，控制子弹移动和碰撞检测",
+              "props": {
+                "script": "HeroBullet",
+                "label": "HeroBullet"
+              }
+            }
+          ]
+        },
+        {
+          "id": "200",
+          "type": "Sprite",
+          "description": "小型敌机，移动速度快但生命值低",
+          "props": {
+            "label": "Enemy1",
+            "url": "game2/敌人1.png",
+            "pos": { "x": 50, "y": 100 },
+            "width": 57,
+            "height": 43,
+            "editorOnly": true
+          },
+          "scripts": [
+            {
+              "id": "210",
+              "type": "Script",
+              "description": "小型敌机AI脚本，控制移动和攻击模式",
+              "props": {
+                "script": "Enemy1",
+                "label": "Enemy1"
+              }
+            }
+          ]
+        },
+        {
+          "id": "200",
+          "type": "Sprite",
+          "description": "中型敌机，具有中等生命值和攻击力",
+          "props": {
+            "label": "Enemy2",
+            "url": "game2/敌人2.png",
+            "pos": { "x": 150, "y": 100 },
+            "width": 69,
+            "height": 99,
+            "editorOnly": true
+          },
+          "scripts": [
+            {
+              "id": "210",
+              "type": "Script",
+              "description": "中型敌机AI脚本，控制移动轨迹和射击频率",
+              "props": {
+                "script": "Enemy2",
+                "label": "Enemy2"
+              }
+            }
+          ]
+        },
+        {
+          "id": "300",
+          "type": "Sprite",
+          "description": "关卡Boss，拥有高生命值和复杂的攻击模式",
+          "props": {
+            "label": "Boss1",
+            "url": "game2/boss1.png",
+            "pos": { "x": 300, "y": 100 },
+            "width": 169,
+            "height": 258,
+            "editorOnly": true
+          },
+          "scripts": [
+            {
+              "id": "210",
+              "type": "Script",
+              "description": "Boss行为脚本，实现多阶段战斗和特殊攻击模式",
+              "props": {
+                "script": "Boss1",
+                "label": "Boss1"
+              }
+            }
+          ]
+        },
+        {
+          "id": "400",
+          "type": "Sprite",
+          "description": "敌方单位发射的子弹模板",
+          "props": {
+            "label": "EnemyBullet",
+            "url": "game2/敌人子弹.png",
+            "pos": { "x": 100, "y": 100 },
+            "width": 10,
+            "height": 20,
+            "editorOnly": true
+          },
+          "scripts": [
+            {
+              "id": "410",
+              "type": "Script",
+              "description": "敌方子弹行为脚本，控制子弹移动和伤害判定",
+              "props": {
+                "script": "EnemyBullet",
+                "label": "EnemyBullet"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "999",
+      "type": "Text",
+      "description": "显示积分",
+      "props": {
+        "label": "score",
+        "text": "Score: 0",
+        "fillColor": "#ff0000",
+        "pos": { "x": 10, "y": 10 },
+        "fontSize": 20
+      }
+    }
+  ]
+}

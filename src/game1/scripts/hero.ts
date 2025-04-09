@@ -9,6 +9,7 @@ import {
   type Node,
   type ICollision,
   Script,
+  type Texture,
 } from "liko";
 
 /**
@@ -37,11 +38,11 @@ export class Hero extends Script {
    */
   onAwake(): void {
     // 获取各个子节点引用
-    this.head = this.target.getChild("head");
-    this.body = this.target.getChild("body") as SpriteAnimation;
-    this.gun = this.target.getChild("gun") as SpriteAnimation;
+    this.head = this.target.getChild({ label: "head" });
+    this.body = this.target.getChild({ label: "body" }) as SpriteAnimation;
+    this.gun = this.target.getChild({ label: "gun" }) as SpriteAnimation;
     // 获取刚体组件
-    this.rigidBody = this.target.getScript(RigidBody);
+    this.rigidBody = this.target.getScript({ Class: RigidBody });
 
     if (this.gun) {
       // 播放武器动画
@@ -111,13 +112,14 @@ export class Hero extends Script {
     // 计算子弹生成位置，从枪口发射
     const pos = this.gun!.toWorldPoint(this.bulletPos.set(50, 10), this.bulletPos, this.scene);
     // 加载子弹纹理
-    const texture = await loader.load("game1/assets/hero/bullet.png");
+    const texture = await loader.load<Texture>("game1/assets/hero/bullet.png");
+    if (!texture) return;
 
     // 创建子弹精灵
     const bullet = new Sprite();
     bullet.label = "bullet";
     bullet.texture = texture;
-    bullet.pivot.set(0, texture.height / 2);
+    bullet.anchor.set(0, 0.5);
     bullet.pos.set(pos.x, pos.y + texture.height / 2);
     this.scene!.addChild(bullet);
 

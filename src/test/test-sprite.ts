@@ -39,7 +39,7 @@ async function test() {
   app.stage.addChild(brick); // 将砖块添加到舞台
 
   // 创建男孩精灵，使用构造函数参数直接设置属性
-  const boy = new Sprite({
+  new Sprite({
     url: "assets/boy.png",
     pos: { x: 500, y: 600 },
     parent: app.stage,
@@ -47,6 +47,8 @@ async function test() {
 
   // 创建女孩精灵，使用Texture.from方法先加载纹理
   const texture = await Texture.from("assets/girl.png");
+  if (!texture) return;
+
   const girl = new Sprite();
   girl.texture = texture; // 设置女孩精灵的纹理
   girl.pos.set(600, 600); // 设置女孩位置为(600,600)

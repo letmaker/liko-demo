@@ -1,16 +1,20 @@
-import { App, Texture, Container, Sprite } from 'liko';
+import { App, Texture, Container, Sprite } from "liko";
 
 const count = 100000;
 
 async function test() {
   const app = new App();
   await app.init({ width: 800, height: 800 });
-  console.log('test count', count / 10000, 'W');
+  console.log("test count", count / 10000, "W");
 
-  const texture1 = await Texture.from('assets/apple2.png');
-  const texture2 = await Texture.from('assets/strawberry2.png');
+  const texture1 = await Texture.from("assets/apple2.png");
+  const texture2 = await Texture.from("assets/strawberry2.png");
 
-  console.time('create node');
+  if (!texture1 || !texture2) {
+    return;
+  }
+
+  console.time("create node");
   const container = new Container();
   app.stage.addChild(container);
 
@@ -30,7 +34,7 @@ async function test() {
     container.addChild(sprite);
   }
 
-  console.timeEnd('create node');
+  console.timeEnd("create node");
 
   function render() {
     for (let i = 0; i < count; i++) {

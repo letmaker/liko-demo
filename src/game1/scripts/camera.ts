@@ -17,7 +17,7 @@ export class Camera extends Script {
    * 根据lookTargetId查找目标节点并开始跟随
    */
   onAwake(): void {
-    this._lookTarget = this.target.getChild(this.lookTargetId);
+    this._lookTarget = this.target.getChild({ id: this.lookTargetId });
     if (this._lookTarget) this.lookAt(this._lookTarget);
   }
 

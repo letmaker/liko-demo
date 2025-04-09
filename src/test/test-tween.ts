@@ -61,7 +61,7 @@ async function test() {
   const boy = new Sprite({
     url: "assets/boy.png",
     pos: { x: 400, y: 400 },
-    pivot: { x: 66 / 2, y: 92 / 2 },
+    anchor: { x: 0.5, y: 0.5 },
     parent: app.stage,
   });
 

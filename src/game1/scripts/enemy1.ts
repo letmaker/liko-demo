@@ -6,6 +6,7 @@ import {
   Sprite,
   SpriteAnimation,
   Tween,
+  type Texture,
   type Node,
   type ICollision,
   Script,
@@ -39,9 +40,9 @@ export class Enemy1 extends Script {
       this.target.play();
     }
     // 获取场景中的英雄角色
-    this.hero = this.scene?.getChild("hero");
+    this.hero = this.scene?.getChild({ label: "hero" });
     // 获取刚体组件
-    this._rigidBody = this.target.getScript(RigidBody);
+    this._rigidBody = this.target.getScript({ Class: RigidBody });
     // 初始化移动速度
     this.speed = this._rigidBody?.linearVelocity.x ?? -1;
   }
@@ -82,13 +83,14 @@ export class Enemy1 extends Script {
     const pos = { x: 0, y: this.target.height / 3 };
     this.target.toWorldPoint(pos, pos, this.scene);
     // 加载子弹纹理
-    const texture = await loader.load("game1/assets/hero/bullet.png");
+    const texture = await loader.load<Texture>("game1/assets/hero/bullet.png");
+    if (!texture) return;
 
     // 创建子弹精灵
     const bullet = new Sprite();
     bullet.label = "bullet";
     bullet.texture = texture;
-    bullet.pivot.set(texture.width / 2, texture.height / 2);
+    bullet.anchor.set(0.5, 0.5);
     bullet.pos.set(pos.x, pos.y);
 
     // 水平翻转子弹，使其朝向左侧
@@ -157,6 +159,7 @@ export class Enemy1 extends Script {
   private async _createDieBoom(parent: Node, x: number, y: number) {
     // 加载绿色爆炸动画资源
     const textures = await loader.load("game1/assets/hero/boom_green.atlas");
+    if (!textures) return;
 
     // 创建爆炸动画
     const sheet = new SpriteAnimation(textures);
@@ -181,7 +184,7 @@ export class Enemy1 extends Script {
     // 加载子弹爆炸动画资源
     const textures = await loader.load("game1/assets/hero/boom_bullet.atlas");
     // 如果目标已被销毁，则不创建特效
-    if (!this.target || this.target.destroyed) return;
+    if (!this.target || this.target.destroyed || !textures) return;
 
     // 创建爆炸动画
     const sheet = new SpriteAnimation(textures);

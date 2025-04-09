@@ -11,7 +11,7 @@ import { Scroller } from "./scripts/scroller";
  * 玩家通过控制英雄角色移动和射击来消灭敌人，同时避免被敌人击中
  * 游戏中还包含计分系统和游戏结束判定等功能
  */
-async function test() {
+async function game() {
   // 创建游戏应用实例
   const app = new App();
   // 初始化应用，设置画布尺寸和背景颜色
@@ -38,4 +38,4 @@ async function test() {
 }
 
 // 执行测试函数，启动游戏
-test();
+game();
