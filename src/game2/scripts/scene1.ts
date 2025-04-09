@@ -53,9 +53,7 @@ export class Scene1 extends Script {
     if (type === "bossDead") {
       this.bossState = false;
     } else if (type === "heroDead") {
-      const scene = new Scene();
-      scene.fromJson(gameOverData as INodeData);
-      this.stage?.addChild(scene);
+      this.stage?.createScene(gameOverData as INodeData);
       this.stage?.store.set("score", this._score);
     } else if (type === "scoreChanged") {
       this._score = this._score + (params?.score ?? 0);

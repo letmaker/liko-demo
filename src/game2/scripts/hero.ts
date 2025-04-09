@@ -7,7 +7,6 @@ export class Hero extends Script {
 
   bulletId = "100";
   fireRate = 3;
-
   hp = 1;
 
   onAwake(): void {
