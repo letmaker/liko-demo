@@ -53,8 +53,8 @@ export class Scene1 extends Script {
     if (type === "bossDead") {
       this.bossState = false;
     } else if (type === "heroDead") {
-      this.stage?.createScene(gameOverData as INodeData);
       this.stage?.store.set("score", this._score);
+      this.stage?.createScene(gameOverData as INodeData);
     } else if (type === "scoreChanged") {
       this._score = this._score + (params?.score ?? 0);
       this._scoreText?.setText(`Score: ${this._score}`);

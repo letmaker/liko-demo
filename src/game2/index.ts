@@ -1,4 +1,4 @@
-import { App, regScript, Scene, type INodeData, physics, Rectangle } from "../../../liko/src";
+import { App, regScript, type INodeData, physics, Rectangle } from "../../../liko/src";
 import { Enemy1 } from "./scripts/enemy1";
 import { Hero } from "./scripts/hero";
 import { HeroBullet } from "./scripts/hero-bullet";
@@ -12,10 +12,7 @@ import { GameOver } from "./scripts/game-over";
 async function game() {
   const app = new App();
   await app.init({ width: 480, height: 700 });
-
-  physics.enable();
-  physics.setBoundaryArea(new Rectangle(0, 0, 480, 700).pad(500));
-  physics.debug();
+  physics.init({ timer: app.stage.timer, boundaryArea: new Rectangle(0, 0, 480, 700).pad(500), debug: true });
 
   regScript("Enemy1", Enemy1);
   regScript("Enemy2", Enemy2);
