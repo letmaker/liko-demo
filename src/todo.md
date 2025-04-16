@@ -27,3 +27,5 @@ this.pp 可以用结构简写
 [x] canvas 点击几次会变形
 
 canvas 内增加 options
+
+一个图片，先设置 anchor，再设置 size，会不显示

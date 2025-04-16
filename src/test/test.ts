@@ -1,4 +1,3 @@
-// 使用liko引擎，在屏幕上绘制精灵
 import { App, Scene } from "liko";
 
 const json = {
@@ -28,9 +27,7 @@ const json = {
 };
 
 async function test() {
-  // 创建应用实例
   const app = new App();
-  // 初始化应用，设置宽高为800x800，背景色为深灰色
   await app.init({ width: 800, height: 800, bgColor: 0xff0000 });
 
   const scene = new Scene();
@@ -38,4 +35,4 @@ async function test() {
   app.stage.addChild(scene);
 }
 
-test(); // 执行测试函数
+test();

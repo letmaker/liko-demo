@@ -19,11 +19,11 @@
         "url": "assets/apple.png",
         "label": "apple",
         "pos": { "x": 120, "y": 400 },
-        "anchor": { "x": 0.5, "y": 0.5 },
         "scale": { "x": 0.48387870788574083, "y": 0.48387870788573745 },
         "angle": 0,
         "width": 320,
         "height": 372,
+        "anchor": { "x": 0.5, "y": 0.5 },
         "alpha": 1,
         "visible": true
       }
@@ -66,11 +66,11 @@
         "url": "assets/strawberry.png",
         "label": "strawberry",
         "pos": { "x": 406.86645507812204, "y": 309.38897705077994 },
-        "anchor": { "x": 0.5, "y": 0.5 },
         "scale": { "x": 0.5454565429687499, "y": 0.5454565429687499 },
         "angle": 0,
         "width": 350,
         "height": 350,
+        "anchor": { "x": 0.5, "y": 0.5 },
         "alpha": 1,
         "visible": true
       },
