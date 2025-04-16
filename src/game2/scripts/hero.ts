@@ -1,4 +1,4 @@
-import { type ICollision, type MouseEvent, RigidBody, Script, sound } from "../../../../liko/src";
+import { type ICollision, type MouseEvent, RigidBody, Script, sound } from "liko";
 
 export class Hero extends Script {
   private _selected = false;

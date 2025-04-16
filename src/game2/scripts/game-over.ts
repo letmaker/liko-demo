@@ -1,5 +1,5 @@
 import { EventType } from "liko";
-import { type INodeData, Script, type Text } from "../../../../liko/src";
+import { type INodeData, Script, type Text } from "liko";
 import { scene1Data } from "../scene";
 
 export class GameOver extends Script {

@@ -1,4 +1,4 @@
-import { type ICollision, RigidBody, Script, sound } from "../../../../liko/src";
+import { type ICollision, RigidBody, Script, sound } from "liko";
 
 export class HeroBullet extends Script {
   onAwake(): void {

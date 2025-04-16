@@ -1,5 +1,5 @@
 // 使用liko引擎，在屏幕上绘制精灵
-import { App, Scene, Text } from "../../../liko/src";
+import { App, Scene } from "liko";
 
 const json = {
   id: "1",

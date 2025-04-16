@@ -1,4 +1,4 @@
-import { type ICollision, RigidBody, Script, sound } from "../../../../liko/src";
+import { type ICollision, RigidBody, Script, sound } from "liko";
 import { EnemyBullet } from "./enemy-bullet";
 
 export class Enemy2 extends Script {
