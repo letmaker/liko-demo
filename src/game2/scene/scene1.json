@@ -38,9 +38,10 @@
           "props": {
             "label": "hero",
             "url": "game2/主角1.png",
-            "pos": { "x": 200, "y": 500 },
+            "pos": { "x": 240, "y": 500 },
             "width": 102,
-            "height": 126
+            "height": 126,
+            "anchor": { "x": 0.5, "y": 0.5 }
           },
           "scripts": [
             {

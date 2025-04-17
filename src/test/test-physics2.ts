@@ -1,6 +1,6 @@
 // 使用liko测试物理系统能力
 
-import { App, Sprite, Scene, RigidBody, Canvas, Text, type MouseEvent, Rectangle } from "liko";
+import { App, Sprite, Scene, RigidBody, Canvas, Text, type MouseEvent } from "liko";
 
 // 主测试函数，使用 async 因为需要等待资源加载
 async function test() {
@@ -16,11 +16,13 @@ async function test() {
     width: 800,
     height: 800,
     bgColor: 0x333333,
-    physics: { enabled: true, debug: true, boundaryArea: new Rectangle(0, 0, 800, 800).pad(200) },
+    physics: { enabled: true, debug: true },
   });
 
   // 创建一个新的场景，用于组织和管理所有游戏对象
   const scene = new Scene();
+  scene.width = 800;
+  scene.height = 800;
   app.stage.addChild(scene);
 
   // 创建标题文本
@@ -249,7 +251,7 @@ function createPolygon(scene: Scene, x: number, y: number) {
     shapes: [
       {
         shapeType: "polygon", // 多边形碰撞体
-        points: [
+        vertices: [
           // 定义三角形的三个顶点
           { x: 0, y: -25 },
           { x: 25, y: 25 },
@@ -281,7 +283,7 @@ function createChain(scene: Scene, x: number, y: number) {
     shapes: [
       {
         shapeType: "chain", // 链条碰撞体
-        points: [
+        vertices: [
           // 定义链条的路径点
           { x: -100, y: 0 },
           { x: 100, y: 50 },
@@ -301,7 +303,10 @@ function createButton(scene: Scene, text: string, x: number, y: number, onClick:
   button.text = text;
   button.fontSize = 20;
   button.mouseEnable = true; // 启用鼠标交互
-  button.on("click", onClick); // 添加点击事件处理
+  button.on("click", (e) => {
+    e.stopPropagation();
+    onClick();
+  }); // 添加点击事件处理
   scene.addChild(button);
 }
 

@@ -26,7 +26,7 @@ export class Hero extends Script {
       this._fireTime = 0;
       const bulletClone = this.scene?.clone({ id: this.bulletId });
       if (bulletClone) {
-        bulletClone.pos.set(this.target.pos.x + this.target.width / 2, this.target.pos.y - 20);
+        bulletClone.pos.set(this.target.pos.x, this.target.pos.y - 80);
         this.scene?.addChild(bulletClone);
       }
     }

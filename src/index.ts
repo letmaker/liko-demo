@@ -1,4 +1,5 @@
 const tests = {
+  hello: () => import("./test/test-hello-world"),
   sprite: () => import("./test/test-sprite"),
   text: () => import("./test/test-text"),
   canvas: () => import("./test/test-canvas"),
@@ -6,8 +7,9 @@ const tests = {
   sound: () => import("./test/test-sound"),
   tween: () => import("./test/test-tween"),
   mouse: () => import("./test/test-mouse"),
-  physics: () => import("./test/test-physics"),
-  "hello-world": () => import("./test/test-hello-world"),
+  physics1: () => import("./test/test-physics1"),
+  physics2: () => import("./test/test-physics2"),
+  // game2: () => import("./game2"),
 };
 
 const testNames = Object.keys(tests);

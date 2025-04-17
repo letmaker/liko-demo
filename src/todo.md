@@ -29,3 +29,6 @@ this.pp 可以用结构简写
 canvas 内增加 options
 
 一个图片，先设置 anchor，再设置 size，会不显示
+
+游戏 1,2 有 bug，需要重新看一下
+localbounds 是不是变成 pp 局部变量比较好，worldbounds 呢，需要看一下
