@@ -1,4 +1,4 @@
-import { type ICollision, RigidBody, Script, sound } from "liko";
+import { RigidBody, Script, sound } from "liko";
 
 export class HeroBullet extends Script {
   onAwake(): void {
@@ -12,7 +12,8 @@ export class HeroBullet extends Script {
     sound.play("game2/声音/子弹.mp3");
   }
 
-  onCollisionStart(e: ICollision): void {
+  onCollisionStart(): void {
+    debugger;
     this.target.destroy();
   }
 }

@@ -1,4 +1,4 @@
-import { type ICollision, RigidBody, Script, sound } from "liko";
+import { RigidBody, Script, sound } from "liko";
 
 export class Enemy1 extends Script {
   hp = 1;
@@ -16,7 +16,7 @@ export class Enemy1 extends Script {
     this.target.addScript(rigidBody);
   }
 
-  onCollisionStart(e: ICollision): void {
+  onCollisionStart(): void {
     this.hp--;
     if (this.hp <= 0) {
       this.signal("scoreChanged", { score: 1 });

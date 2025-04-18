@@ -3,37 +3,6 @@ import { App, Canvas, EventType, Texture, createLinearGradient, createPatternByU
 // 定义线条宽度常量
 const lineWidth = 10;
 
-// 显示元素边界框的函数
-// 当鼠标悬停在元素上时，显示该元素的边界
-function showBounds(app: App) {
-  // 创建一个用于绘制边界框的画布
-  const bounds = new Canvas();
-
-  // 遍历舞台上的所有子元素
-  for (const child of app.stage.children) {
-    // 当鼠标移入元素时
-    child.on(EventType.mouseover, () => {
-      // 获取元素在世界坐标系和本地坐标系中的边界
-      const lb = child.getLocalBounds();
-      const wb = child.getWorldBounds();
-      console.log("local bounds", lb);
-      console.log("world bounds", wb);
-
-      // 清空边界框画布并重新绘制
-      bounds.clear();
-      bounds.rect(wb.x, wb.y, wb.width, wb.height);
-      // 使用白色细线绘制边界框
-      bounds.stroke({ color: "#ffffff", width: 1 });
-      app.stage.addChild(bounds);
-    });
-
-    // 当鼠标移出元素时，移除边界框
-    child.on(EventType.mouseout, () => {
-      app.stage.removeChild(bounds);
-    });
-  }
-}
-
 // 主测试函数，展示各种绘图功能
 async function test() {
   // 创建应用实例并初始化
@@ -253,3 +222,34 @@ async function test() {
 
 // 执行测试函数
 test();
+
+// 显示元素边界框的函数
+// 当鼠标悬停在元素上时，显示该元素的边界
+function showBounds(app: App) {
+  // 创建一个用于绘制边界框的画布
+  const bounds = new Canvas();
+
+  // 遍历舞台上的所有子元素
+  for (const child of app.stage.children) {
+    // 当鼠标移入元素时
+    child.on(EventType.mouseover, () => {
+      // 获取元素在世界坐标系和本地坐标系中的边界
+      const lb = child.getLocalBounds();
+      const wb = child.getWorldBounds();
+      console.log("local bounds", lb);
+      console.log("world bounds", wb);
+
+      // 清空边界框画布并重新绘制
+      bounds.clear();
+      bounds.rect(wb.x, wb.y, wb.width, wb.height);
+      // 使用白色细线绘制边界框
+      bounds.stroke({ color: "#ffffff", width: 1 });
+      app.stage.addChild(bounds);
+    });
+
+    // 当鼠标移出元素时，移除边界框
+    child.on(EventType.mouseout, () => {
+      app.stage.removeChild(bounds);
+    });
+  }
+}

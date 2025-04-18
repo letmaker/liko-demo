@@ -9,7 +9,7 @@ const tests = {
   mouse: () => import("./test/test-mouse"),
   physics1: () => import("./test/test-physics1"),
   physics2: () => import("./test/test-physics2"),
-  // game2: () => import("./game2"),
+  game2: () => import("./game2"),
 };
 
 const testNames = Object.keys(tests);

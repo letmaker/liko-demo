@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "liko": "^0.1.25"
+    "liko": "^0.1.28"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",

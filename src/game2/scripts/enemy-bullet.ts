@@ -1,4 +1,4 @@
-import { type ICollision, RigidBody, Script } from "liko";
+import { RigidBody, Script } from "liko";
 
 export class EnemyBullet extends Script {
   linearVelocity = { x: 0, y: 0 };
@@ -13,7 +13,8 @@ export class EnemyBullet extends Script {
     this.target.addScript(rigidBody);
   }
 
-  onCollisionStart(e: ICollision): void {
+  onCollisionStart(): void {
+    debugger;
     this.target.destroy();
   }
 }

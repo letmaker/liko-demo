@@ -1,4 +1,4 @@
-import { type ICollision, RigidBody, Script, sound, Tween } from "liko";
+import { RigidBody, Script, Tween, sound } from "liko";
 import { EnemyBullet } from "./enemy-bullet";
 
 export class Boss1 extends Script {
@@ -52,7 +52,7 @@ export class Boss1 extends Script {
     }
   }
 
-  onCollisionStart(e: ICollision): void {
+  onCollisionStart(): void {
     this.hp--;
     if (this.hp <= 0) {
       this.signal("bossDead");

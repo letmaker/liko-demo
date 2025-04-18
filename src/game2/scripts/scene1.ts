@@ -1,4 +1,4 @@
-import { type INodeData, Scene, Script, type Text } from "liko";
+import { type INodeData, Script, type Text } from "liko";
 import * as gameOverData from "../scene/game-over.json";
 
 export class Scene1 extends Script {

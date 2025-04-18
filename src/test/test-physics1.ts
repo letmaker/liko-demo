@@ -48,7 +48,7 @@ async function test() {
   });
 
   // 创建一个说明文本
-  const instructions = new Text({
+  new Text({
     text: "点击场景添加小球", // 文本内容
     pos: { x: 400, y: 60 }, // 文本在场景中的位置
     anchor: { x: 0.5, y: 0.5 }, // 文本的锚点，用于旋转和缩放的中心点

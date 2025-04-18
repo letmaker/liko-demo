@@ -1,4 +1,4 @@
-import { type ICollision, type MouseEvent, RigidBody, Script, sound } from "liko";
+import { type MouseEvent, RigidBody, Script, sound } from "liko";
 
 export class Hero extends Script {
   private _selected = false;
@@ -32,7 +32,7 @@ export class Hero extends Script {
     }
   }
 
-  onMouseDown(e: MouseEvent): void {
+  onMouseDown(): void {
     this._selected = true;
   }
 
@@ -41,11 +41,11 @@ export class Hero extends Script {
     this._rigidBody?.setPosition(e.mouse.x - this.target.width / 2, e.mouse.y - this.target.height / 2);
   }
 
-  onStageMouseUp(e: MouseEvent): void {
+  onStageMouseUp(): void {
     this._selected = false;
   }
 
-  onCollisionStart(e: ICollision): void {
+  onCollisionStart(): void {
     this.hp--;
     if (this.hp <= 0) {
       this.signal("heroDead");

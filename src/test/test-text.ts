@@ -3,40 +3,6 @@ import { App, Canvas, EventType, Text, createLinearGradient, createPatternByUrl 
 // 设置文字默认大小为30像素，便于统一管理和后续修改
 const FONT_SIZE = 30;
 
-// 这个函数用于显示每个元素的边界框，帮助开发者直观地看到元素的大小和位置
-function showBounds(app: App) {
-  // 创建一个新的画布，专门用来绘制边界框
-  const bounds = new Canvas();
-
-  // 遍历舞台上的所有元素
-  for (const child of app.stage.children) {
-    // 当鼠标移动到元素上方时触发
-    child.on(EventType.mouseover, () => {
-      // 获取元素在自身坐标系中的边界信息（不考虑位置和旋转等变换）
-      const lb = child.getLocalBounds();
-      // 获取元素在舞台坐标系中的实际边界信息（考虑了位置、旋转等变换）
-      const wb = child.getWorldBounds();
-      // 在浏览器控制台打印边界信息，方便调试
-      console.log("local bounds", lb);
-      console.log("world bounds", wb);
-
-      // 清除画布上之前绘制的边界框
-      bounds.clear();
-      // 根据元素的实际边界绘制一个矩形框
-      bounds.rect(wb.x, wb.y, wb.width, wb.height);
-      // 设置边界框的样式：白色、1像素宽的线条
-      bounds.stroke({ color: "#ffffff", width: 1 });
-      // 将边界框添加到舞台上显示
-      app.stage.addChild(bounds);
-    });
-
-    // 当鼠标离开元素时，移除边界框
-    child.on(EventType.mouseout, () => {
-      app.stage.removeChild(bounds);
-    });
-  }
-}
-
 // 主测试函数，用于展示文本组件的各种功能和效果
 async function test() {
   // 创建一个新的应用实例
@@ -245,3 +211,37 @@ async function test() {
 
 // 执行测试函数
 test();
+
+// 这个函数用于显示每个元素的边界框，帮助开发者直观地看到元素的大小和位置
+function showBounds(app: App) {
+  // 创建一个新的画布，专门用来绘制边界框
+  const bounds = new Canvas();
+
+  // 遍历舞台上的所有元素
+  for (const child of app.stage.children) {
+    // 当鼠标移动到元素上方时触发
+    child.on(EventType.mouseover, () => {
+      // 获取元素在自身坐标系中的边界信息（不考虑位置和旋转等变换）
+      const lb = child.getLocalBounds();
+      // 获取元素在舞台坐标系中的实际边界信息（考虑了位置、旋转等变换）
+      const wb = child.getWorldBounds();
+      // 在浏览器控制台打印边界信息，方便调试
+      console.log("local bounds", lb);
+      console.log("world bounds", wb);
+
+      // 清除画布上之前绘制的边界框
+      bounds.clear();
+      // 根据元素的实际边界绘制一个矩形框
+      bounds.rect(wb.x, wb.y, wb.width, wb.height);
+      // 设置边界框的样式：白色、1像素宽的线条
+      bounds.stroke({ color: "#ffffff", width: 1 });
+      // 将边界框添加到舞台上显示
+      app.stage.addChild(bounds);
+    });
+
+    // 当鼠标离开元素时，移除边界框
+    child.on(EventType.mouseout, () => {
+      app.stage.removeChild(bounds);
+    });
+  }
+}
