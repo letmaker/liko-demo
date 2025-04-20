@@ -18,7 +18,7 @@ async function test() {
 
   // 创建游戏场景，用于组织和管理游戏中的所有物体
   const scene = new Scene({ width: 800, height: 800, parent: app.stage });
-  scene.on("click", (e: MouseEvent) => {
+  scene.on("click", (e: LikoPointerEvent) => {
     // 当玩家点击场景时触发此函数
     // 在点击位置的上方随机位置创建一个会下落的小球
     new Sprite({

@@ -1,4 +1,4 @@
-import { App, physics, regScript, Scene } from "liko";
+import { App, regScript, Scene } from "liko";
 import { Camera } from "./scripts/camera";
 import { EnemyCreator } from "./scripts/enemy-creator";
 import { Enemy1 } from "./scripts/enemy1";
@@ -15,7 +15,15 @@ async function game() {
   // 创建游戏应用实例
   const app = new App();
   // 初始化应用，设置画布尺寸和背景颜色
-  await app.init({ width: 720, height: 500, bgColor: 0x333333 });
+  await app.init({
+    width: 720,
+    height: 500,
+    bgColor: 0x333333,
+    physics: {
+      enabled: true,
+      debug: true,
+    },
+  });
 
   // 注册游戏中使用的脚本组件
   regScript("Hero", Hero); // 注册英雄角色脚本
@@ -23,11 +31,6 @@ async function game() {
   regScript("Scroller", Scroller); // 注册滚动背景脚本
   regScript("EnemyCreator", EnemyCreator); // 注册敌人生成器脚本
   regScript("Camera", Camera); // 注册相机控制脚本
-
-  // 启用物理引擎
-  physics.enable();
-  // 开启物理引擎调试模式，显示碰撞边界等信息
-  physics.debug();
 
   // 创建游戏场景
   const scene = new Scene();

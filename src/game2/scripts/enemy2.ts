@@ -35,7 +35,7 @@ export class Enemy2 extends Script {
     if (bullet) {
       bullet.pos.set(this.target.pos.x + this.target.width / 2, this.target.pos.y + this.target.height);
       this.scene?.addChild(bullet);
-      const enemyBullet = bullet.getScript<EnemyBullet>({ Class: EnemyBullet });
+      const enemyBullet = bullet.findScript<EnemyBullet>({ Class: EnemyBullet });
       if (enemyBullet) {
         enemyBullet.linearVelocity = { x: 0, y: this.bulletSpeed };
       }

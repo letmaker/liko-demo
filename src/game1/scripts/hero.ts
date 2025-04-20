@@ -6,7 +6,7 @@ import {
   Sprite,
   type SpriteAnimation,
   Tween,
-  type Node,
+  type LikoNode,
   type ICollision,
   Script,
   type Texture,
@@ -20,7 +20,7 @@ export class Hero extends Script {
   /** 英雄生命值 */
   hp = 20;
   /** 英雄头部节点引用 */
-  head?: Node;
+  head?: LikoNode;
   /** 英雄身体动画引用 */
   body?: SpriteAnimation;
   /** 英雄武器动画引用 */
@@ -38,11 +38,11 @@ export class Hero extends Script {
    */
   onAwake(): void {
     // 获取各个子节点引用
-    this.head = this.target.getChild({ label: "head" });
-    this.body = this.target.getChild({ label: "body" }) as SpriteAnimation;
-    this.gun = this.target.getChild({ label: "gun" }) as SpriteAnimation;
+    this.head = this.target.findChild({ label: "head" });
+    this.body = this.target.findChild({ label: "body" }) as SpriteAnimation;
+    this.gun = this.target.findChild({ label: "gun" }) as SpriteAnimation;
     // 获取刚体组件
-    this.rigidBody = this.target.getScript({ Class: RigidBody });
+    this.rigidBody = this.target.findScript({ Class: RigidBody });
 
     if (this.gun) {
       // 播放武器动画
@@ -110,7 +110,7 @@ export class Hero extends Script {
     if (this.destroyed) return;
 
     // 计算子弹生成位置，从枪口发射
-    const pos = this.gun!.toWorldPoint(this.bulletPos.set(50, 10), this.bulletPos, this.scene);
+    const pos = this.gun!.localToWorld(this.bulletPos.set(50, 10), this.bulletPos, this.scene);
     // 加载子弹纹理
     const texture = await loader.load<Texture>("game1/assets/hero/bullet.png");
     if (!texture) return;
@@ -146,7 +146,7 @@ export class Hero extends Script {
    * @param e 碰撞事件数据
    */
   async onCollisionStart(e: ICollision): Promise<void> {
-    const bullet = e.other.target as Node;
+    const bullet = e.other.target as LikoNode;
     // 如果碰撞物体不是子弹，则忽略
     if (bullet.label !== "bullet") return;
     // 销毁子弹

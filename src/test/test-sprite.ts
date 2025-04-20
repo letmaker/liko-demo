@@ -35,12 +35,12 @@ async function test() {
     pos: { x: 550, y: 350 },
     width: 100,
     height: 100,
-    tint: 0xff00ff,
+    tintColor: 0xff00ff,
     parent: app.stage,
   });
   setInterval(() => {
     const color = Math.floor(Math.random() * 0xffffff);
-    strawberry.tint = color;
+    strawberry.tintColor = color;
   }, 100);
 
   const ball = new Sprite({
@@ -49,10 +49,10 @@ async function test() {
     anchor: { x: 0.5, y: 0.5 },
     parent: app.stage,
   });
-  ball.on("mouseover", () => {
+  ball.on("pointerover", () => {
     ball.scale.set(2);
   });
-  ball.on("mouseout", () => {
+  ball.on("pointerout", () => {
     ball.scale.set(1.0);
   });
 
@@ -107,7 +107,7 @@ function showBounds(app: App) {
   const bounds = new Canvas();
 
   for (const child of app.stage.children) {
-    child.on(EventType.mouseover, () => {
+    child.on(EventType.pointerover, () => {
       const lb = child.getLocalBounds();
       const wb = child.getWorldBounds();
       console.log("local bounds", lb);
@@ -119,7 +119,7 @@ function showBounds(app: App) {
       app.stage.addChild(bounds);
     });
 
-    child.on(EventType.mouseout, () => {
+    child.on(EventType.pointerout, () => {
       app.stage.removeChild(bounds);
     });
   }

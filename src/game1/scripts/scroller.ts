@@ -1,4 +1,4 @@
-import { Script, type Node } from "liko";
+import { Script, type LikoNode } from "liko";
 
 /**
  * 滚动背景脚本
@@ -6,7 +6,7 @@ import { Script, type Node } from "liko";
  */
 export class Scroller extends Script {
   /** 滚动节点数组，包含原始节点和克隆节点 */
-  nodes: Node[] = [];
+  nodes: LikoNode[] = [];
   /** 水平滚动速度，正值向右滚动，负值向左滚动 */
   speedX = 1;
 
@@ -21,7 +21,7 @@ export class Scroller extends Script {
       // 根据滚动方向设置克隆节点的初始位置
       const x = this.speedX > 0 ? -this.target.width : this.target.width;
       // 获取当前节点的层级顺序
-      const index = this.target.getIndexOrder();
+      const index = this.target.getIndexInParent();
       // 设置克隆节点位置
       newNode.pos.set(x, this.target.pos.y);
       // 将克隆节点添加到相同的父节点，保持相同的渲染层级

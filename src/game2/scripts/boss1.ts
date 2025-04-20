@@ -44,7 +44,7 @@ export class Boss1 extends Script {
         bullet.rotation = rotation + Math.PI / 2;
         bullet.pos.set(this.target.pos.x + this.target.width / 2, this.target.pos.y + this.target.height / 2);
         this.scene?.addChild(bullet);
-        const enemyBullet = bullet.getScript<EnemyBullet>({ Class: EnemyBullet });
+        const enemyBullet = bullet.findScript<EnemyBullet>({ Class: EnemyBullet });
         if (enemyBullet) {
           enemyBullet.linearVelocity = { x: velocityX, y: velocityY };
         }

@@ -1,6 +1,6 @@
 // 使用liko测试物理系统能力
 
-import { App, Sprite, Scene, RigidBody, Canvas, Text, type MouseEvent } from "liko";
+import { App, Sprite, Scene, RigidBody, Canvas, Text, type LikoPointerEvent } from "liko";
 
 // 主测试函数，使用 async 因为需要等待资源加载
 async function test() {
@@ -84,13 +84,13 @@ async function test() {
   createButton(scene, "重力反转", 530, 120, () => {
     // 找到所有可移动的物理物体
     const bodies = scene.children.filter((child) => {
-      const rb = child.getScript<RigidBody>({ Class: RigidBody });
+      const rb = child.findScript<RigidBody>({ Class: RigidBody });
       return rb && rb.rigidType === "dynamic";
     });
 
     // 将每个物体的重力方向反转
     for (const body of bodies) {
-      const rb = body.getScript<RigidBody>({ Class: RigidBody });
+      const rb = body.findScript<RigidBody>({ Class: RigidBody });
       if (rb) {
         rb.gravityScale = -rb.gravityScale;
       }
@@ -101,7 +101,7 @@ async function test() {
   createButton(scene, "清除物体", 650, 120, () => {
     // 找到所有可移动的物理物体
     const bodies = scene.children.filter((child) => {
-      const rb = child.getScript<RigidBody>({ Class: RigidBody });
+      const rb = child.findScript<RigidBody>({ Class: RigidBody });
       return rb && rb.rigidType === "dynamic";
     });
 
@@ -112,19 +112,19 @@ async function test() {
   });
 
   // 为场景添加点击事件处理
-  scene.on("click", (e: MouseEvent) => {
+  scene.on("click", (e: LikoPointerEvent) => {
     // 获取点击位置坐标
-    const pos = { x: e.mouse.x, y: e.mouse.y };
+    const pos = { x: e.pointer.x, y: e.pointer.y };
 
     // 找到所有可移动的物理物体
     const bodies = scene.children.filter((child) => {
-      const rb = child.getScript<RigidBody>({ Class: RigidBody });
+      const rb = child.findScript<RigidBody>({ Class: RigidBody });
       return rb && rb.rigidType === "dynamic";
     });
 
     // 对每个物体施加力
     for (const body of bodies) {
-      const rb = body.getScript<RigidBody>({ Class: RigidBody });
+      const rb = body.findScript<RigidBody>({ Class: RigidBody });
       if (rb) {
         const bodyPos = body.pos;
         // 计算力的方向（从点击点指向物体）
@@ -302,7 +302,6 @@ function createButton(scene: Scene, text: string, x: number, y: number, onClick:
   button.pos.set(x, y);
   button.text = text;
   button.fontSize = 20;
-  button.mouseEnable = true; // 启用鼠标交互
   button.on("click", (e) => {
     e.stopPropagation();
     onClick();

@@ -7,7 +7,7 @@ import {
   SpriteAnimation,
   Tween,
   type Texture,
-  type Node,
+  type LikoNode,
   type ICollision,
   Script,
 } from "liko";
@@ -22,7 +22,7 @@ export class Enemy1 extends Script {
   /** 敌人的刚体组件引用 */
   private _rigidBody?: RigidBody;
   /** 英雄角色的引用 */
-  hero?: Node;
+  hero?: LikoNode;
   /** 敌人生命值 */
   hp = 50;
   /** 攻击间隔(秒) */
@@ -40,9 +40,9 @@ export class Enemy1 extends Script {
       this.target.play();
     }
     // 获取场景中的英雄角色
-    this.hero = this.scene?.getChild({ label: "hero" });
+    this.hero = this.scene?.findChild({ label: "hero" });
     // 获取刚体组件
-    this._rigidBody = this.target.getScript({ Class: RigidBody });
+    this._rigidBody = this.target.findScript({ Class: RigidBody });
     // 初始化移动速度
     this.speed = this._rigidBody?.linearVelocity.x ?? -1;
   }
@@ -81,7 +81,7 @@ export class Enemy1 extends Script {
   private async _createBullet() {
     // 计算子弹生成位置
     const pos = { x: 0, y: this.target.height / 3 };
-    this.target.toWorldPoint(pos, pos, this.scene);
+    this.target.localToWorld(pos, pos, this.scene);
     // 加载子弹纹理
     const texture = await loader.load<Texture>("game1/assets/hero/bullet.png");
     if (!texture) return;
@@ -121,7 +121,7 @@ export class Enemy1 extends Script {
    * @param e 碰撞事件数据
    */
   async onCollisionStart(e: ICollision): Promise<void> {
-    const bullet = e.other.target as Node;
+    const bullet = e.other.target as LikoNode;
     // 如果碰撞物体不是子弹，则忽略
     if (bullet.label !== "bullet") return;
     // 销毁子弹
@@ -133,12 +133,12 @@ export class Enemy1 extends Script {
     // 敌人受击时闪红色
     await Tween.to({
       target: this.target,
-      props: { tint: 0xff0000 },
+      props: { tintColor: 0xff0000 },
       duration: 0.1,
       ease: Ease.QuartOut,
     }).play();
     // 恢复正常颜色
-    this.target.tint = 0xffffff;
+    this.target.tintColor = 0xffffff;
 
     // 减少生命值
     this.hp--;
@@ -156,7 +156,7 @@ export class Enemy1 extends Script {
    * @param x 特效的X坐标
    * @param y 特效的Y坐标
    */
-  private async _createDieBoom(parent: Node, x: number, y: number) {
+  private async _createDieBoom(parent: LikoNode, x: number, y: number) {
     // 加载绿色爆炸动画资源
     const textures = await loader.load("game1/assets/hero/boom_green.atlas");
     if (!textures) return;
@@ -180,7 +180,7 @@ export class Enemy1 extends Script {
    * @param x 特效的X坐标
    * @param y 特效的Y坐标
    */
-  private async _createHitBoom(parent: Node, x: number, y: number) {
+  private async _createHitBoom(parent: LikoNode, x: number, y: number) {
     // 加载子弹爆炸动画资源
     const textures = await loader.load("game1/assets/hero/boom_bullet.atlas");
     // 如果目标已被销毁，则不创建特效

@@ -159,7 +159,7 @@ async function test() {
 
   // 创建一个用于测试文本锚点的区域
   const canvas = new Canvas({ pos: { x: 0, y: 600 }, parent: app.stage });
-  canvas.rect(0, 0, 200, 200).fill({ color: "#333333" }); // 绘制一个深灰色矩形作为背景
+  canvas.rect(0, 0, 200, 200).fill({ color: "#666666" }); // 绘制一个深灰色矩形作为背景
 
   // 创建锚点在左上角(0,0)的文本
   new Text({
@@ -220,7 +220,7 @@ function showBounds(app: App) {
   // 遍历舞台上的所有元素
   for (const child of app.stage.children) {
     // 当鼠标移动到元素上方时触发
-    child.on(EventType.mouseover, () => {
+    child.on(EventType.pointerover, () => {
       // 获取元素在自身坐标系中的边界信息（不考虑位置和旋转等变换）
       const lb = child.getLocalBounds();
       // 获取元素在舞台坐标系中的实际边界信息（考虑了位置、旋转等变换）
@@ -240,7 +240,7 @@ function showBounds(app: App) {
     });
 
     // 当鼠标离开元素时，移除边界框
-    child.on(EventType.mouseout, () => {
+    child.on(EventType.pointerout, () => {
       app.stage.removeChild(bounds);
     });
   }

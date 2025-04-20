@@ -1,4 +1,4 @@
-import { App, Scene } from "liko";
+import { App, Scene } from "../../../liko/src";
 
 const json = {
   id: "1",
@@ -28,7 +28,7 @@ const json = {
 
 async function test() {
   const app = new App();
-  await app.init({ width: 800, height: 800, bgColor: 0xff0000 });
+  await app.init({ width: 800, height: 800 });
 
   const scene = new Scene();
   scene.fromJson(json);

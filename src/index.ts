@@ -6,13 +6,15 @@ const tests = {
   scene: () => import("./test/test-scene"),
   sound: () => import("./test/test-sound"),
   tween: () => import("./test/test-tween"),
-  mouse: () => import("./test/test-mouse"),
+  pointer: () => import("./test/test-pointer"),
   physics1: () => import("./test/test-physics1"),
   physics2: () => import("./test/test-physics2"),
+  game1: () => import("./game1"),
   game2: () => import("./game2"),
+  test: () => import("./test/test"),
 };
 
-const testNames = Object.keys(tests);
+const testNames = Object.keys(tests).filter((key) => key !== "test");
 
 const getTestName = () => {
   const params = new URLSearchParams(window.location.search);

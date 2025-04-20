@@ -1,4 +1,4 @@
-import { type MouseEvent, RigidBody, Script, sound } from "liko";
+import { type LikoPointerEvent, RigidBody, Script, sound } from "liko";
 
 export class Hero extends Script {
   private _selected = false;
@@ -32,16 +32,16 @@ export class Hero extends Script {
     }
   }
 
-  onMouseDown(): void {
+  onPointerDown(): void {
     this._selected = true;
   }
 
-  onStageMouseMove(e: MouseEvent): void {
+  onStagePointerMove(e: LikoPointerEvent): void {
     if (!this._selected) return;
-    this._rigidBody?.setPosition(e.mouse.x - this.target.width / 2, e.mouse.y - this.target.height / 2);
+    this._rigidBody?.setPosition(e.pointer.x - this.target.width / 2, e.pointer.y - this.target.height / 2);
   }
 
-  onStageMouseUp(): void {
+  onStagePointerUp(): void {
     this._selected = false;
   }
 

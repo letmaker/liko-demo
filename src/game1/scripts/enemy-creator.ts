@@ -1,4 +1,14 @@
-import { Ease, EventType, loader, RigidBody, SpriteAnimation, Tween, type Node, type ICollision, Script } from "liko";
+import {
+  Ease,
+  EventType,
+  loader,
+  RigidBody,
+  SpriteAnimation,
+  Tween,
+  type LikoNode,
+  type ICollision,
+  Script,
+} from "liko";
 
 /**
  * 敌人生成器脚本
@@ -27,7 +37,7 @@ export class EnemyCreator extends Script {
       // 设置敌人初始位置为生成器的位置
       enemy.pos.x = this.target.pos.x;
       // 获取敌人的刚体组件
-      const rigidBody = enemy.getScript<RigidBody>({ Class: RigidBody });
+      const rigidBody = enemy.findScript<RigidBody>({ Class: RigidBody });
       // 设置敌人向左移动的随机速度
       if (rigidBody) rigidBody.linearVelocity.x = -0.5 * Math.random() - 0.5;
       // 将敌人添加到场景中
@@ -41,7 +51,7 @@ export class EnemyCreator extends Script {
    * @param e 碰撞事件数据
    */
   async onCollisionStart(e: ICollision): Promise<void> {
-    const bullet = e.other.target as Node;
+    const bullet = e.other.target as LikoNode;
     // 如果碰撞物体不是子弹，则忽略
     if (bullet.label !== "bullet") return;
     // 销毁子弹
@@ -53,12 +63,12 @@ export class EnemyCreator extends Script {
     // 敌人生成器受击时闪红色
     await Tween.to({
       target: this.target,
-      props: { tint: 0xff0000 },
+      props: { tintColor: 0xff0000 },
       duration: 0.1,
       ease: Ease.QuartOut,
     }).play();
     // 恢复正常颜色
-    this.target.tint = 0xffffff;
+    this.target.tintColor = 0xffffff;
 
     // 减少生命值
     this.hp--;
@@ -76,7 +86,7 @@ export class EnemyCreator extends Script {
    * @param x 特效的X坐标
    * @param y 特效的Y坐标
    */
-  private async _createDieBoom(parent: Node, x: number, y: number) {
+  private async _createDieBoom(parent: LikoNode, x: number, y: number) {
     // 加载绿色爆炸动画资源
     const textures = await loader.load("game1/assets/hero/boom_green.atlas");
 
@@ -103,7 +113,7 @@ export class EnemyCreator extends Script {
    * @param x 特效的X坐标
    * @param y 特效的Y坐标
    */
-  private async _createHitBoom(parent: Node, x: number, y: number) {
+  private async _createHitBoom(parent: LikoNode, x: number, y: number) {
     // 加载子弹爆炸动画资源
     const textures = await loader.load("game1/assets/hero/boom_bullet.atlas");
 

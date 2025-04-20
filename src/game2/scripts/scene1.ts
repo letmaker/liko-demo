@@ -13,7 +13,7 @@ export class Scene1 extends Script {
   private _score = 0;
 
   onAwake(): void {
-    this._scoreText = this.target.getChild<Text>({ label: "score", deep: true });
+    this._scoreText = this.target.findChild<Text>({ label: "score", deep: true });
   }
 
   onUpdate(delta: number): void {

@@ -36,14 +36,29 @@ async function test() {
   app.stage.addChild(ellipse);
 
   // 绘制折线
-  const line = new Canvas();
-  line.clear();
-  line.rect(0, 0, 100, 100);
-  line.stroke({ color: "#008B8B", width: lineWidth }).beginPath();
-  line.moveTo(-50, -50).lineTo(0, 50).lineTo(100, 0).lineTo(50, 100);
-  line.stroke({ color: "#ff0000", width: lineWidth });
-  line.pos.set(500, 50);
-  app.stage.addChild(line);
+  const polyLine = new Canvas();
+  polyLine.clear();
+  polyLine.stroke({ color: "#008B8B", width: lineWidth }).beginPath();
+  polyLine.moveTo(-50, -50).lineTo(0, 50).lineTo(100, 0).lineTo(50, 100);
+  polyLine.stroke({ color: "#ff0000", width: lineWidth });
+  polyLine.pos.set(500, 50);
+  app.stage.addChild(polyLine);
+
+  // 绘制水平直线
+  const horizontalLine = new Canvas();
+  horizontalLine.moveTo(0, 0);
+  horizontalLine.lineTo(100, 0);
+  horizontalLine.stroke({ width: 2, color: "#ff00ff" });
+  horizontalLine.pos.set(650, 50);
+  app.stage.addChild(horizontalLine);
+
+  // 绘制垂直直线
+  const verticalLine = new Canvas();
+  verticalLine.moveTo(0, 0);
+  verticalLine.lineTo(0, 100);
+  verticalLine.stroke({ width: 2, color: "#ff00ff" });
+  verticalLine.pos.set(650, 50);
+  app.stage.addChild(verticalLine);
 
   // 绘制圆形
   const circle = new Canvas();
@@ -112,13 +127,13 @@ async function test() {
   app.stage.addChild(dash);
 
   // 填充示例
-  const fill = new Canvas();
-  fill.clear();
-  fill.rect(0, 0, 100, 100);
-  fill.stroke({ color: "#ff0000", width: lineWidth, dash: [10, 5] });
-  fill.fill({ color: "#483D8B" });
-  fill.pos.set(200, 450);
-  app.stage.addChild(fill);
+  const filledShape = new Canvas();
+  filledShape.clear();
+  filledShape.rect(0, 0, 100, 100);
+  filledShape.stroke({ color: "#ff0000", width: lineWidth, dash: [10, 5] });
+  filledShape.fill({ color: "#483D8B" });
+  filledShape.pos.set(200, 450);
+  app.stage.addChild(filledShape);
 
   // 加载并绘制图片
   const texture = await Texture.from("assets/bg2.webp");
@@ -133,22 +148,22 @@ async function test() {
   app.stage.addChild(image);
 
   // 使用裁剪蒙版
-  const clip = new Canvas();
-  clip.clear();
-  clip.beginPath();
-  clip.circle(50, 50, 50).clip();
-  clip.image(texture, 0, 0, 200, 100);
-  clip.pos.set(500, 450);
-  app.stage.addChild(clip);
+  const clippedImage = new Canvas();
+  clippedImage.clear();
+  clippedImage.beginPath();
+  clippedImage.circle(50, 50, 50).clip();
+  clippedImage.image(texture, 0, 0, 200, 100);
+  clippedImage.pos.set(500, 450);
+  app.stage.addChild(clippedImage);
 
   // 绘制SVG路径
-  const svgPath = `
+  const svgData = `
     <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 24 24">
       <path d="M12 21.35L10.55 20.03C5.4 15.36 2 12.27 2 8.5C2 5.42 4.42 3 7.5 3C9.24 3 10.91 3.81 12 5.1C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.42 22 8.5C22 12.27 18.6 15.36 13.45 20.03L12 21.35Z" fill="red"/>
     </svg>`;
   const svg = new Canvas();
   svg.clear();
-  svg.svg(svgPath);
+  svg.svg(svgData);
   svg.pos.set(50, 650);
   app.stage.addChild(svg);
 
@@ -158,13 +173,13 @@ async function test() {
     { rate: 1, color: "white" },
   ]);
 
-  // 绘制渐变
-  const gradient = new Canvas();
-  gradient.clear();
-  gradient.circle(50, 50, 50);
-  gradient.fill({ color: grd });
-  gradient.pos.set(200, 650);
-  app.stage.addChild(gradient);
+  // 绘制线性渐变
+  const linearGradient = new Canvas();
+  linearGradient.clear();
+  linearGradient.circle(50, 50, 50);
+  linearGradient.fill({ color: grd });
+  linearGradient.pos.set(200, 650);
+  app.stage.addChild(linearGradient);
 
   // 创建并应用图案填充
   const pat = await createPatternByUrl("assets/apple2.png", "repeat");
@@ -175,45 +190,42 @@ async function test() {
   pattern.pos.set(350, 650);
   app.stage.addChild(pattern);
 
-  // 创建鼠标交互示例1：填充/描边切换
-  const mouse = new Canvas();
-  mouse.clear();
-  mouse.circle(50, 50, 50);
-  mouse.fill({ color: "#ff0000" });
-  mouse.pos.set(500, 650);
-  app.stage.addChild(mouse);
-
+  // 创建鼠标交互示例：填充/描边切换
+  const hoverStroke = new Canvas();
+  hoverStroke.clear();
+  hoverStroke.circle(50, 50, 50);
+  hoverStroke.fill({ color: "#ff0000" });
+  hoverStroke.pos.set(500, 650);
+  app.stage.addChild(hoverStroke);
   // 添加鼠标悬停效果
-  mouse.on(EventType.mouseover, () => {
-    mouse.clear();
-    mouse.circle(50, 50, 50);
-    mouse.stroke({ color: "#ff0000", width: lineWidth });
-    mouse.stroke({ color: "#ff0000", width: lineWidth });
+  hoverStroke.on(EventType.pointerover, () => {
+    hoverStroke.clear();
+    hoverStroke.circle(50, 50, 50);
+    hoverStroke.stroke({ color: "#ff0000", width: lineWidth });
   });
-  mouse.on(EventType.mouseout, () => {
-    mouse.clear();
-    mouse.circle(50, 50, 50);
-    mouse.fill({ color: "#ff0000" });
+  hoverStroke.on(EventType.pointerout, () => {
+    hoverStroke.clear();
+    hoverStroke.circle(50, 50, 50);
+    hoverStroke.fill({ color: "#ff0000" });
   });
 
-  // 创建鼠标交互示例2：形状切换
-  const mouse2 = new Canvas();
-  mouse2.clear();
-  mouse2.circle(50, 50, 50);
-  mouse2.stroke({ color: "#ff0000", width: lineWidth });
-  mouse2.pos.set(650, 650);
-  app.stage.addChild(mouse2);
-
+  // 创建鼠标交互示例：形状切换
+  const hoverChangeShape = new Canvas();
+  hoverChangeShape.clear();
+  hoverChangeShape.circle(50, 50, 50);
+  hoverChangeShape.stroke({ color: "#ff0000", width: lineWidth });
+  hoverChangeShape.pos.set(650, 650);
+  app.stage.addChild(hoverChangeShape);
   // 添加鼠标悬停效果
-  mouse2.on(EventType.mouseover, () => {
-    mouse2.clear();
-    mouse2.rect(0, 0, 100, 100);
-    mouse2.stroke({ color: "#ff0000", width: lineWidth });
+  hoverChangeShape.on(EventType.pointerover, () => {
+    hoverChangeShape.clear();
+    hoverChangeShape.rect(0, 0, 100, 100);
+    hoverChangeShape.stroke({ color: "#ff0000", width: lineWidth });
   });
-  mouse2.on(EventType.mouseout, () => {
-    mouse2.clear();
-    mouse2.circle(50, 50, 50);
-    mouse2.stroke({ color: "#ff0000", width: lineWidth });
+  hoverChangeShape.on(EventType.pointerout, () => {
+    hoverChangeShape.clear();
+    hoverChangeShape.circle(50, 50, 50);
+    hoverChangeShape.stroke({ color: "#ff0000", width: lineWidth });
   });
 
   // 启用边界框显示功能
@@ -232,7 +244,7 @@ function showBounds(app: App) {
   // 遍历舞台上的所有子元素
   for (const child of app.stage.children) {
     // 当鼠标移入元素时
-    child.on(EventType.mouseover, () => {
+    child.on(EventType.pointerover, () => {
       // 获取元素在世界坐标系和本地坐标系中的边界
       const lb = child.getLocalBounds();
       const wb = child.getWorldBounds();
@@ -248,7 +260,7 @@ function showBounds(app: App) {
     });
 
     // 当鼠标移出元素时，移除边界框
-    child.on(EventType.mouseout, () => {
+    child.on(EventType.pointerout, () => {
       app.stage.removeChild(bounds);
     });
   }

@@ -30,7 +30,7 @@ async function test() {
       height: texture.height,
       data: { speed: Math.random() * 10 + 2 },
     });
-    sprite.tint = Math.random() * 0xffffff;
+    sprite.tintColor = Math.random() * 0xffffff;
     container.addChild(sprite);
   }
 
@@ -39,7 +39,7 @@ async function test() {
   function render() {
     for (let i = 0; i < count; i++) {
       const sprite = container.children[i];
-      sprite.pos.y += sprite.data.speed;
+      sprite.pos.y += sprite.userData.speed;
       if (sprite.pos.y > 800) {
         sprite.pos.y = -texture1.height;
       }

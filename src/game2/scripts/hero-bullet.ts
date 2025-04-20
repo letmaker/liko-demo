@@ -13,7 +13,6 @@ export class HeroBullet extends Script {
   }
 
   onCollisionStart(): void {
-    debugger;
     this.target.destroy();
   }
 }
