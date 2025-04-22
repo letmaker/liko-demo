@@ -1,4 +1,4 @@
-import { App, Canvas, EventType, Texture, createLinearGradient, createPatternByUrl } from "liko";
+import { App, Canvas, EventType, Texture } from "../../../liko/src";
 
 // 定义线条宽度常量
 const lineWidth = 10;
@@ -142,8 +142,8 @@ async function test() {
   // 绘制图片
   const image = new Canvas();
   image.clear();
-  image.image(texture, 0, 0, 100, 50);
-  image.image(texture, 0, 50, 100, 50);
+  image.drawImage(texture, 0, 0, 100, 50);
+  image.drawImage(texture, 0, 50, 100, 50);
   image.pos.set(350, 450);
   app.stage.addChild(image);
 
@@ -152,7 +152,7 @@ async function test() {
   clippedImage.clear();
   clippedImage.beginPath();
   clippedImage.circle(50, 50, 50).clip();
-  clippedImage.image(texture, 0, 0, 200, 100);
+  clippedImage.drawImage(texture, 0, 0, 200, 100);
   clippedImage.pos.set(500, 450);
   app.stage.addChild(clippedImage);
 
@@ -163,27 +163,43 @@ async function test() {
     </svg>`;
   const svg = new Canvas();
   svg.clear();
-  svg.svg(svgData);
-  svg.pos.set(50, 650);
+  svg.drawSvg(svgData);
+  svg.pos.set(650, 450);
   app.stage.addChild(svg);
-
-  // 创建并应用线性渐变
-  const grd = createLinearGradient({ startX: 0, endX: 200, startY: 0, endY: 0 }, [
-    { rate: 0, color: "red" },
-    { rate: 1, color: "white" },
-  ]);
 
   // 绘制线性渐变
   const linearGradient = new Canvas();
   linearGradient.clear();
-  linearGradient.circle(50, 50, 50);
-  linearGradient.fill({ color: grd });
-  linearGradient.pos.set(200, 650);
+  linearGradient.rect(0, 0, 100, 100);
+  linearGradient.fill({
+    color: linearGradient.createLinearGradient({ startX: 0, startY: 0, endX: 100, endY: 0 }, [
+      { offset: 0, color: "red" },
+      { offset: 1, color: "blue" },
+    ]),
+  });
+  linearGradient.pos.set(50, 650);
   app.stage.addChild(linearGradient);
 
+  // 绘制径向渐变
+  const radialGradient = new Canvas();
+  radialGradient.clear();
+  radialGradient.circle(50, 50, 50);
+  radialGradient.fill({
+    color: radialGradient.createRadialGradient(
+      { startX: 50, endX: 50, startRadius: 0, startY: 50, endY: 50, endRadius: 50 },
+      [
+        { offset: 0, color: "black" },
+        { offset: 0.5, color: "red" },
+        { offset: 1, color: "yellow" },
+      ],
+    ),
+  });
+  radialGradient.pos.set(200, 650);
+  app.stage.addChild(radialGradient);
+
   // 创建并应用图案填充
-  const pat = await createPatternByUrl("assets/apple2.png", "repeat");
   const pattern = new Canvas();
+  const pat = await pattern.createPatternFromUrl("assets/apple2.png", "repeat");
   pattern.clear();
   pattern.rect(0, 0, 100, 100);
   pattern.fill({ color: pat });
