@@ -1,4 +1,12 @@
-import { App, Canvas, EventType, Texture } from "../../../liko/src";
+import {
+  App,
+  Canvas,
+  createLinearGradient,
+  createPatternFromUrl,
+  createRadialGradient,
+  EventType,
+  Texture,
+} from "liko";
 
 // 定义线条宽度常量
 const lineWidth = 10;
@@ -7,7 +15,7 @@ const lineWidth = 10;
 async function test() {
   // 创建应用实例并初始化
   const app = new App();
-  await app.init({ width: 800, height: 800, bgColor: 0x333333 });
+  await app.init({ width: 800, height: 1000, bgColor: 0x333333 });
 
   // 绘制矩形
   const rect = new Canvas();
@@ -117,13 +125,75 @@ async function test() {
   bezierCurveTo.pos.set(650, 250);
   app.stage.addChild(bezierCurveTo);
 
+  const polygon = new Canvas();
+  polygon.clear();
+  polygon.polygon([
+    { x: 50, y: 0 },
+    { x: 100, y: 100 },
+    { x: 0, y: 100 },
+  ]);
+  polygon.fill({ color: "#483D8B" });
+  polygon.stroke({ color: "#008B8B", width: lineWidth });
+  polygon.pos.set(50, 450);
+  app.stage.addChild(polygon);
+
+  // 绘制一个 6 边形
+  const hexagon = new Canvas();
+  hexagon.clear();
+  hexagon.polygon([
+    { x: 50, y: 0 },
+    { x: 100, y: 50 },
+    { x: 100, y: 100 },
+    { x: 50, y: 100 },
+    { x: 0, y: 50 },
+    { x: 0, y: 0 },
+  ]);
+  hexagon.fill({ color: "#483D8B" });
+  hexagon.stroke({ color: "#008B8B", width: lineWidth });
+  hexagon.pos.set(200, 450);
+  app.stage.addChild(hexagon);
+
+  // 绘制一个 5 角星
+  const star = new Canvas();
+  star.clear();
+  star.beginPath();
+  // 五角星的外圆半径
+  const outerRadius = 50;
+  // 五角星的内圆半径（通常是外圆半径的0.382倍左右）
+  const innerRadius = outerRadius * 0.382;
+  // 五角星的中心点
+  const centerX = 50;
+  const centerY = 50;
+  // 绘制五角星的十个点（五个外点和五个内点交替）
+  for (let i = 0; i < 10; i++) {
+    // 计算当前点的角度（从顶部开始，顺时针旋转）
+    const angle = (Math.PI / 5) * i - Math.PI / 2;
+    // 确定当前点是外点还是内点
+    const radius = i % 2 === 0 ? outerRadius : innerRadius;
+    // 计算点的坐标
+    const x = centerX + radius * Math.cos(angle);
+    const y = centerY + radius * Math.sin(angle);
+
+    // 第一个点移动到，其余点连线到
+    if (i === 0) {
+      star.moveTo(x, y);
+    } else {
+      star.lineTo(x, y);
+    }
+  }
+  star.closePath();
+  star.fill({ color: "#483D8B" });
+  star.stroke({ color: "#008B8B", width: lineWidth, cap: "round", join: "round" });
+  star.pos.set(350, 450);
+  app.stage.addChild(star);
+
   // 绘制虚线
   const dash = new Canvas();
   dash.clear();
   dash.rect(0, 0, 100, 100);
   dash.moveTo(50, 50).circle(50, 50, 40);
   dash.stroke({ color: "#ff0000", width: lineWidth, dash: [10, 5] });
-  dash.pos.set(50, 450);
+  dash.pos.set(50, 650);
   app.stage.addChild(dash);
 
   // 填充示例
@@ -132,11 +202,11 @@ async function test() {
   filledShape.rect(0, 0, 100, 100);
   filledShape.stroke({ color: "#ff0000", width: lineWidth, dash: [10, 5] });
   filledShape.fill({ color: "#483D8B" });
-  filledShape.pos.set(200, 450);
+  filledShape.pos.set(200, 650);
   app.stage.addChild(filledShape);
 
   // 加载并绘制图片
-  const texture = await Texture.from("assets/bg2.webp");
+  const texture = await Texture.createFromUrl("assets/bg2.webp");
   if (!texture) return;
 
   // 绘制图片
@@ -144,7 +214,7 @@ async function test() {
   image.clear();
   image.drawImage(texture, 0, 0, 100, 50);
   image.drawImage(texture, 0, 50, 100, 50);
-  image.pos.set(350, 450);
+  image.pos.set(350, 650);
   app.stage.addChild(image);
 
   // 使用裁剪蒙版
@@ -153,7 +223,7 @@ async function test() {
   clippedImage.beginPath();
   clippedImage.circle(50, 50, 50).clip();
   clippedImage.drawImage(texture, 0, 0, 200, 100);
-  clippedImage.pos.set(500, 450);
+  clippedImage.pos.set(500, 650);
   app.stage.addChild(clippedImage);
 
   // 绘制SVG路径
@@ -164,7 +234,7 @@ async function test() {
   const svg = new Canvas();
   svg.clear();
   svg.drawSvg(svgData);
-  svg.pos.set(650, 450);
+  svg.pos.set(650, 650);
   app.stage.addChild(svg);
 
   // 绘制线性渐变
@@ -172,12 +242,12 @@ async function test() {
   linearGradient.clear();
   linearGradient.rect(0, 0, 100, 100);
   linearGradient.fill({
-    color: linearGradient.createLinearGradient({ startX: 0, startY: 0, endX: 100, endY: 0 }, [
+    color: createLinearGradient({ startX: 0, startY: 0, endX: 100, endY: 0 }, [
       { offset: 0, color: "red" },
       { offset: 1, color: "blue" },
     ]),
   });
-  linearGradient.pos.set(50, 650);
+  linearGradient.pos.set(50, 850);
   app.stage.addChild(linearGradient);
 
   // 绘制径向渐变
@@ -185,25 +255,22 @@ async function test() {
   radialGradient.clear();
   radialGradient.circle(50, 50, 50);
   radialGradient.fill({
-    color: radialGradient.createRadialGradient(
-      { startX: 50, endX: 50, startRadius: 0, startY: 50, endY: 50, endRadius: 50 },
-      [
-        { offset: 0, color: "black" },
-        { offset: 0.5, color: "red" },
-        { offset: 1, color: "yellow" },
-      ],
-    ),
+    color: createRadialGradient({ startX: 50, endX: 50, startRadius: 0, startY: 50, endY: 50, endRadius: 50 }, [
+      { offset: 0, color: "black" },
+      { offset: 0.5, color: "red" },
+      { offset: 1, color: "yellow" },
+    ]),
   });
-  radialGradient.pos.set(200, 650);
+  radialGradient.pos.set(200, 850);
   app.stage.addChild(radialGradient);
 
   // 创建并应用图案填充
   const pattern = new Canvas();
-  const pat = await pattern.createPatternFromUrl("assets/apple2.png", "repeat");
+  const pat = await createPatternFromUrl("assets/apple2.png", "repeat");
   pattern.clear();
   pattern.rect(0, 0, 100, 100);
   pattern.fill({ color: pat });
-  pattern.pos.set(350, 650);
+  pattern.pos.set(350, 850);
   app.stage.addChild(pattern);
 
   // 创建鼠标交互示例：填充/描边切换
@@ -211,7 +278,7 @@ async function test() {
   hoverStroke.clear();
   hoverStroke.circle(50, 50, 50);
   hoverStroke.fill({ color: "#ff0000" });
-  hoverStroke.pos.set(500, 650);
+  hoverStroke.pos.set(500, 850);
   app.stage.addChild(hoverStroke);
   // 添加鼠标悬停效果
   hoverStroke.on(EventType.pointerover, () => {
@@ -230,7 +297,7 @@ async function test() {
   hoverChangeShape.clear();
   hoverChangeShape.circle(50, 50, 50);
   hoverChangeShape.stroke({ color: "#ff0000", width: lineWidth });
-  hoverChangeShape.pos.set(650, 650);
+  hoverChangeShape.pos.set(650, 850);
   app.stage.addChild(hoverChangeShape);
   // 添加鼠标悬停效果
   hoverChangeShape.on(EventType.pointerover, () => {

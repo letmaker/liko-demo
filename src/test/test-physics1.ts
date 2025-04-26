@@ -53,7 +53,7 @@ async function test() {
     pos: { x: 400, y: 60 }, // 文本在场景中的位置
     anchor: { x: 0.5, y: 0.5 }, // 文本的锚点，用于旋转和缩放的中心点
     fontSize: 24, // 文本的字号
-    fillColor: "#ffffff", // 文本的填充颜色
+    textColor: "#ffffff", // 文本的填充颜色
     parent: scene, // 将文本添加到游戏场景中
   });
 

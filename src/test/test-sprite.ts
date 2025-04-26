@@ -66,13 +66,13 @@ async function test() {
   let frameIndex = 1;
   setInterval(async () => {
     frameIndex = frameIndex === 1 ? 0 : 1;
-    const newTexture = await Texture.from(frames[frameIndex]);
+    const newTexture = await Texture.createFromUrl(frames[frameIndex]);
     if (newTexture) {
       switchableSprite.texture = newTexture;
     }
   }, 1000);
 
-  const texture = await Texture.from("assets/girl.png");
+  const texture = await Texture.createFromUrl("assets/girl.png");
   if (texture) {
     const girl = new Sprite({
       label: "girl",

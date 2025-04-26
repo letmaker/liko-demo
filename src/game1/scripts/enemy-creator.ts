@@ -32,7 +32,7 @@ export class EnemyCreator extends Script {
    */
   private _createEnemy() {
     // 克隆指定ID的敌人模板
-    const enemy = this.scene?.clone({ id: "1710672389604283" });
+    const enemy = this.scene?.cloneNode({ id: "1710672389604283" });
     if (enemy) {
       // 设置敌人初始位置为生成器的位置
       enemy.pos.x = this.target.pos.x;

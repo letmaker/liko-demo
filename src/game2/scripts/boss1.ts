@@ -39,7 +39,7 @@ export class Boss1 extends Script {
       const velocityX = Math.cos(rotation) * this.bulletSpeed;
       const velocityY = Math.sin(rotation) * this.bulletSpeed;
 
-      const bullet = this.scene?.clone({ label: "EnemyBullet" });
+      const bullet = this.scene?.cloneNode({ label: "EnemyBullet" });
       if (bullet) {
         bullet.rotation = rotation + Math.PI / 2;
         bullet.pos.set(this.target.pos.x + this.target.width / 2, this.target.pos.y + this.target.height / 2);

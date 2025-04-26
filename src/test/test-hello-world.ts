@@ -13,7 +13,7 @@ async function test() {
   // 创建文本对象
   new Text({
     text: "Hello World", // 文本内容
-    fillColor: "#ff0000", // 文本颜色（红色）
+    textColor: "#ff0000", // 文本颜色（红色）
     fontSize: 30, // 字体大小
     pos: { x: 100, y: 100 }, // 文本位置
     parent: app.stage, // 父节点为舞台

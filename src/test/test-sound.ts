@@ -14,7 +14,7 @@ async function test() {
   // 创建第一个可点击的文本，点击后播放普通音量的音效
   const soundText1 = new Text({
     text: "点击播放音效", // 显示的文字内容
-    fillColor: "#ff0000", // 文字颜色设置为红色
+    textColor: "#ff0000", // 文字颜色设置为红色
     fontSize: 20, // 文字大小为20像素
     pos: { x: 50, y: 100 }, // 文字在屏幕上的位置：距左50像素，距上100像素
     parent: app.stage, // 将文字添加到游戏的主舞台上
@@ -27,7 +27,7 @@ async function test() {
   // 创建第二个可点击的文本，点击后播放低音量的音效
   const soundText2 = new Text({
     text: "音效低音量",
-    fillColor: "#ff0000",
+    textColor: "#ff0000",
     fontSize: 20,
     pos: { x: 250, y: 100 },
     parent: app.stage,
@@ -41,7 +41,7 @@ async function test() {
   // 创建播放背景音乐的按钮，点击后音乐会在3秒内渐入
   const musicText1 = new Text({
     text: "点击播放背景音乐",
-    fillColor: "#ff0000",
+    textColor: "#ff0000",
     fontSize: 20,
     pos: { x: 50, y: 200 },
     parent: app.stage,
@@ -54,7 +54,7 @@ async function test() {
   // 创建暂停按钮，点击后暂停背景音乐（可以之后恢复）
   const musicText2 = new Text({
     text: "暂停",
-    fillColor: "#ff0000",
+    textColor: "#ff0000",
     fontSize: 20,
     pos: { x: 250, y: 200 },
     parent: app.stage,
@@ -67,7 +67,7 @@ async function test() {
   // 创建恢复播放按钮，点击后继续播放之前暂停的音乐
   const musicText3 = new Text({
     text: "恢复",
-    fillColor: "#ff0000",
+    textColor: "#ff0000",
     fontSize: 20,
     pos: { x: 350, y: 200 },
     parent: app.stage,
@@ -80,7 +80,7 @@ async function test() {
   // 创建停止按钮，点击后停止所有正在播放的背景音乐
   const musicText4 = new Text({
     text: "停止",
-    fillColor: "#ff0000",
+    textColor: "#ff0000",
     fontSize: 20,
     pos: { x: 450, y: 200 },
     parent: app.stage,
@@ -93,7 +93,7 @@ async function test() {
   // 创建销毁按钮，点击后清除所有音乐资源（释放内存）
   const musicText5 = new Text({
     text: "销毁",
-    fillColor: "#ff0000",
+    textColor: "#ff0000",
     fontSize: 20,
     pos: { x: 550, y: 200 },
     parent: app.stage,
@@ -107,7 +107,7 @@ async function test() {
   // 创建降低音量按钮，点击后将背景音乐音量降至一半
   const musicText6 = new Text({
     text: "音量-",
-    fillColor: "#ff0000",
+    textColor: "#ff0000",
     fontSize: 20,
     pos: { x: 250, y: 250 },
     parent: app.stage,
@@ -120,7 +120,7 @@ async function test() {
   // 创建加快播放速度按钮，点击后将背景音乐速度加快一倍
   const musicText7 = new Text({
     text: "速率+",
-    fillColor: "#ff0000",
+    textColor: "#ff0000",
     fontSize: 20,
     pos: { x: 350, y: 250 },
     parent: app.stage,
@@ -133,7 +133,7 @@ async function test() {
   // 创建取消循环按钮，点击后背景音乐只播放一次
   const musicText8 = new Text({
     text: "不循环",
-    fillColor: "#ff0000",
+    textColor: "#ff0000",
     fontSize: 20,
     pos: { x: 450, y: 250 },
     parent: app.stage,
@@ -146,7 +146,7 @@ async function test() {
   // 创建重置按钮，点击后将所有音乐参数恢复默认值
   const musicText9 = new Text({
     text: "重置参数",
-    fillColor: "#ff0000",
+    textColor: "#ff0000",
     fontSize: 20,
     pos: { x: 550, y: 250 },
     parent: app.stage,

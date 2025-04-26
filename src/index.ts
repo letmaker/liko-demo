@@ -9,6 +9,7 @@ const tests = {
   pointer: () => import("./test/test-pointer"),
   physics1: () => import("./test/test-physics1"),
   physics2: () => import("./test/test-physics2"),
+  physicsJoint: () => import("./test/test-physics-joint"),
   game1: () => import("./game1"),
   game2: () => import("./game2"),
   test: () => import("./test/test"),
@@ -22,6 +23,24 @@ const getTestName = () => {
   return test && tests[test] ? test : "text";
 };
 
+// 创建下拉菜单
+const select = document.createElement("select");
+select.style.cssText = "position: fixed; top: 10px; right: 10px; z-index: 1000; padding: 5px; font-size: 14px;";
+for (const name of testNames) {
+  const option = document.createElement("option");
+  option.value = name;
+  option.text = name;
+  option.selected = name === getTestName();
+  select.appendChild(option);
+}
+document.body.appendChild(select);
+
+// 下拉菜单切换事件
+select.addEventListener("change", (e) => {
+  const target = e.target as HTMLSelectElement;
+  window.location.href = `?test=${target.value}`;
+});
+
 // 初始化
 let currentIndex = testNames.indexOf(getTestName());
 
@@ -30,9 +49,11 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "ArrowUp") {
     currentIndex = (currentIndex - 1 + testNames.length) % testNames.length;
     window.location.href = `?test=${testNames[currentIndex]}`;
+    select.value = testNames[currentIndex];
   } else if (e.key === "ArrowDown") {
     currentIndex = (currentIndex + 1) % testNames.length;
     window.location.href = `?test=${testNames[currentIndex]}`;
+    select.value = testNames[currentIndex];
   }
 });
 

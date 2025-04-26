@@ -16,7 +16,7 @@ export class Scroller extends Script {
    */
   onAwake(): void {
     // 克隆当前节点作为第二个背景部分
-    const newNode = this.scene?.clone({ id: this.target.id });
+    const newNode = this.scene?.cloneNode({ id: this.target.id });
     if (newNode) {
       // 根据滚动方向设置克隆节点的初始位置
       const x = this.speedX > 0 ? -this.target.width : this.target.width;

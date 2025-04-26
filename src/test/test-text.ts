@@ -1,4 +1,4 @@
-import { App, Canvas, EventType, Text, createLinearGradient, createPatternByUrl } from "liko";
+import { App, Canvas, EventType, Text, createLinearGradient, createPatternFromUrl } from "liko";
 
 // 设置文字默认大小为30像素，便于统一管理和后续修改
 const FONT_SIZE = 30;
@@ -13,7 +13,7 @@ async function test() {
   // 创建一个基础的左对齐文本（默认左对齐）
   new Text({
     text: "this is a\n居左", // \n 表示换行
-    fillColor: "#ff0000", // 文字颜色设为红色
+    textColor: "#ff0000", // 文字颜色设为红色
     fontSize: FONT_SIZE, // 使用预定义的字体大小
     parent: app.stage, // 将文本添加到舞台上
   });
@@ -21,8 +21,8 @@ async function test() {
   // 创建一个居中对齐的文本
   new Text({
     text: "this is a\n居中",
-    fillColor: "#ff0000",
-    align: "center", // 设置文本水平居中对齐
+    textColor: "#ff0000",
+    textAlign: "center", // 设置文本水平居中对齐
     pos: { x: 200, y: 0 }, // 设置文本位置，x=200, y=0
     fontSize: FONT_SIZE,
     parent: app.stage,
@@ -31,8 +31,8 @@ async function test() {
   // 创建一个右对齐的文本
   new Text({
     text: "this is a\n居右",
-    fillColor: "#ff0000",
-    align: "right", // 设置文本右对齐
+    textColor: "#ff0000",
+    textAlign: "right", // 设置文本右对齐
     pos: { x: 400, y: 0 },
     fontSize: FONT_SIZE,
     parent: app.stage,
@@ -41,7 +41,7 @@ async function test() {
   // 创建一个粗体文本
   new Text({
     text: "this is a\n粗体",
-    fillColor: "#ff0000",
+    textColor: "#ff0000",
     fontWeight: "bold", // 设置文字为粗体
     pos: { x: 0, y: 150 },
     fontSize: FONT_SIZE,
@@ -51,10 +51,10 @@ async function test() {
   // 创建一个带有描边的粗体文本
   new Text({
     text: "this is a\n粗体描边",
-    fillColor: "#ff0000",
+    textColor: "#ff0000",
     fontWeight: "bold",
-    strokeWidth: 7, // 设置描边宽度为7像素
-    strokeColor: "#efefef", // 设置描边颜色为浅灰色
+    textStrokeWidth: 7, // 设置描边宽度为7像素
+    textStrokeColor: "#efefef", // 设置描边颜色为浅灰色
     pos: { x: 200, y: 150 },
     fontSize: FONT_SIZE,
     parent: app.stage,
@@ -63,10 +63,10 @@ async function test() {
   // 创建一个只有描边没有填充色的文本
   new Text({
     text: "this is a\n纯描边",
-    fillColor: "", // 不设置填充色
+    textColor: "", // 不设置填充色
     fontWeight: "bold",
-    strokeWidth: 1, // 细描边
-    strokeColor: "#efefef",
+    textStrokeWidth: 1, // 细描边
+    textStrokeColor: "#efefef",
     pos: { x: 450, y: 150 },
     fontSize: FONT_SIZE,
     parent: app.stage,
@@ -75,9 +75,9 @@ async function test() {
   // 创建一个斜体文本
   new Text({
     text: "this is a\n斜体",
-    fillColor: "#ff0000",
+    textColor: "#ff0000",
     fontWeight: "bold",
-    italic: true, // 设置文字为斜体
+    fontStyle: "italic", // 设置文字为斜体
     pos: { x: 0, y: 300 },
     fontSize: FONT_SIZE,
     parent: app.stage,
@@ -86,12 +86,12 @@ async function test() {
   // 创建一个居中的斜体文本，带有粗描边
   new Text({
     text: "this is\n斜体居中",
-    fillColor: "#ff0000",
+    textColor: "#ff0000",
     fontWeight: "bold",
-    italic: true,
-    strokeWidth: 16, // 粗描边
-    align: "center",
-    strokeColor: "#efefef",
+    fontStyle: "italic",
+    textStrokeWidth: 16, // 粗描边
+    textAlign: "center",
+    textStrokeColor: "#efefef",
     pos: { x: 200, y: 300 },
     fontSize: FONT_SIZE,
     parent: app.stage,
@@ -100,12 +100,12 @@ async function test() {
   // 创建一个右对齐的斜体文本，带有粗描边
   new Text({
     text: "this is\n斜体居右",
-    fillColor: "#ff0000",
+    textColor: "#ff0000",
     fontWeight: "bold",
-    italic: true,
-    strokeWidth: 16,
-    align: "right",
-    strokeColor: "#efefef",
+    fontStyle: "italic",
+    textStrokeWidth: 16,
+    textAlign: "right",
+    textStrokeColor: "#efefef",
     pos: { x: 450, y: 300 },
     fontSize: FONT_SIZE,
     parent: app.stage,
@@ -115,24 +115,24 @@ async function test() {
   new Text({
     text: "this is a\n渐变",
     // 创建一个从左到右的线性渐变，从红色渐变到白色
-    fillColor: createLinearGradient({ startX: 0, endX: 200, startY: 0, endY: 0 }, [
-      { rate: 0, color: "red" }, // 起始颜色为红色
-      { rate: 1, color: "white" }, // 结束颜色为白色
+    textColor: createLinearGradient({ startX: 0, endX: 200, startY: 0, endY: 0 }, [
+      { offset: 0, color: "red" }, // 起始颜色为红色
+      { offset: 1, color: "white" }, // 结束颜色为白色
     ]),
     fontWeight: "bold",
-    italic: true,
+    fontStyle: "italic",
     pos: { x: 0, y: 450 },
     fontSize: FONT_SIZE,
     parent: app.stage,
   });
 
   // 创建一个使用图案填充的文本
-  const pat = await createPatternByUrl("assets/bg1.webp", "repeat"); // 加载并创建一个重复平铺的图案
+  const pat = await createPatternFromUrl("assets/bg1.webp", "repeat"); // 加载并创建一个重复平铺的图案
   new Text({
     text: "this is\n图案填充",
-    fillColor: pat, // 使用图案作为填充
+    textColor: pat, // 使用图案作为填充
     fontWeight: "bold",
-    italic: true,
+    fontStyle: "italic",
     pos: { x: 200, y: 450 },
     fontSize: FONT_SIZE,
     parent: app.stage,
@@ -142,16 +142,16 @@ async function test() {
   new Text({
     text: "组合效果",
     // 创建一个三色渐变
-    fillColor: createLinearGradient({ startX: 0, endX: 200, startY: 0, endY: 200 }, [
-      { rate: 0, color: "#ff0000" }, // 开始为红色
-      { rate: 0.5, color: "#00ff00" }, // 中间为绿色
-      { rate: 1, color: "#0000ff" }, // 结束为蓝色
+    textColor: createLinearGradient({ startX: 0, endX: 200, startY: 0, endY: 200 }, [
+      { offset: 0, color: "#ff0000" }, // 开始为红色
+      { offset: 0.5, color: "#00ff00" }, // 中间为绿色
+      { offset: 1, color: "#0000ff" }, // 结束为蓝色
     ]),
     fontWeight: "bold", // 粗体
-    italic: true, // 斜体
-    strokeWidth: 4, // 描边宽度
-    strokeColor: "#ffffff", // 白色描边
-    align: "center", // 居中对齐
+    fontStyle: "italic", // 斜体
+    textStrokeWidth: 4, // 描边宽度
+    textStrokeColor: "#ffffff", // 白色描边
+    textAlign: "center", // 居中对齐
     pos: { x: 450, y: 450 },
     fontSize: FONT_SIZE * 2, // 字体大小是标准大小的两倍
     parent: app.stage,
@@ -164,7 +164,7 @@ async function test() {
   // 创建锚点在左上角(0,0)的文本
   new Text({
     text: "锚点0-0",
-    fillColor: "#ff8800", // 橙色文字
+    textColor: "#ff8800", // 橙色文字
     fontSize: 12,
     pos: { x: 0, y: 0 },
     anchor: { x: 0, y: 0 }, // 锚点在文本的左上角
@@ -174,7 +174,7 @@ async function test() {
   // 创建锚点在中心点(0.5,0.5)的文本
   new Text({
     text: "锚点0.5-0.5",
-    fillColor: "#ff8800",
+    textColor: "#ff8800",
     fontSize: 12,
     pos: { x: 100, y: 100 },
     anchor: { x: 0.5, y: 0.5 }, // 锚点在文本的中心
@@ -184,7 +184,7 @@ async function test() {
   // 创建锚点在右下角(1,1)的文本
   new Text({
     text: "锚点1-1",
-    fillColor: "#ff8800",
+    textColor: "#ff8800",
     fontSize: 12,
     pos: { x: 200, y: 200 },
     anchor: { x: 1, y: 1 }, // 锚点在文本的右下角
@@ -194,14 +194,14 @@ async function test() {
   // 创建一个可以点击的文本，演示动态属性变更
   const dynamicText = new Text({
     text: "点击我",
-    fillColor: "#ffffff",
+    textColor: "#ffffff",
     pos: { x: 300, y: 600 },
     fontSize: FONT_SIZE,
     parent: app.stage,
     onClick: () => {
       // 点击文本时触发
       dynamicText.setText("属性已变更"); // 改变文本内容
-      dynamicText.fillColor = "#ffff00"; // 改变文字颜色为黄色
+      dynamicText.textColor = "#ffff00"; // 改变文字颜色为黄色
     },
   });
 

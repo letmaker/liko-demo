@@ -33,14 +33,14 @@ async function test() {
   const text = new Text({
     label: "testText",
     text: "Hello World，这是一个很长文字",
-    fillColor: "#00ffff",
+    textColor: "#00ffff",
     fontSize: 30,
     pos: { x: 400, y: 400 },
     parent: app.stage,
     anchor: { x: 0.5, y: 0.5 },
     onClick: () => {
       text.setText("clicked");
-      text.fillColor = "#00ff00";
+      text.textColor = "#00ff00";
     },
   });
 }

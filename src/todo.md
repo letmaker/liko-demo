@@ -1,5 +1,6 @@
 bug：
 - 游戏 1,2 有 bug，需要重新看一下
+- 线段更新会闪烁
 
 P0:
 - 粒子
@@ -19,4 +20,6 @@ P3:
 - width,height 改为 size？
 - canvas 内增加 options?
 
+
+fromJson ? fromData?
 

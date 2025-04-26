@@ -7,8 +7,8 @@ async function test() {
   await app.init({ width: 800, height: 800 });
   console.log("test count", count / 10000, "W");
 
-  const texture1 = await Texture.from("assets/apple2.png");
-  const texture2 = await Texture.from("assets/strawberry2.png");
+  const texture1 = await Texture.createFromUrl("assets/apple2.png");
+  const texture2 = await Texture.createFromUrl("assets/strawberry2.png");
 
   if (!texture1 || !texture2) {
     return;
@@ -28,7 +28,7 @@ async function test() {
       rotation: Math.random() * Math.PI * 2,
       width: texture.width,
       height: texture.height,
-      data: { speed: Math.random() * 10 + 2 },
+      userData: { speed: Math.random() * 10 + 2 },
     });
     sprite.tintColor = Math.random() * 0xffffff;
     container.addChild(sprite);
@@ -41,7 +41,7 @@ async function test() {
       const sprite = container.children[i];
       sprite.pos.y += sprite.userData.speed;
       if (sprite.pos.y > 800) {
-        sprite.pos.y = -texture1.height;
+        sprite.pos.y = -texture1!.height;
       }
     }
     requestAnimationFrame(render);

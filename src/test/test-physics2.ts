@@ -31,7 +31,7 @@ async function test() {
   title.pos.set(400, 30); // 设置位置在画面上方
   title.anchor.set(0.5, 0.5); // 设置文本锚点为中心
   title.fontSize = 24; // 设置字体大小
-  title.fillColor = "#ffffff"; // 设置文字颜色为白色
+  title.textColor = "#ffffff"; // 设置文字颜色为白色
   scene.addChild(title);
 
   // 创建操作说明文本
@@ -40,7 +40,7 @@ async function test() {
   instructions.pos.set(400, 60); // 位于标题下方
   instructions.anchor.set(0.5, 0.5);
   instructions.fontSize = 16;
-  instructions.fillColor = "#cccccc"; // 设置为浅灰色
+  instructions.textColor = "#cccccc"; // 设置为浅灰色
   scene.addChild(instructions);
 
   // 创建物理世界的边界和平台：
