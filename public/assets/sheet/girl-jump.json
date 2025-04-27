@@ -1,0 +1,255 @@
+{
+  "frames": {
+    "Jump (2).png": {
+      "frame": {
+        "x": 0.5,
+        "y": 0.5,
+        "w": 166.5,
+        "h": 248.5
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 85,
+        "y": 20.5,
+        "w": 166.5,
+        "h": 248.5
+      },
+      "sourceSize": {
+        "w": 320.5,
+        "h": 271
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "Jump (7).png": {
+      "frame": {
+        "x": 168,
+        "y": 0.5,
+        "w": 166.5,
+        "h": 247
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 73,
+        "y": 20.5,
+        "w": 166.5,
+        "h": 247
+      },
+      "sourceSize": {
+        "w": 320.5,
+        "h": 271
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "Jump (1).png": {
+      "frame": {
+        "x": 0.5,
+        "y": 250,
+        "w": 167.5,
+        "h": 243
+      },
+      "rotated": true,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 95.5,
+        "y": 24.5,
+        "w": 167.5,
+        "h": 243
+      },
+      "sourceSize": {
+        "w": 320.5,
+        "h": 271
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "Jump (10).png": {
+      "frame": {
+        "x": 244.5,
+        "y": 248.5,
+        "w": 167,
+        "h": 242.5
+      },
+      "rotated": true,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 72.5,
+        "y": 20.5,
+        "w": 167,
+        "h": 242.5
+      },
+      "sourceSize": {
+        "w": 320.5,
+        "h": 271
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "Jump (8).png": {
+      "frame": {
+        "x": 335.5,
+        "y": 0.5,
+        "w": 167,
+        "h": 242.5
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 72.5,
+        "y": 20.5,
+        "w": 167,
+        "h": 242.5
+      },
+      "sourceSize": {
+        "w": 320.5,
+        "h": 271
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "Jump (9).png": {
+      "frame": {
+        "x": 244.5,
+        "y": 416.5,
+        "w": 167,
+        "h": 242.5
+      },
+      "rotated": true,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 72.5,
+        "y": 20.5,
+        "w": 167,
+        "h": 242.5
+      },
+      "sourceSize": {
+        "w": 320.5,
+        "h": 271
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "Jump (4).png": {
+      "frame": {
+        "x": 0.5,
+        "y": 418.5,
+        "w": 167,
+        "h": 240
+      },
+      "rotated": true,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 72.5,
+        "y": 20.5,
+        "w": 167,
+        "h": 240
+      },
+      "sourceSize": {
+        "w": 320.5,
+        "h": 271
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "Jump (5).png": {
+      "frame": {
+        "x": 488,
+        "y": 244,
+        "w": 167,
+        "h": 240
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 72.5,
+        "y": 20.5,
+        "w": 167,
+        "h": 240
+      },
+      "sourceSize": {
+        "w": 320.5,
+        "h": 271
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "Jump (3).png": {
+      "frame": {
+        "x": 503.5,
+        "y": 0.5,
+        "w": 166,
+        "h": 240
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 74,
+        "y": 20.5,
+        "w": 166,
+        "h": 240
+      },
+      "sourceSize": {
+        "w": 320.5,
+        "h": 271
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "Jump (6).png": {
+      "frame": {
+        "x": 488,
+        "y": 485,
+        "w": 166,
+        "h": 240
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 73.5,
+        "y": 20.5,
+        "w": 166,
+        "h": 240
+      },
+      "sourceSize": {
+        "w": 320.5,
+        "h": 271
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    }
+  },
+  "meta": {
+    "app": "http://free-tex-packer.com",
+    "version": "0.6.7",
+    "image": "girl-jump.png",
+    "format": "RGBA8888",
+    "size": {
+      "w": 670,
+      "h": 726
+    },
+    "scale": 0.5
+  }
+}

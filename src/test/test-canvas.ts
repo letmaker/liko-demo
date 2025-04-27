@@ -318,7 +318,6 @@ async function test() {
 // 执行测试函数
 test();
 
-// 显示元素边界框的函数
 // 当鼠标悬停在元素上时，显示该元素的边界
 function showBounds(app: App) {
   // 创建一个用于绘制边界框的画布

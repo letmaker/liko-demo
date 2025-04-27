@@ -1,6 +1,7 @@
 const tests = {
   hello: () => import("./test/test-hello-world"),
   sprite: () => import("./test/test-sprite"),
+  animatedSprite: () => import("./test/test-animated-sprite"),
   text: () => import("./test/test-text"),
   canvas: () => import("./test/test-canvas"),
   scene: () => import("./test/test-scene"),
