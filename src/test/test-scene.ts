@@ -1,6 +1,6 @@
 // 这是一个示例程序，展示如何使用 liko 游戏引擎来加载和显示一个场景
 // liko 是一个 2D 游戏引擎，可以帮助开发者快速创建游戏
-import { App, regScript, Script, Scene } from "liko";
+import { App, register, Script, Scene } from "liko";
 
 async function test() {
   // 创建一个新的游戏应用程序
@@ -12,7 +12,7 @@ async function test() {
 
   // 向游戏引擎注册我们自定义的脚本组件
   // 注册后，我们就可以在场景配置文件（JSON）中使用这个脚本了
-  regScript("TestScript", TestScript);
+  register.regScript("TestScript", TestScript);
 
   // 创建一个新的游戏场景
   // 场景是游戏中的一个独立空间，比如游戏的某个关卡

@@ -1,4 +1,4 @@
-import { App, regScript, Scene } from "liko";
+import { App, register, Scene } from "liko";
 import { Camera } from "./scripts/camera";
 import { EnemyCreator } from "./scripts/enemy-creator";
 import { Enemy1 } from "./scripts/enemy1";
@@ -26,11 +26,11 @@ async function game() {
   });
 
   // 注册游戏中使用的脚本组件
-  regScript("Hero", Hero); // 注册英雄角色脚本
-  regScript("Enemy1", Enemy1); // 注册敌人类型1脚本
-  regScript("Scroller", Scroller); // 注册滚动背景脚本
-  regScript("EnemyCreator", EnemyCreator); // 注册敌人生成器脚本
-  regScript("Camera", Camera); // 注册相机控制脚本
+  register.regScript("Hero", Hero); // 注册英雄角色脚本
+  register.regScript("Enemy1", Enemy1); // 注册敌人类型1脚本
+  register.regScript("Scroller", Scroller); // 注册滚动背景脚本
+  register.regScript("EnemyCreator", EnemyCreator); // 注册敌人生成器脚本
+  register.regScript("Camera", Camera); // 注册相机控制脚本
 
   // 创建游戏场景
   const scene = new Scene();

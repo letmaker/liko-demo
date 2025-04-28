@@ -1,12 +1,4 @@
-import {
-  App,
-  Canvas,
-  createLinearGradient,
-  createPatternFromUrl,
-  createRadialGradient,
-  EventType,
-  Texture,
-} from "liko";
+import { App, Canvas, EventType, Texture, utils } from "liko";
 
 // 定义线条宽度常量
 const lineWidth = 10;
@@ -242,7 +234,7 @@ async function test() {
   linearGradient.clear();
   linearGradient.rect(0, 0, 100, 100);
   linearGradient.fill({
-    color: createLinearGradient({ startX: 0, startY: 0, endX: 100, endY: 0 }, [
+    color: utils.createLinearGradient({ startX: 0, startY: 0, endX: 100, endY: 0 }, [
       { offset: 0, color: "red" },
       { offset: 1, color: "blue" },
     ]),
@@ -255,7 +247,7 @@ async function test() {
   radialGradient.clear();
   radialGradient.circle(50, 50, 50);
   radialGradient.fill({
-    color: createRadialGradient({ startX: 50, endX: 50, startRadius: 0, startY: 50, endY: 50, endRadius: 50 }, [
+    color: utils.createRadialGradient({ startX: 50, endX: 50, startRadius: 0, startY: 50, endY: 50, endRadius: 50 }, [
       { offset: 0, color: "black" },
       { offset: 0.5, color: "red" },
       { offset: 1, color: "yellow" },
@@ -266,7 +258,7 @@ async function test() {
 
   // 创建并应用图案填充
   const pattern = new Canvas();
-  const pat = await createPatternFromUrl("assets/apple2.png", "repeat");
+  const pat = await utils.createPatternFromUrl("assets/apple2.png", "repeat");
   pattern.clear();
   pattern.rect(0, 0, 100, 100);
   pattern.fill({ color: pat });

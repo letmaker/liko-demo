@@ -1,4 +1,4 @@
-import { App, Canvas, EventType, Text, createLinearGradient, createPatternFromUrl } from "liko";
+import { App, Canvas, EventType, Text, utils } from "liko";
 
 // 设置文字默认大小为30像素，便于统一管理和后续修改
 const FONT_SIZE = 30;
@@ -115,7 +115,7 @@ async function test() {
   new Text({
     text: "this is a\n渐变",
     // 创建一个从左到右的线性渐变，从红色渐变到白色
-    textColor: createLinearGradient({ startX: 0, endX: 200, startY: 0, endY: 0 }, [
+    textColor: utils.createLinearGradient({ startX: 0, endX: 200, startY: 0, endY: 0 }, [
       { offset: 0, color: "red" }, // 起始颜色为红色
       { offset: 1, color: "white" }, // 结束颜色为白色
     ]),
@@ -127,7 +127,7 @@ async function test() {
   });
 
   // 创建一个使用图案填充的文本
-  const pat = await createPatternFromUrl("assets/bg1.webp", "repeat"); // 加载并创建一个重复平铺的图案
+  const pat = await utils.createPatternFromUrl("assets/bg1.webp", "repeat"); // 加载并创建一个重复平铺的图案
   new Text({
     text: "this is\n图案填充",
     textColor: pat, // 使用图案作为填充
@@ -142,7 +142,7 @@ async function test() {
   new Text({
     text: "组合效果",
     // 创建一个三色渐变
-    textColor: createLinearGradient({ startX: 0, endX: 200, startY: 0, endY: 200 }, [
+    textColor: utils.createLinearGradient({ startX: 0, endX: 200, startY: 0, endY: 200 }, [
       { offset: 0, color: "#ff0000" }, // 开始为红色
       { offset: 0.5, color: "#00ff00" }, // 中间为绿色
       { offset: 1, color: "#0000ff" }, // 结束为蓝色
