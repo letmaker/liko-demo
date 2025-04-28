@@ -10,7 +10,7 @@ export class Boss1 extends Script {
   bulletSpeed = 2;
 
   onAwake(): void {
-    Tween.from({ target: this.target, duration: 1, props: { alpha: 0, pos: { x: "0", y: -100 } } })
+    Tween.from({ target: this.target, duration: 1, props: { alpha: 0, pos: { x: "+0", y: -100 } } })
       .onAllComplete(() => {
         const rigidBody = new RigidBody({
           rigidType: "dynamic",

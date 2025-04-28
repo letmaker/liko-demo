@@ -14,7 +14,7 @@ export class GameOver extends Script {
     restart?.on(EventType.click, () => {
       this.stage?.timer.resume();
       this.stage?.store.set("score", 0);
-      this.stage?.createScene(scene1Data as INodeData, true);
+      this.stage?.createScene(scene1Data as INodeData, { destroyOther: true });
     });
 
     // TODO 为什么需要延迟

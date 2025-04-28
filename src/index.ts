@@ -11,7 +11,6 @@ const tests = {
   physics1: () => import("./test/test-physics1"),
   physics2: () => import("./test/test-physics2"),
   physicsJoint: () => import("./test/test-physics-joint"),
-  game1: () => import("./game1"),
   game2: () => import("./game2"),
   test: () => import("./test/test"),
 };
@@ -21,12 +20,12 @@ const testNames = Object.keys(tests).filter((key) => key !== "test");
 const getTestName = () => {
   const params = new URLSearchParams(window.location.search);
   const test = params.get("test") as keyof typeof tests;
-  return test && tests[test] ? test : "text";
+  return test && tests[test] ? test : "hello";
 };
 
 // 创建下拉菜单
 const select = document.createElement("select");
-select.style.cssText = "position: fixed; top: 10px; right: 10px; z-index: 1000; padding: 5px; font-size: 14px;";
+select.style.cssText = "position: fixed; top: 10px; left: 650px; z-index: 1000; padding: 5px; font-size: 14px;";
 for (const name of testNames) {
   const option = document.createElement("option");
   option.value = name;
