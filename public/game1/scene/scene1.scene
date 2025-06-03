@@ -3,26 +3,14 @@
   "type": "Scene",
   "props": {
     "label": "scene1",
-    "pos": {
-      "x": 0,
-      "y": 0
-    },
-    "scale": {
-      "x": 1,
-      "y": 1
-    },
-    "angle": 0,
     "width": 720,
-    "height": 540,
-    "alpha": 1,
-    "visible": true
+    "height": 540
   },
   "scripts": [
     {
       "id": "171066849919884",
-      "type": "Script",
+      "script": "Camera",
       "props": {
-        "script": "Camera",
         "label": "Camera",
         "lookTargetId": "container654"
       }
@@ -34,7 +22,7 @@
       "type": "Container",
       "props": {
         "label": "landscape",
-        "pos": {
+        "position": {
           "x": 2.165588378902669,
           "y": 271.5476379394398
         },
@@ -55,7 +43,7 @@
           "props": {
             "url": "game1/assets/landscape.png",
             "label": "landscape",
-            "pos": {
+            "position": {
               "x": 914.9582769381,
               "y": 0.20251100956102164
             },
@@ -77,7 +65,7 @@
           "props": {
             "url": "game1/assets/landscape.png",
             "label": "landscape",
-            "pos": {
+            "position": {
               "x": 2.842170943040401e-14,
               "y": -1.1368683772161603e-13
             },
@@ -100,7 +88,7 @@
       "type": "Container",
       "props": {
         "label": "ground",
-        "pos": {
+        "position": {
           "x": -2.1462097167975003,
           "y": 439.18365478515415
         },
@@ -121,7 +109,7 @@
           "props": {
             "url": "game1/assets/ground.png",
             "label": "ground",
-            "pos": {
+            "position": {
               "x": 778.75231933593,
               "y": -0.5504150390649443
             },
@@ -143,7 +131,7 @@
           "props": {
             "url": "game1/assets/ground.png",
             "label": "ground",
-            "pos": {
+            "position": {
               "x": 0,
               "y": 0
             },
@@ -161,9 +149,8 @@
           "scripts": [
             {
               "id": "rigidBody101",
-              "type": "Script",
+              "script": "RigidBody",
               "props": {
-                "script": "RigidBody",
                 "label": "RigidBody",
                 "rigidType": "static",
                 "shapes": [
@@ -187,7 +174,7 @@
           "props": {
             "url": "game1/assets/ground.png",
             "label": "ground",
-            "pos": {
+            "position": {
               "x": 1563.088648289719,
               "y": 0.040665817173703545
             },
@@ -210,7 +197,7 @@
       "type": "Container",
       "props": {
         "label": "hero",
-        "pos": {
+        "position": {
           "x": 234.8928842136945,
           "y": 446.02965734664673
         },
@@ -231,17 +218,15 @@
       "scripts": [
         {
           "id": "script130",
-          "type": "Script",
+          "script": "Hero",
           "props": {
-            "script": "Hero",
             "label": "Hero"
           }
         },
         {
           "id": "rigidBody83",
-          "type": "Script",
+          "script": "RigidBody",
           "props": {
-            "script": "RigidBody",
             "label": "RigidBody",
             "rigidType": "dynamic",
             "shapes": [
@@ -265,11 +250,11 @@
       "children": [
         {
           "id": "node203",
-          "type": "SpriteAnimation",
+          "type": "AnimatedSprite",
           "props": {
             "url": "game1/assets/hero/hero1_body.atlas",
             "label": "body",
-            "pos": {
+            "position": {
               "x": 6.361382363227449,
               "y": 27.659770716611035
             },
@@ -287,11 +272,11 @@
         },
         {
           "id": "node462",
-          "type": "SpriteAnimation",
+          "type": "AnimatedSprite",
           "props": {
             "url": "game1/assets/hero/hero1_gun.atlas",
             "label": "gun",
-            "pos": {
+            "position": {
               "x": 30.084918482197367,
               "y": 43.74175606401198
             },
@@ -316,7 +301,7 @@
           "props": {
             "url": "game1/assets/hero/hero1_head.png",
             "label": "head",
-            "pos": {
+            "position": {
               "x": 28.87318591365235,
               "y": 42.99268835756368
             },
@@ -339,11 +324,11 @@
     },
     {
       "id": "1710672389604283",
-      "type": "SpriteAnimation",
+      "type": "AnimatedSprite",
       "props": {
         "url": "game1/assets/enemy/egr8.atlas",
         "label": "enemy1",
-        "pos": {
+        "position": {
           "x": 2217.144806881262,
           "y": 357.2096977758632
         },
@@ -360,17 +345,15 @@
       "scripts": [
         {
           "id": "1710672423972478",
-          "type": "Script",
+          "script": "Enemy1",
           "props": {
-            "script": "Enemy1",
             "label": "Enemy1"
           }
         },
         {
           "id": "1710673835178139",
-          "type": "Script",
+          "script": "RigidBody",
           "props": {
-            "script": "RigidBody",
             "label": "RigidBody",
             "rigidType": "dynamic",
             "linearVelocity": {
@@ -397,8 +380,8 @@
       "props": {
         "url": "game1/assets/apple.png",
         "label": "enemyHouse",
-        "pos": {
-          "x": 2112.0539178608287,
+        "position": {
+          "x": 1000.0539178608287,
           "y": 83.51275979991381
         },
         "scale": {
@@ -414,17 +397,15 @@
       "scripts": [
         {
           "id": "1710672266176248",
-          "type": "Script",
+          "script": "EnemyCreator",
           "props": {
-            "script": "EnemyCreator",
             "label": "EnemyCreator"
           }
         },
         {
           "id": "1710673777882128",
-          "type": "Script",
+          "script": "RigidBody",
           "props": {
-            "script": "RigidBody",
             "label": "RigidBody",
             "rigidType": "static",
             "shapes": [
@@ -450,7 +431,7 @@
       "props": {
         "url": "game1/assets/strawberry.png",
         "label": "myHouse",
-        "pos": {
+        "position": {
           "x": -4.670654296876151,
           "y": 343.90200805663966
         },
@@ -467,9 +448,8 @@
       "scripts": [
         {
           "id": "1710679264540476",
-          "type": "Script",
+          "script": "RigidBody",
           "props": {
-            "script": "RigidBody",
             "label": "RigidBody",
             "rigidType": "static",
             "category": "我方堡垒"

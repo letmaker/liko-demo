@@ -1,4 +1,4 @@
-import { App, Canvas, RigidBody, Scene, type IPoint } from "liko";
+import { App, Canvas, RigidBody, Scene, type IPoint } from "../../../liko/src";
 
 /**
  * 物理引擎关节演示
@@ -31,7 +31,7 @@ async function test() {
   const ground = new Canvas();
   ground.rect(0, 0, 800, 50);
   ground.fill({ color: "#666666" });
-  ground.pos.set(0, 750);
+  ground.position.set(0, 750);
   scene.addChild(ground);
 
   // 为地面添加静态刚体
@@ -77,20 +77,20 @@ function createPulleyJoint(scene: Scene) {
 
   // 创建两个固定锚点
   const anchor1 = createBall(2, { x: 0.5, y: 0.5 }, "#ff0000");
-  anchor1.pos = { x: 100, y: 350 };
+  anchor1.position = { x: 100, y: 350 };
   scene.addChild(anchor1);
 
   const anchor2 = createBall(2, { x: 0.5, y: 0.5 }, "#ff0000");
-  anchor2.pos = { x: 200, y: 350 };
+  anchor2.position = { x: 200, y: 350 };
   scene.addChild(anchor2);
 
   // 创建两个可移动的球体
   const ball1 = createBall(20, { x: 0.5, y: 0.5 }, "#ff0000");
-  ball1.pos = { x: 100, y: 500 };
+  ball1.position = { x: 100, y: 500 };
   scene.addChild(ball1);
 
   const ball2 = createBall(30, { x: 0.5, y: 0.5 }, "#ff00ff");
-  ball2.pos = { x: 200, y: 500 };
+  ball2.position = { x: 200, y: 500 };
   scene.addChild(ball2);
 
   // 点击第二个球体时创建滑轮系统
@@ -114,8 +114,8 @@ function createPulleyJoint(scene: Scene) {
           targetBody: rigidBody2,
           localAnchorA: { x: 0, y: 0 }, // 第一个物体的连接点
           localAnchorB: { x: 0, y: 0 }, // 第二个物体的连接点
-          groundAnchorA: anchor1.pos, // 第一个固定锚点
-          groundAnchorB: anchor2.pos, // 第二个固定锚点
+          groundAnchorA: anchor1.position, // 第一个固定锚点
+          groundAnchorB: anchor2.position, // 第二个固定锚点
           lengthA: 150, // 第一根绳子的长度
           lengthB: 150, // 第二根绳子的长度
           ratio: 1, // 滑轮比率，影响两个物体的运动比例
@@ -130,11 +130,11 @@ function createPulleyJoint(scene: Scene) {
  * 创建马达关节示例
  * 马达关节可以驱动刚体进行线性运动和角度旋转
  */
-function createMotorJoint(scene: Scene, grRigidBody: RigidBody, pos: IPoint, anchor: IPoint, color: string) {
+function createMotorJoint(scene: Scene, grRigidBody: RigidBody, position: IPoint, anchor: IPoint, color: string) {
   const radius = 20;
 
   const motorJoint = createBall(radius, anchor, color);
-  motorJoint.pos = pos;
+  motorJoint.position = position;
   scene.addChild(motorJoint);
 
   // TODO 这块不太符合预期
@@ -161,10 +161,10 @@ function createMotorJoint(scene: Scene, grRigidBody: RigidBody, pos: IPoint, anc
  * 创建轮子关节示例
  * 轮子关节允许物体沿着指定轴线移动，并可以添加马达驱动
  */
-function createWheelJoint(scene: Scene, pos: IPoint, color: string) {
+function createWheelJoint(scene: Scene, position: IPoint, color: string) {
   // 创建一个汽车
   const car = createBox(50, 20, { x: 0, y: 0 }, color);
-  car.pos = pos;
+  car.position = position;
   scene.addChild(car);
 
   const carBody = new RigidBody({
@@ -178,7 +178,7 @@ function createWheelJoint(scene: Scene, pos: IPoint, color: string) {
   const speed = 2;
 
   const wheel1 = createBall(radius, { x: 0.5, y: 0.5 }, "#ff00ff");
-  wheel1.pos = { x: pos.x + radius, y: pos.y + radius + 10 };
+  wheel1.position = { x: position.x + radius, y: position.y + radius + 10 };
   wheel1.moveTo(radius, radius);
   wheel1.lineTo(0, 0);
   wheel1.stroke({ color: "#ffff00", width: 1 });
@@ -206,7 +206,7 @@ function createWheelJoint(scene: Scene, pos: IPoint, color: string) {
   wheel1.addScript(wheelBody1);
 
   const wheel2 = createBall(radius, { x: 0.5, y: 0.5 }, "#ff00ff");
-  wheel2.pos = { x: pos.x + 40, y: pos.y + radius + 10 };
+  wheel2.position = { x: position.x + 40, y: position.y + radius + 10 };
   wheel2.moveTo(radius, radius);
   wheel2.lineTo(0, 0);
   wheel2.stroke({ color: "#ffff00", width: 1 });
@@ -237,12 +237,12 @@ function createWheelJoint(scene: Scene, pos: IPoint, color: string) {
  * 创建绳索关节示例
  * 绳索关节限制两个物体之间的最大距离，模拟绳子的行为
  */
-function createRopeJoint(scene: Scene, grRigidBody: RigidBody, pos: IPoint, anchor: IPoint, color: string) {
+function createRopeJoint(scene: Scene, grRigidBody: RigidBody, position: IPoint, anchor: IPoint, color: string) {
   const width = 100;
   const height = 50;
 
   const ropeJoint = createBox(width, height, anchor, color);
-  ropeJoint.pos = pos;
+  ropeJoint.position = position;
   scene.addChild(ropeJoint);
 
   ropeJoint.once("pointerdown", () => {
@@ -262,14 +262,14 @@ function createRopeJoint(scene: Scene, grRigidBody: RigidBody, pos: IPoint, anch
     ropeJoint.addScript(rigidBody);
   });
 
-  // const start = distanceJoint.pos.clone();
+  // const start = distanceJoint.position.clone();
   // const debugLine = new Canvas();
   // scene.addChild(debugLine);
 
   // scene.on("update", () => {
   //   debugLine.clear();
   //   debugLine.moveTo(start.x, start.y);
-  //   debugLine.lineTo(distanceJoint.pos.x, distanceJoint.pos.y);
+  //   debugLine.lineTo(distanceJoint.position.x, distanceJoint.position.y);
   //   debugLine.stroke({ color: "#ffff00", width: 2 });
   // });
 }
@@ -278,12 +278,12 @@ function createRopeJoint(scene: Scene, grRigidBody: RigidBody, pos: IPoint, anch
  * 创建棱柱关节示例
  * 棱柱关节允许物体沿着指定轴线移动，可以添加马达和限制移动范围
  */
-function createPrismaticJoint(scene: Scene, grRigidBody: RigidBody, pos: IPoint, anchor: IPoint, color: string) {
+function createPrismaticJoint(scene: Scene, grRigidBody: RigidBody, position: IPoint, anchor: IPoint, color: string) {
   const width = 100;
   const height = 50;
 
   const prismaticJoint = createBox(width, height, anchor, color);
-  prismaticJoint.pos = pos;
+  prismaticJoint.position = position;
   scene.addChild(prismaticJoint);
 
   prismaticJoint.once("pointerdown", () => {
@@ -313,12 +313,12 @@ function createPrismaticJoint(scene: Scene, grRigidBody: RigidBody, pos: IPoint,
  * 创建固定关节示例
  * 固定关节将两个物体固定在一起，可以通过点击解除固定
  */
-function createFixedJoint(scene: Scene, grRigidBody: RigidBody, pos: IPoint, anchor: IPoint, color: string) {
+function createFixedJoint(scene: Scene, grRigidBody: RigidBody, position: IPoint, anchor: IPoint, color: string) {
   const width = 100;
   const height = 50;
 
   const fixedJoint = createBox(width, height, anchor, color);
-  fixedJoint.pos = pos;
+  fixedJoint.position = position;
   scene.addChild(fixedJoint);
 
   const label = `fixed${Math.random()}`;
@@ -347,12 +347,12 @@ function createFixedJoint(scene: Scene, grRigidBody: RigidBody, pos: IPoint, anc
  * 创建距离关节示例
  * 距离关节保持两个物体之间的距离，可以添加弹簧效果
  */
-function createDistanceJoint(scene: Scene, grRigidBody: RigidBody, pos: IPoint, anchor: IPoint, color: string) {
+function createDistanceJoint(scene: Scene, grRigidBody: RigidBody, position: IPoint, anchor: IPoint, color: string) {
   const width = 100;
   const height = 50;
 
   const distanceJoint = createBox(width, height, anchor, color);
-  distanceJoint.pos = pos;
+  distanceJoint.position = position;
   scene.addChild(distanceJoint);
 
   distanceJoint.once("pointerdown", () => {
@@ -374,14 +374,14 @@ function createDistanceJoint(scene: Scene, grRigidBody: RigidBody, pos: IPoint, 
     distanceJoint.addScript(rigidBody);
   });
 
-  // const start = distanceJoint.pos.clone();
+  // const start = distanceJoint.position.clone();
   // const debugLine = new Canvas();
   // scene.addChild(debugLine);
 
   // scene.on("update", () => {
   //   debugLine.clear();
   //   debugLine.moveTo(start.x, start.y);
-  //   debugLine.lineTo(distanceJoint.pos.x, distanceJoint.pos.y);
+  //   debugLine.lineTo(distanceJoint.position.x, distanceJoint.position.y);
   //   debugLine.stroke({ color: "#ffff00", width: 2 });
   // });
 }
@@ -390,12 +390,12 @@ function createDistanceJoint(scene: Scene, grRigidBody: RigidBody, pos: IPoint, 
  * 创建旋转关节示例
  * 旋转关节允许两个物体围绕一个点旋转
  */
-function createRevoluteJoint(scene: Scene, grRigidBody: RigidBody, pos: IPoint, anchor: IPoint, color: string) {
+function createRevoluteJoint(scene: Scene, grRigidBody: RigidBody, position: IPoint, anchor: IPoint, color: string) {
   const width = 100;
   const height = 50;
 
   const revoluteJoint = createBox(width, height, anchor, color);
-  revoluteJoint.pos = pos;
+  revoluteJoint.position = position;
   scene.addChild(revoluteJoint);
 
   revoluteJoint.once("pointerdown", () => {
@@ -432,7 +432,7 @@ function createBox(width: number, height: number, anchor: IPoint, color: string)
   const anchorDebugPoint = new Canvas();
   anchorDebugPoint.circle(0, 0, 2);
   anchorDebugPoint.fill({ color: "#ffff00" });
-  anchorDebugPoint.pos.set(anchor.x * width, anchor.y * height);
+  anchorDebugPoint.position.set(anchor.x * width, anchor.y * height);
   box.addChild(anchorDebugPoint);
   return box;
 }
@@ -453,7 +453,7 @@ function createBall(radius: number, anchor: IPoint, color: string) {
   const anchorDebugPoint = new Canvas();
   anchorDebugPoint.circle(0, 0, 2);
   anchorDebugPoint.fill({ color: "#ffff00" });
-  anchorDebugPoint.pos.set(anchor.x * radius * 2, anchor.y * radius * 2);
+  anchorDebugPoint.position.set(anchor.x * radius * 2, anchor.y * radius * 2);
   box.addChild(anchorDebugPoint);
   return box;
 }

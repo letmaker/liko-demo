@@ -1,4 +1,4 @@
-import { App, Canvas, EventType, Text, utils } from "liko";
+import { App, Canvas, EventType, Text, utils } from "../../../liko/src";
 
 // 设置文字默认大小为30像素，便于统一管理和后续修改
 const FONT_SIZE = 30;
@@ -23,7 +23,7 @@ async function test() {
     text: "this is a\n居中",
     textColor: "#ff0000",
     textAlign: "center", // 设置文本水平居中对齐
-    pos: { x: 200, y: 0 }, // 设置文本位置，x=200, y=0
+    position: { x: 200, y: 0 }, // 设置文本位置，x=200, y=0
     fontSize: FONT_SIZE,
     parent: app.stage,
   });
@@ -33,7 +33,7 @@ async function test() {
     text: "this is a\n居右",
     textColor: "#ff0000",
     textAlign: "right", // 设置文本右对齐
-    pos: { x: 400, y: 0 },
+    position: { x: 400, y: 0 },
     fontSize: FONT_SIZE,
     parent: app.stage,
   });
@@ -43,7 +43,7 @@ async function test() {
     text: "this is a\n粗体",
     textColor: "#ff0000",
     fontWeight: "bold", // 设置文字为粗体
-    pos: { x: 0, y: 150 },
+    position: { x: 0, y: 150 },
     fontSize: FONT_SIZE,
     parent: app.stage,
   });
@@ -55,7 +55,7 @@ async function test() {
     fontWeight: "bold",
     textStrokeWidth: 7, // 设置描边宽度为7像素
     textStrokeColor: "#efefef", // 设置描边颜色为浅灰色
-    pos: { x: 200, y: 150 },
+    position: { x: 200, y: 150 },
     fontSize: FONT_SIZE,
     parent: app.stage,
   });
@@ -67,7 +67,7 @@ async function test() {
     fontWeight: "bold",
     textStrokeWidth: 1, // 细描边
     textStrokeColor: "#efefef",
-    pos: { x: 450, y: 150 },
+    position: { x: 450, y: 150 },
     fontSize: FONT_SIZE,
     parent: app.stage,
   });
@@ -78,7 +78,7 @@ async function test() {
     textColor: "#ff0000",
     fontWeight: "bold",
     fontStyle: "italic", // 设置文字为斜体
-    pos: { x: 0, y: 300 },
+    position: { x: 0, y: 300 },
     fontSize: FONT_SIZE,
     parent: app.stage,
   });
@@ -92,7 +92,7 @@ async function test() {
     textStrokeWidth: 16, // 粗描边
     textAlign: "center",
     textStrokeColor: "#efefef",
-    pos: { x: 200, y: 300 },
+    position: { x: 200, y: 300 },
     fontSize: FONT_SIZE,
     parent: app.stage,
   });
@@ -106,7 +106,7 @@ async function test() {
     textStrokeWidth: 16,
     textAlign: "right",
     textStrokeColor: "#efefef",
-    pos: { x: 450, y: 300 },
+    position: { x: 450, y: 300 },
     fontSize: FONT_SIZE,
     parent: app.stage,
   });
@@ -121,7 +121,7 @@ async function test() {
     ]),
     fontWeight: "bold",
     fontStyle: "italic",
-    pos: { x: 0, y: 450 },
+    position: { x: 0, y: 450 },
     fontSize: FONT_SIZE,
     parent: app.stage,
   });
@@ -133,7 +133,7 @@ async function test() {
     textColor: pat, // 使用图案作为填充
     fontWeight: "bold",
     fontStyle: "italic",
-    pos: { x: 200, y: 450 },
+    position: { x: 200, y: 450 },
     fontSize: FONT_SIZE,
     parent: app.stage,
   });
@@ -152,13 +152,13 @@ async function test() {
     textStrokeWidth: 4, // 描边宽度
     textStrokeColor: "#ffffff", // 白色描边
     textAlign: "center", // 居中对齐
-    pos: { x: 450, y: 450 },
+    position: { x: 450, y: 450 },
     fontSize: FONT_SIZE * 2, // 字体大小是标准大小的两倍
     parent: app.stage,
   });
 
   // 创建一个用于测试文本锚点的区域
-  const canvas = new Canvas({ pos: { x: 0, y: 600 }, parent: app.stage });
+  const canvas = new Canvas({ position: { x: 0, y: 600 }, parent: app.stage });
   canvas.rect(0, 0, 200, 200).fill({ color: "#666666" }); // 绘制一个深灰色矩形作为背景
 
   // 创建锚点在左上角(0,0)的文本
@@ -166,7 +166,7 @@ async function test() {
     text: "锚点0-0",
     textColor: "#ff8800", // 橙色文字
     fontSize: 12,
-    pos: { x: 0, y: 0 },
+    position: { x: 0, y: 0 },
     anchor: { x: 0, y: 0 }, // 锚点在文本的左上角
     parent: canvas,
   });
@@ -176,7 +176,7 @@ async function test() {
     text: "锚点0.5-0.5",
     textColor: "#ff8800",
     fontSize: 12,
-    pos: { x: 100, y: 100 },
+    position: { x: 100, y: 100 },
     anchor: { x: 0.5, y: 0.5 }, // 锚点在文本的中心
     parent: canvas,
   });
@@ -186,7 +186,7 @@ async function test() {
     text: "锚点1-1",
     textColor: "#ff8800",
     fontSize: 12,
-    pos: { x: 200, y: 200 },
+    position: { x: 200, y: 200 },
     anchor: { x: 1, y: 1 }, // 锚点在文本的右下角
     parent: canvas,
   });
@@ -195,7 +195,7 @@ async function test() {
   const dynamicText = new Text({
     text: "点击我",
     textColor: "#ffffff",
-    pos: { x: 300, y: 600 },
+    position: { x: 300, y: 600 },
     fontSize: FONT_SIZE,
     parent: app.stage,
     onClick: () => {

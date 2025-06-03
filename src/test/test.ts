@@ -1,4 +1,4 @@
-import { App, Scene } from "liko";
+import { App, Scene } from "../../../liko/src";
 
 const json = {
   id: "1",
@@ -17,7 +17,7 @@ const json = {
       props: {
         label: "score",
         text: "积分：0",
-        pos: { x: 100, y: 100 },
+        position: { x: 100, y: 100 },
         fontSize: 30,
         width: 100,
         height: 30,

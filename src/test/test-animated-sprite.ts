@@ -1,4 +1,4 @@
-import { AnimatedSprite, App, Ease, EventType, loader, Text, type Texture, Tween } from "liko";
+import { AnimatedSprite, App, Ease, EventType, loader, Text, type Texture, Tween } from "../../../liko/src";
 
 async function test() {
   const app = new App();
@@ -7,13 +7,13 @@ async function test() {
   new AnimatedSprite({
     url: "assets/sheet/fliggy.atlas",
     parent: app.stage,
-    pos: { x: 100, y: 100 },
+    position: { x: 100, y: 100 },
   }).play();
 
   new AnimatedSprite({
     url: "assets/sheet/zombie.atlas",
     parent: app.stage,
-    pos: { x: 400, y: 100 },
+    position: { x: 400, y: 100 },
     scale: { x: 0.5, y: 0.5 },
     frameRate: 10,
   }).play();
@@ -27,14 +27,14 @@ async function test() {
   new AnimatedSprite({
     url: "assets/sheet/fire-rotated.json",
     parent: app.stage,
-    pos: { x: 250, y: 290 },
+    position: { x: 250, y: 290 },
     frameRate: 20,
   }).play();
 
   const girl = new AnimatedSprite({
     textures: runTextures,
     parent: app.stage,
-    pos: { x: 100, y: 300 },
+    position: { x: 100, y: 300 },
     scale: { x: 0.5, y: 0.5 },
     frameRate: 10,
   });
@@ -46,7 +46,7 @@ async function test() {
     Tween.to({
       target: girl,
       props: {
-        pos: { x: girl.pos.x, y: "-100" },
+        position: { x: girl.position.x, y: "-100" },
       },
       ease: Ease.CubicOut,
       duration: 0.3,
@@ -64,7 +64,7 @@ async function test() {
     text: "点击女孩跳跃",
     parent: app.stage,
     fontSize: 20,
-    pos: { x: 110, y: 436 },
+    position: { x: 110, y: 436 },
   });
 }
 

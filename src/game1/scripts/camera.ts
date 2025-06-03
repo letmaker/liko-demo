@@ -26,8 +26,8 @@ export class Camera extends Script {
    * @param target 要跟随的目标节点
    */
   lookAt(target: LikoNode) {
-    this._lastPos.copyFrom(target.pos);
-    target.on(EventType.transform, this._onTargetTransform, this);
+    this._lastPos.copyFrom(target.position);
+    target.scene?.on(EventType.update, this._onTargetTransform, this);
   }
 
   /**
@@ -38,14 +38,14 @@ export class Camera extends Script {
     const lookTarget = this._lookTarget;
     if (lookTarget) {
       // 计算目标位置的变化量
-      const tx = this._lastPos.x - lookTarget.pos.x;
-      const ty = this._lastPos.y - lookTarget.pos.y;
+      const tx = this._lastPos.x - lookTarget.position.x;
+      const ty = this._lastPos.y - lookTarget.position.y;
       // 更新上一次位置记录
-      this._lastPos.copyFrom(lookTarget.pos);
+      this._lastPos.copyFrom(lookTarget.position);
       // 如果位置有变化，则移动相机
       if (tx || ty) {
-        const pos = this.target.pos;
-        pos.set(pos.x + tx, pos.y + ty);
+        const position = this.target.position;
+        position.set(position.x + tx, position.y + ty);
       }
     }
   }

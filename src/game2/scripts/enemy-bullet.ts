@@ -14,7 +14,6 @@ export class EnemyBullet extends Script {
   }
 
   onCollisionStart(): void {
-    debugger;
     this.target.destroy();
   }
 }

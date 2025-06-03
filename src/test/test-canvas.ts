@@ -1,4 +1,4 @@
-import { App, Canvas, EventType, Texture, utils } from "liko";
+import { App, Canvas, EventType, Texture, utils } from "../../../liko/src";
 
 // 定义线条宽度常量
 const lineWidth = 10;
@@ -14,7 +14,7 @@ async function test() {
   rect.clear();
   rect.rect(0, 0, 100, 100);
   rect.stroke({ color: "#ff0000", width: lineWidth });
-  rect.pos.set(50, 50);
+  rect.position.set(50, 50);
   app.stage.addChild(rect);
 
   // 绘制圆角矩形
@@ -22,7 +22,7 @@ async function test() {
   roundRect.clear();
   roundRect.roundRect(0, 0, 100, 100, 10);
   roundRect.stroke({ color: "#ff0000", width: lineWidth });
-  roundRect.pos.set(200, 50);
+  roundRect.position.set(200, 50);
   app.stage.addChild(roundRect);
 
   // 绘制椭圆
@@ -32,7 +32,7 @@ async function test() {
   ellipse.stroke({ color: "#008B8B", width: lineWidth }).beginPath();
   ellipse.ellipse(0, 0, 50, 30, 0, 2 * Math.PI);
   ellipse.stroke({ color: "#ff0000", width: lineWidth });
-  ellipse.pos.set(350, 50);
+  ellipse.position.set(350, 50);
   app.stage.addChild(ellipse);
 
   // 绘制折线
@@ -41,7 +41,7 @@ async function test() {
   polyLine.stroke({ color: "#008B8B", width: lineWidth }).beginPath();
   polyLine.moveTo(-50, -50).lineTo(0, 50).lineTo(100, 0).lineTo(50, 100);
   polyLine.stroke({ color: "#ff0000", width: lineWidth });
-  polyLine.pos.set(500, 50);
+  polyLine.position.set(500, 50);
   app.stage.addChild(polyLine);
 
   // 绘制水平直线
@@ -49,7 +49,7 @@ async function test() {
   horizontalLine.moveTo(0, 0);
   horizontalLine.lineTo(100, 0);
   horizontalLine.stroke({ width: 2, color: "#ff00ff" });
-  horizontalLine.pos.set(650, 50);
+  horizontalLine.position.set(650, 50);
   app.stage.addChild(horizontalLine);
 
   // 绘制垂直直线
@@ -57,7 +57,7 @@ async function test() {
   verticalLine.moveTo(0, 0);
   verticalLine.lineTo(0, 100);
   verticalLine.stroke({ width: 2, color: "#ff00ff" });
-  verticalLine.pos.set(650, 50);
+  verticalLine.position.set(650, 50);
   app.stage.addChild(verticalLine);
 
   // 绘制圆形
@@ -68,7 +68,7 @@ async function test() {
   circle.circle(0, 0, 50);
   circle.moveTo(50, 50).circle(50, 50, 50);
   circle.stroke({ color: "#ff0000", width: lineWidth });
-  circle.pos.set(50, 250);
+  circle.position.set(50, 250);
   app.stage.addChild(circle);
 
   // 绘制圆弧
@@ -79,7 +79,7 @@ async function test() {
   arc.arc(0, 0, 50, 0, Math.PI);
   arc.moveTo(50, 50).arc(50, 50, 50, 0, Math.PI);
   arc.stroke({ color: "#ff0000", width: lineWidth });
-  arc.pos.set(200, 250);
+  arc.position.set(200, 250);
   app.stage.addChild(arc);
 
   // 绘制圆弧路径
@@ -91,7 +91,7 @@ async function test() {
   arcTo.stroke({ color: "#008B8B", width: lineWidth }).beginPath();
   arcTo.moveTo(0, 0).arcTo(70, 10, 20, 80, 50);
   arcTo.stroke({ color: "#ff0000", width: lineWidth });
-  arcTo.pos.set(350, 250);
+  arcTo.position.set(350, 250);
   app.stage.addChild(arcTo);
 
   // 绘制二次贝塞尔曲线
@@ -102,7 +102,7 @@ async function test() {
   quadraticCurveTo.stroke({ color: "#008B8B", width: lineWidth }).beginPath();
   quadraticCurveTo.moveTo(0, 0).quadraticCurveTo(60, 10, 100, 100);
   quadraticCurveTo.stroke({ color: "#ff0000", width: lineWidth });
-  quadraticCurveTo.pos.set(500, 250);
+  quadraticCurveTo.position.set(500, 250);
   app.stage.addChild(quadraticCurveTo);
 
   // 绘制三次贝塞尔曲线
@@ -114,7 +114,7 @@ async function test() {
   bezierCurveTo.stroke({ color: "#008B8B", width: lineWidth }).beginPath();
   bezierCurveTo.moveTo(0, 0).bezierCurveTo(90, 10, 20, 60, 100, 100);
   bezierCurveTo.stroke({ color: "#ff0000", width: lineWidth });
-  bezierCurveTo.pos.set(650, 250);
+  bezierCurveTo.position.set(650, 250);
   app.stage.addChild(bezierCurveTo);
 
   const polygon = new Canvas();
@@ -126,7 +126,7 @@ async function test() {
   ]);
   polygon.fill({ color: "#483D8B" });
   polygon.stroke({ color: "#008B8B", width: lineWidth });
-  polygon.pos.set(50, 450);
+  polygon.position.set(50, 450);
   app.stage.addChild(polygon);
 
   // 绘制一个 6 边形
@@ -142,7 +142,7 @@ async function test() {
   ]);
   hexagon.fill({ color: "#483D8B" });
   hexagon.stroke({ color: "#008B8B", width: lineWidth });
-  hexagon.pos.set(200, 450);
+  hexagon.position.set(200, 450);
   app.stage.addChild(hexagon);
 
   // 绘制一个 5 角星
@@ -176,7 +176,7 @@ async function test() {
   star.closePath();
   star.fill({ color: "#483D8B" });
   star.stroke({ color: "#008B8B", width: lineWidth, cap: "round", join: "round" });
-  star.pos.set(350, 450);
+  star.position.set(350, 450);
   app.stage.addChild(star);
 
   // 绘制虚线
@@ -185,7 +185,7 @@ async function test() {
   dash.rect(0, 0, 100, 100);
   dash.moveTo(50, 50).circle(50, 50, 40);
   dash.stroke({ color: "#ff0000", width: lineWidth, dash: [10, 5] });
-  dash.pos.set(50, 650);
+  dash.position.set(50, 650);
   app.stage.addChild(dash);
 
   // 填充示例
@@ -194,7 +194,7 @@ async function test() {
   filledShape.rect(0, 0, 100, 100);
   filledShape.stroke({ color: "#ff0000", width: lineWidth, dash: [10, 5] });
   filledShape.fill({ color: "#483D8B" });
-  filledShape.pos.set(200, 650);
+  filledShape.position.set(200, 650);
   app.stage.addChild(filledShape);
 
   // 加载并绘制图片
@@ -206,7 +206,7 @@ async function test() {
   image.clear();
   image.drawImage(texture, 0, 0, 100, 50);
   image.drawImage(texture, 0, 50, 100, 50);
-  image.pos.set(350, 650);
+  image.position.set(350, 650);
   app.stage.addChild(image);
 
   // 使用裁剪蒙版
@@ -215,7 +215,7 @@ async function test() {
   clippedImage.beginPath();
   clippedImage.circle(50, 50, 50).clip();
   clippedImage.drawImage(texture, 0, 0, 200, 100);
-  clippedImage.pos.set(500, 650);
+  clippedImage.position.set(500, 650);
   app.stage.addChild(clippedImage);
 
   // 绘制SVG路径
@@ -226,7 +226,7 @@ async function test() {
   const svg = new Canvas();
   svg.clear();
   svg.drawSvg(svgData);
-  svg.pos.set(650, 650);
+  svg.position.set(650, 650);
   app.stage.addChild(svg);
 
   // 绘制线性渐变
@@ -239,7 +239,7 @@ async function test() {
       { offset: 1, color: "blue" },
     ]),
   });
-  linearGradient.pos.set(50, 850);
+  linearGradient.position.set(50, 850);
   app.stage.addChild(linearGradient);
 
   // 绘制径向渐变
@@ -253,7 +253,7 @@ async function test() {
       { offset: 1, color: "yellow" },
     ]),
   });
-  radialGradient.pos.set(200, 850);
+  radialGradient.position.set(200, 850);
   app.stage.addChild(radialGradient);
 
   // 创建并应用图案填充
@@ -262,7 +262,7 @@ async function test() {
   pattern.clear();
   pattern.rect(0, 0, 100, 100);
   pattern.fill({ color: pat });
-  pattern.pos.set(350, 850);
+  pattern.position.set(350, 850);
   app.stage.addChild(pattern);
 
   // 创建鼠标交互示例：填充/描边切换
@@ -270,7 +270,7 @@ async function test() {
   hoverStroke.clear();
   hoverStroke.circle(50, 50, 50);
   hoverStroke.fill({ color: "#ff0000" });
-  hoverStroke.pos.set(500, 850);
+  hoverStroke.position.set(500, 850);
   app.stage.addChild(hoverStroke);
   // 添加鼠标悬停效果
   hoverStroke.on(EventType.pointerover, () => {
@@ -289,7 +289,7 @@ async function test() {
   hoverChangeShape.clear();
   hoverChangeShape.circle(50, 50, 50);
   hoverChangeShape.stroke({ color: "#ff0000", width: lineWidth });
-  hoverChangeShape.pos.set(650, 850);
+  hoverChangeShape.position.set(650, 850);
   app.stage.addChild(hoverChangeShape);
   // 添加鼠标悬停效果
   hoverChangeShape.on(EventType.pointerover, () => {

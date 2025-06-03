@@ -10,10 +10,9 @@
   "scripts": [
     {
       "id": "11",
-      "type": "Script",
+      "script": "Scene1",
       "description": "场景管理脚本，实现游戏逻辑管理",
       "props": {
-        "script": "Scene1",
         "label": "Scene1"
       }
     }
@@ -26,7 +25,7 @@
       "props": {
         "label": "bg",
         "url": "game2/背景.png",
-        "pos": { "x": 0, "y": 0 },
+        "position": { "x": 0, "y": 0 },
         "width": 480,
         "height": 700
       },
@@ -38,7 +37,7 @@
           "props": {
             "label": "hero",
             "url": "game2/主角1.png",
-            "pos": { "x": 240, "y": 500 },
+            "position": { "x": 240, "y": 500 },
             "width": 102,
             "height": 126,
             "anchor": { "x": 0.5, "y": 0.5 }
@@ -46,10 +45,9 @@
           "scripts": [
             {
               "id": "31",
-              "type": "Script",
+              "script": "Hero",
               "description": "主角飞机控制脚本，处理移动、射击和生命值",
               "props": {
-                "script": "Hero",
                 "label": "Hero",
                 "hp": 1,
                 "fireRate": 3
@@ -64,7 +62,7 @@
           "props": {
             "label": "主角子弹",
             "url": "game2/主角子弹.png",
-            "pos": { "x": 200, "y": 600 },
+            "position": { "x": 200, "y": 600 },
             "width": 10,
             "height": 20,
             "editorOnly": true
@@ -72,10 +70,9 @@
           "scripts": [
             {
               "id": "110",
-              "type": "Script",
+              "script": "HeroBullet",
               "description": "主角子弹行为脚本，控制子弹移动和碰撞检测",
               "props": {
-                "script": "HeroBullet",
                 "label": "HeroBullet"
               }
             }
@@ -88,7 +85,7 @@
           "props": {
             "label": "Enemy1",
             "url": "game2/敌人1.png",
-            "pos": { "x": 50, "y": 100 },
+            "position": { "x": 50, "y": 100 },
             "width": 57,
             "height": 43,
             "editorOnly": true
@@ -96,10 +93,9 @@
           "scripts": [
             {
               "id": "210",
-              "type": "Script",
+              "script": "Enemy1",
               "description": "小型敌机AI脚本，控制移动和攻击模式",
               "props": {
-                "script": "Enemy1",
                 "label": "Enemy1"
               }
             }
@@ -112,7 +108,7 @@
           "props": {
             "label": "Enemy2",
             "url": "game2/敌人2.png",
-            "pos": { "x": 150, "y": 100 },
+            "position": { "x": 150, "y": 100 },
             "width": 69,
             "height": 99,
             "editorOnly": true
@@ -120,10 +116,9 @@
           "scripts": [
             {
               "id": "210",
-              "type": "Script",
+              "script": "Enemy2",
               "description": "中型敌机AI脚本，控制移动轨迹和射击频率",
               "props": {
-                "script": "Enemy2",
                 "label": "Enemy2"
               }
             }
@@ -136,7 +131,7 @@
           "props": {
             "label": "Boss1",
             "url": "game2/boss1.png",
-            "pos": { "x": 300, "y": 100 },
+            "position": { "x": 300, "y": 100 },
             "width": 169,
             "height": 258,
             "editorOnly": true
@@ -144,10 +139,9 @@
           "scripts": [
             {
               "id": "210",
-              "type": "Script",
+              "script": "Boss1",
               "description": "Boss行为脚本，实现多阶段战斗和特殊攻击模式",
               "props": {
-                "script": "Boss1",
                 "label": "Boss1"
               }
             }
@@ -160,7 +154,7 @@
           "props": {
             "label": "EnemyBullet",
             "url": "game2/敌人子弹.png",
-            "pos": { "x": 100, "y": 100 },
+            "position": { "x": 100, "y": 100 },
             "width": 10,
             "height": 20,
             "editorOnly": true
@@ -168,10 +162,9 @@
           "scripts": [
             {
               "id": "410",
-              "type": "Script",
+              "script": "EnemyBullet",
               "description": "敌方子弹行为脚本，控制子弹移动和伤害判定",
               "props": {
-                "script": "EnemyBullet",
                 "label": "EnemyBullet"
               }
             }
@@ -187,7 +180,7 @@
         "label": "score",
         "text": "Score: 0",
         "textColor": "#ff0000",
-        "pos": { "x": 10, "y": 10 },
+        "position": { "x": 10, "y": 10 },
         "fontSize": 20
       }
     }

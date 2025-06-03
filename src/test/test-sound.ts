@@ -1,4 +1,4 @@
-import { App, music, sound, Text } from "liko";
+import { App, music, sound, Text } from "../../../liko/src";
 
 /**
  * 这是一个测试声音功能的示例程序
@@ -16,7 +16,7 @@ async function test() {
     text: "点击播放音效", // 显示的文字内容
     textColor: "#ff0000", // 文字颜色设置为红色
     fontSize: 20, // 文字大小为20像素
-    pos: { x: 50, y: 100 }, // 文字在屏幕上的位置：距左50像素，距上100像素
+    position: { x: 50, y: 100 }, // 文字在屏幕上的位置：距左50像素，距上100像素
     parent: app.stage, // 将文字添加到游戏的主舞台上
   });
   // 当点击文字时，播放子弹音效
@@ -29,7 +29,7 @@ async function test() {
     text: "音效低音量",
     textColor: "#ff0000",
     fontSize: 20,
-    pos: { x: 250, y: 100 },
+    position: { x: 250, y: 100 },
     parent: app.stage,
   });
   // 当点击文字时，以0.3的音量播放子弹音效（1.0为最大音量）
@@ -43,7 +43,7 @@ async function test() {
     text: "点击播放背景音乐",
     textColor: "#ff0000",
     fontSize: 20,
-    pos: { x: 50, y: 200 },
+    position: { x: 50, y: 200 },
     parent: app.stage,
   });
   // 点击后播放背景音乐，并在3秒内逐渐增大音量
@@ -56,7 +56,7 @@ async function test() {
     text: "暂停",
     textColor: "#ff0000",
     fontSize: 20,
-    pos: { x: 250, y: 200 },
+    position: { x: 250, y: 200 },
     parent: app.stage,
   });
   // 点击后暂停指定的背景音乐
@@ -69,7 +69,7 @@ async function test() {
     text: "恢复",
     textColor: "#ff0000",
     fontSize: 20,
-    pos: { x: 350, y: 200 },
+    position: { x: 350, y: 200 },
     parent: app.stage,
   });
   // 点击后恢复播放之前暂停的背景音乐
@@ -82,7 +82,7 @@ async function test() {
     text: "停止",
     textColor: "#ff0000",
     fontSize: 20,
-    pos: { x: 450, y: 200 },
+    position: { x: 450, y: 200 },
     parent: app.stage,
   });
   // 点击后停止所有正在播放的背景音乐
@@ -95,7 +95,7 @@ async function test() {
     text: "销毁",
     textColor: "#ff0000",
     fontSize: 20,
-    pos: { x: 550, y: 200 },
+    position: { x: 550, y: 200 },
     parent: app.stage,
   });
   // 点击后销毁所有音乐资源，释放内存
@@ -109,7 +109,7 @@ async function test() {
     text: "音量-",
     textColor: "#ff0000",
     fontSize: 20,
-    pos: { x: 250, y: 250 },
+    position: { x: 250, y: 250 },
     parent: app.stage,
   });
   // 点击后将指定背景音乐的音量设置为0.5（一半音量）
@@ -122,7 +122,7 @@ async function test() {
     text: "速率+",
     textColor: "#ff0000",
     fontSize: 20,
-    pos: { x: 350, y: 250 },
+    position: { x: 350, y: 250 },
     parent: app.stage,
   });
   // 点击后将指定背景音乐的播放速率设置为2（双倍速）
@@ -135,7 +135,7 @@ async function test() {
     text: "不循环",
     textColor: "#ff0000",
     fontSize: 20,
-    pos: { x: 450, y: 250 },
+    position: { x: 450, y: 250 },
     parent: app.stage,
   });
   // 点击后设置指定背景音乐为不循环播放
@@ -148,7 +148,7 @@ async function test() {
     text: "重置参数",
     textColor: "#ff0000",
     fontSize: 20,
-    pos: { x: 550, y: 250 },
+    position: { x: 550, y: 250 },
     parent: app.stage,
   });
   // 点击后重置所有背景音乐的参数：

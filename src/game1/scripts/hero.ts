@@ -4,7 +4,7 @@ import {
   Point,
   RigidBody,
   Sprite,
-  type SpriteAnimation,
+  type AnimatedSprite,
   Tween,
   type LikoNode,
   type ICollision,
@@ -22,9 +22,9 @@ export class Hero extends Script {
   /** 英雄头部节点引用 */
   head?: LikoNode;
   /** 英雄身体动画引用 */
-  body?: SpriteAnimation;
+  body?: AnimatedSprite;
   /** 英雄武器动画引用 */
-  gun?: SpriteAnimation;
+  gun?: AnimatedSprite;
   /** 旋转角度 */
   rotation = 0;
   /** 子弹发射位置 */
@@ -39,8 +39,8 @@ export class Hero extends Script {
   onAwake(): void {
     // 获取各个子节点引用
     this.head = this.target.findChild({ label: "head" });
-    this.body = this.target.findChild({ label: "body" }) as SpriteAnimation;
-    this.gun = this.target.findChild({ label: "gun" }) as SpriteAnimation;
+    this.body = this.target.findChild({ label: "body" }) as AnimatedSprite;
+    this.gun = this.target.findChild({ label: "gun" }) as AnimatedSprite;
     // 获取刚体组件
     this.rigidBody = this.target.findScript({ Class: RigidBody });
 
@@ -98,7 +98,7 @@ export class Hero extends Script {
       this.rigidBody.linearVelocity = { x: 0, y: 0 };
       // 停止行走动画并重置到第一帧
       this.body.stop();
-      this.body.frame = 0;
+      this.body.currentFrame = 0;
     }
   }
 
@@ -110,7 +110,7 @@ export class Hero extends Script {
     if (this.destroyed) return;
 
     // 计算子弹生成位置，从枪口发射
-    const pos = this.gun!.localToWorld(this.bulletPos.set(50, 10), this.bulletPos, this.scene);
+    const position = this.gun!.localToWorld(this.bulletPos.set(50, 10), this.bulletPos, this.scene);
     // 加载子弹纹理
     const texture = await loader.load<Texture>("game1/assets/hero/bullet.png");
     if (!texture) return;
@@ -120,7 +120,7 @@ export class Hero extends Script {
     bullet.label = "bullet";
     bullet.texture = texture;
     bullet.anchor.set(0, 0.5);
-    bullet.pos.set(pos.x, pos.y + texture.height / 2);
+    bullet.position.set(position.x, position.y + texture.height / 2);
     this.scene!.addChild(bullet);
 
     // 为子弹添加刚体组件
@@ -131,7 +131,7 @@ export class Hero extends Script {
     boxRigid.category = "子弹";
     boxRigid.shapes = [{ shapeType: "box", isSensor: true }];
     // 根据角色朝向设置子弹飞行方向
-    boxRigid.setVelocity(Math.sign(this.target.scale.x) * 10, 0);
+    boxRigid.setLinearVelocity(Math.sign(this.target.scale.x) * 10, 0);
     bullet.addScript(boxRigid);
 
     // 设置子弹自动销毁定时器

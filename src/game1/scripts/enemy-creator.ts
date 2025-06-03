@@ -3,7 +3,7 @@ import {
   EventType,
   loader,
   RigidBody,
-  SpriteAnimation,
+  AnimatedSprite,
   Tween,
   type LikoNode,
   type ICollision,
@@ -35,7 +35,7 @@ export class EnemyCreator extends Script {
     const enemy = this.scene?.cloneNode({ id: "1710672389604283" });
     if (enemy) {
       // 设置敌人初始位置为生成器的位置
-      enemy.pos.x = this.target.pos.x;
+      enemy.position.x = this.target.position.x;
       // 获取敌人的刚体组件
       const rigidBody = enemy.findScript<RigidBody>({ Class: RigidBody });
       // 设置敌人向左移动的随机速度
@@ -58,7 +58,7 @@ export class EnemyCreator extends Script {
     bullet.destroy();
 
     // 在子弹位置创建命中特效
-    this._createHitBoom(this.scene!, bullet.pos.x + 20, bullet.pos.y - 30);
+    this._createHitBoom(this.scene!, bullet.position.x + 20, bullet.position.y - 30);
 
     // 敌人生成器受击时闪红色
     await Tween.to({
@@ -75,7 +75,7 @@ export class EnemyCreator extends Script {
 
     // 如果生命值归零，创建死亡爆炸特效并销毁生成器
     if (this.hp <= 0) {
-      this._createDieBoom(this.scene!, this.target.pos.x, this.target.pos.y);
+      this._createDieBoom(this.scene!, this.target.position.x, this.target.position.y);
       this.target.destroy();
     }
   }
@@ -93,9 +93,9 @@ export class EnemyCreator extends Script {
     if (!textures) return;
 
     // 创建爆炸动画
-    const sheet = new SpriteAnimation(textures);
+    const sheet = new AnimatedSprite(textures);
     sheet.label = "boom_green";
-    sheet.pos.set(x, y);
+    sheet.position.set(x, y);
     parent.addChild(sheet);
 
     // 播放爆炸动画
@@ -121,9 +121,9 @@ export class EnemyCreator extends Script {
     if (!this.target || this.target.destroyed || !textures) return;
 
     // 创建爆炸动画
-    const sheet = new SpriteAnimation(textures);
+    const sheet = new AnimatedSprite(textures);
     sheet.label = "boom_bullet";
-    sheet.pos.set(x, y);
+    sheet.position.set(x, y);
     parent.addChild(sheet);
 
     // 播放爆炸动画

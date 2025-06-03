@@ -23,7 +23,7 @@ async function test() {
     const sprite = new Sprite({
       texture,
       label: `sprite${i}`,
-      pos: { x: Math.random() * 800, y: Math.random() * 800 },
+      position: { x: Math.random() * 800, y: Math.random() * 800 },
       scale: { x: 0.2, y: 0.2 },
       rotation: Math.random() * Math.PI * 2,
       width: texture.width,
@@ -39,9 +39,9 @@ async function test() {
   function render() {
     for (let i = 0; i < count; i++) {
       const sprite = container.children[i];
-      sprite.pos.y += sprite.userData.speed;
-      if (sprite.pos.y > 800) {
-        sprite.pos.y = -texture1!.height;
+      sprite.position.y += sprite.userData.speed;
+      if (sprite.position.y > 800) {
+        sprite.position.y = -texture1!.height;
       }
     }
     requestAnimationFrame(render);

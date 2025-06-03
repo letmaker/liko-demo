@@ -4,7 +4,7 @@ import {
   loader,
   RigidBody,
   Sprite,
-  SpriteAnimation,
+  AnimatedSprite,
   Tween,
   type Texture,
   type LikoNode,
@@ -36,7 +36,7 @@ export class Enemy1 extends Script {
    */
   onAwake(): void {
     // 如果目标是动画精灵，开始播放动画
-    if (this.target instanceof SpriteAnimation) {
+    if (this.target instanceof AnimatedSprite) {
       this.target.play();
     }
     // 获取场景中的英雄角色
@@ -55,11 +55,11 @@ export class Enemy1 extends Script {
   onUpdate(time: number): void {
     if (this.hero && !this.hero.destroyed) {
       // 计算与英雄的距离
-      const distance = this.target.pos.x - this.hero.pos.x;
+      const distance = this.target.position.x - this.hero.position.x;
       // 当距离适中时停止移动并攻击
       if (distance > 0 && distance < 100) {
         // 停止移动
-        this._rigidBody?.setVelocity(0, 0);
+        this._rigidBody?.setLinearVelocity(0, 0);
         // 检查是否可以攻击
         if (time > this._nextAttackTime) {
           // 设置下次攻击时间
@@ -69,7 +69,7 @@ export class Enemy1 extends Script {
         }
       } else {
         // 继续向左移动
-        this._rigidBody?.setVelocity(this.speed, 0);
+        this._rigidBody?.setLinearVelocity(this.speed, 0);
       }
     }
   }
@@ -80,8 +80,8 @@ export class Enemy1 extends Script {
    */
   private async _createBullet() {
     // 计算子弹生成位置
-    const pos = { x: 0, y: this.target.height / 3 };
-    this.target.localToWorld(pos, pos, this.scene);
+    const position = { x: 0, y: this.target.height / 3 };
+    this.target.localToWorld(position, position, this.scene);
     // 加载子弹纹理
     const texture = await loader.load<Texture>("game1/assets/hero/bullet.png");
     if (!texture) return;
@@ -91,7 +91,7 @@ export class Enemy1 extends Script {
     bullet.label = "bullet";
     bullet.texture = texture;
     bullet.anchor.set(0.5, 0.5);
-    bullet.pos.set(pos.x, pos.y);
+    bullet.position.set(position.x, position.y);
 
     // 水平翻转子弹，使其朝向左侧
     bullet.scale.x = -1;
@@ -106,7 +106,7 @@ export class Enemy1 extends Script {
     boxRigid.shapes = [{ shapeType: "box", isSensor: true }];
 
     // 设置子弹向左飞行
-    boxRigid.setVelocity(-5, 0);
+    boxRigid.setLinearVelocity(-5, 0);
     bullet.addScript(boxRigid);
 
     // 设置子弹自动销毁定时器
@@ -128,7 +128,7 @@ export class Enemy1 extends Script {
     bullet.destroy();
 
     // 在子弹位置创建命中特效
-    this._createHitBoom(this.scene!, bullet.pos.x + 20, bullet.pos.y - 30);
+    this._createHitBoom(this.scene!, bullet.position.x + 20, bullet.position.y - 30);
 
     // 敌人受击时闪红色
     await Tween.to({
@@ -145,7 +145,7 @@ export class Enemy1 extends Script {
 
     // 如果生命值归零，创建死亡爆炸特效并销毁敌人
     if (this.hp <= 0) {
-      this._createDieBoom(this.scene!, this.target.pos.x, this.target.pos.y);
+      this._createDieBoom(this.scene!, this.target.position.x, this.target.position.y);
       this.target.destroy();
     }
   }
@@ -162,9 +162,9 @@ export class Enemy1 extends Script {
     if (!textures) return;
 
     // 创建爆炸动画
-    const sheet = new SpriteAnimation(textures);
+    const sheet = new AnimatedSprite(textures);
     sheet.label = "boom_green";
-    sheet.pos.set(x, y);
+    sheet.position.set(x, y);
     parent.addChild(sheet);
     // 播放爆炸动画
     sheet.play();
@@ -187,9 +187,9 @@ export class Enemy1 extends Script {
     if (!this.target || this.target.destroyed || !textures) return;
 
     // 创建爆炸动画
-    const sheet = new SpriteAnimation(textures);
+    const sheet = new AnimatedSprite(textures);
     sheet.label = "boom_bullet";
-    sheet.pos.set(x, y);
+    sheet.position.set(x, y);
     parent.addChild(sheet);
     // 播放爆炸动画
     sheet.play();

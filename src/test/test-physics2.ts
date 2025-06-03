@@ -1,6 +1,6 @@
 // 使用liko测试物理系统能力
 
-import { App, Sprite, Scene, RigidBody, Canvas, Text, type LikoPointerEvent } from "liko";
+import { App, Sprite, Scene, RigidBody, Canvas, Text, type LikoPointerEvent } from "../../../liko/src";
 
 // 主测试函数，使用 async 因为需要等待资源加载
 async function test() {
@@ -28,7 +28,7 @@ async function test() {
   // 创建标题文本
   const title = new Text();
   title.text = "物理引擎测试";
-  title.pos.set(400, 30); // 设置位置在画面上方
+  title.position.set(400, 30); // 设置位置在画面上方
   title.anchor.set(0.5, 0.5); // 设置文本锚点为中心
   title.fontSize = 24; // 设置字体大小
   title.textColor = "#ffffff"; // 设置文字颜色为白色
@@ -37,7 +37,7 @@ async function test() {
   // 创建操作说明文本
   const instructions = new Text();
   instructions.text = "点击按钮添加不同物体，点击场景施加力";
-  instructions.pos.set(400, 60); // 位于标题下方
+  instructions.position.set(400, 60); // 位于标题下方
   instructions.anchor.set(0.5, 0.5);
   instructions.fontSize = 16;
   instructions.textColor = "#cccccc"; // 设置为浅灰色
@@ -114,7 +114,7 @@ async function test() {
   // 为场景添加点击事件处理
   scene.on("click", (e: LikoPointerEvent) => {
     // 获取点击位置坐标
-    const pos = { x: e.pointer.x, y: e.pointer.y };
+    const position = { x: e.pointer.x, y: e.pointer.y };
 
     // 找到所有可移动的物理物体
     const bodies = scene.children.filter((child) => {
@@ -126,11 +126,11 @@ async function test() {
     for (const body of bodies) {
       const rb = body.findScript<RigidBody>({ Class: RigidBody });
       if (rb) {
-        const bodyPos = body.pos;
+        const bodyPos = body.position;
         // 计算力的方向（从点击点指向物体）
         const direction = {
-          x: bodyPos.x - pos.x,
-          y: bodyPos.y - pos.y,
+          x: bodyPos.x - position.x,
+          y: bodyPos.y - position.y,
         };
 
         // 计算点击点到物体的距离
@@ -159,7 +159,7 @@ async function test() {
 function createGround(scene: Scene, x: number, y: number, width: number, height: number, angle: number) {
   // 创建一个画布对象用于绘制地面
   const ground = new Canvas();
-  ground.pos.set(x, y); // 设置位置
+  ground.position.set(x, y); // 设置位置
   ground.anchor.set(0.5, 0.5); // 设置锚点为中心
   ground.rect(0, 0, width, height); // 绘制矩形
   ground.angle = angle; // 设置旋转角度
@@ -180,7 +180,7 @@ function createBall(scene: Scene, x: number, y: number) {
   // 创建精灵对象并加载球的图片
   const ball = new Sprite();
   ball.url = "assets/ball.png";
-  ball.pos.set(x, y);
+  ball.position.set(x, y);
   ball.width = 40;
   ball.height = 40;
   scene.addChild(ball);
@@ -205,7 +205,7 @@ function createBall(scene: Scene, x: number, y: number) {
 function createBox(scene: Scene, x: number, y: number) {
   // 创建画布对象并绘制方块
   const box = new Canvas();
-  box.pos.set(x, y);
+  box.position.set(x, y);
   box.rect(0, 0, 40, 40);
   box.fill({ color: "#ff8800" }); // 橙色
   scene.addChild(box);
@@ -231,7 +231,7 @@ function createBox(scene: Scene, x: number, y: number) {
 function createPolygon(scene: Scene, x: number, y: number) {
   // 创建画布对象并绘制三角形
   const polygon = new Canvas();
-  polygon.pos.set(x, y);
+  polygon.position.set(x, y);
 
   // 绘制等腰三角形
   polygon.beginPath();
@@ -267,7 +267,7 @@ function createPolygon(scene: Scene, x: number, y: number) {
 function createChain(scene: Scene, x: number, y: number) {
   // 创建画布对象并绘制链条
   const chain = new Canvas();
-  chain.pos.set(x, y);
+  chain.position.set(x, y);
 
   // 绘制三段连接的线条
   chain.beginPath();
@@ -299,7 +299,7 @@ function createChain(scene: Scene, x: number, y: number) {
 function createButton(scene: Scene, text: string, x: number, y: number, onClick: () => void) {
   // 创建文本按钮
   const button = new Text();
-  button.pos.set(x, y);
+  button.position.set(x, y);
   button.text = text;
   button.fontSize = 20;
   button.on("click", (e) => {

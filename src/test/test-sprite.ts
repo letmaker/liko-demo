@@ -1,4 +1,4 @@
-import { App, Canvas, EventType, Sprite, Texture, Tween } from "liko";
+import { App, Canvas, EventType, Sprite, Texture, Tween } from "../../../liko/src";
 
 async function test() {
   const app = new App();
@@ -16,14 +16,14 @@ async function test() {
     url: "assets/apple.png",
     scale: { x: 0.5, y: 0.5 },
     anchor: { x: 0.5, y: 0.5 },
-    pos: { x: 400, y: 400 },
+    position: { x: 400, y: 400 },
     parent: app.stage,
   });
 
   new Sprite({
     label: "apple",
     url: "assets/apple.png",
-    pos: { x: 400, y: 400 },
+    position: { x: 400, y: 400 },
     width: 100,
     height: 100,
     anchor: { x: 0.5, y: 0.5 },
@@ -32,7 +32,7 @@ async function test() {
 
   const strawberry = new Sprite({
     url: "assets/strawberry.png",
-    pos: { x: 550, y: 350 },
+    position: { x: 550, y: 350 },
     width: 100,
     height: 100,
     tintColor: 0xff00ff,
@@ -45,7 +45,7 @@ async function test() {
 
   const ball = new Sprite({
     url: "assets/ball.png",
-    pos: { x: 300, y: 600 },
+    position: { x: 300, y: 600 },
     anchor: { x: 0.5, y: 0.5 },
     parent: app.stage,
   });
@@ -59,7 +59,7 @@ async function test() {
   const frames = ["assets/boy.png", "assets/girl.png"];
   const switchableSprite = new Sprite({
     url: "assets/boy.png",
-    pos: { x: 500, y: 600 },
+    position: { x: 500, y: 600 },
     anchor: { x: 0.5, y: 0.5 },
     parent: app.stage,
   });
@@ -77,7 +77,7 @@ async function test() {
     const girl = new Sprite({
       label: "girl",
       texture: texture,
-      pos: { x: 600, y: 600 },
+      position: { x: 600, y: 600 },
       anchor: { x: 0.5, y: 0.5 },
       parent: app.stage,
       onClick: () => {

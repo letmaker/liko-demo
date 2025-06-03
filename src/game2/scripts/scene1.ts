@@ -36,7 +36,7 @@ export class Scene1 extends Script {
   createEnemy() {
     const enemy = this.scene?.cloneNode({ label: Math.random() > 0.35 ? "Enemy1" : "Enemy2" });
     if (enemy) {
-      enemy.pos.set(Math.random() * (this.stage!.width - enemy.width), -enemy.height);
+      enemy.position.set(Math.random() * (this.stage!.width - enemy.width), -enemy.height);
       this.scene?.addChild(enemy);
     }
   }
@@ -44,7 +44,7 @@ export class Scene1 extends Script {
   createBoss() {
     const boss = this.scene?.cloneNode({ label: "Boss1" });
     if (boss) {
-      boss.pos.set((this.stage!.width - boss.width) / 2, 50);
+      boss.position.set((this.stage!.width - boss.width) / 2, 50);
       this.scene?.addChild(boss);
     }
   }

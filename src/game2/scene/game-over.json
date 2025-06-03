@@ -10,10 +10,9 @@
   "scripts": [
     {
       "id": "11",
-      "type": "Script",
+      "script": "GameOver",
       "description": "",
       "props": {
-        "script": "GameOver",
         "label": "GameOver"
       }
     }
@@ -28,7 +27,7 @@
         "text": "积分",
         "fontSize": 30,
         "textColor": "#ff0000",
-        "pos": { "x": 240, "y": 200 },
+        "position": { "x": 240, "y": 200 },
         "anchor": { "x": 0.5, "y": 0.5 },
         "width": 100,
         "height": 30
@@ -41,7 +40,7 @@
       "props": {
         "label": "over",
         "url": "game2/游戏结束.png",
-        "pos": { "x": 240, "y": 400 },
+        "position": { "x": 240, "y": 400 },
         "anchor": { "x": 0.5, "y": 0.5 },
         "width": 300,
         "height": 41
@@ -54,7 +53,7 @@
       "props": {
         "label": "restart",
         "url": "game2/重新开始.png",
-        "pos": { "x": 240, "y": 500 },
+        "position": { "x": 240, "y": 500 },
         "anchor": { "x": 0.5, "y": 0.5 },
         "width": 300,
         "height": 41

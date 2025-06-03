@@ -10,7 +10,7 @@ export class Boss1 extends Script {
   bulletSpeed = 2;
 
   onAwake(): void {
-    Tween.from({ target: this.target, duration: 1, props: { alpha: 0, pos: { x: "+0", y: -100 } } })
+    Tween.from({ target: this.target, duration: 1, props: { alpha: 0, position: { x: "+0", y: -100 } } })
       .onAllComplete(() => {
         const rigidBody = new RigidBody({
           rigidType: "dynamic",
@@ -42,7 +42,10 @@ export class Boss1 extends Script {
       const bullet = this.scene?.cloneNode({ label: "EnemyBullet" });
       if (bullet) {
         bullet.rotation = rotation + Math.PI / 2;
-        bullet.pos.set(this.target.pos.x + this.target.width / 2, this.target.pos.y + this.target.height / 2);
+        bullet.position.set(
+          this.target.position.x + this.target.width / 2,
+          this.target.position.y + this.target.height / 2,
+        );
         this.scene?.addChild(bullet);
         const enemyBullet = bullet.findScript<EnemyBullet>({ Class: EnemyBullet });
         if (enemyBullet) {

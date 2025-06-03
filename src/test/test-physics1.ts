@@ -1,4 +1,4 @@
-import { App, Canvas, Rectangle, RigidBody, Scene, Sprite, Text } from "liko";
+import { App, Canvas, Rectangle, RigidBody, Scene, Sprite, Text } from "../../../liko/src";
 
 async function test() {
   // 创建一个游戏应用实例
@@ -25,7 +25,7 @@ async function test() {
       url: "assets/ball.png", // 小球的图片资源路径
       width: 40, // 小球的显示宽度（像素）
       height: 40, // 小球的显示高度（像素）
-      pos: { x: Math.random() * 700 + 50, y: 0 }, // 设置小球的初始位置：x坐标随机（50-750），y坐标为0（顶部）
+      position: { x: Math.random() * 700 + 50, y: 0 }, // 设置小球的初始位置：x坐标随机（50-750），y坐标为0（顶部）
       parent: scene, // 将小球添加到游戏场景中
       scripts: [
         new RigidBody({
@@ -50,7 +50,7 @@ async function test() {
   // 创建一个说明文本
   new Text({
     text: "点击场景添加小球", // 文本内容
-    pos: { x: 400, y: 60 }, // 文本在场景中的位置
+    position: { x: 400, y: 60 }, // 文本在场景中的位置
     anchor: { x: 0.5, y: 0.5 }, // 文本的锚点，用于旋转和缩放的中心点
     fontSize: 24, // 文本的字号
     textColor: "#ffffff", // 文本的填充颜色
@@ -62,7 +62,7 @@ async function test() {
     url: "assets/box.png", // 方块图片路径
     width: 64, // 方块宽度
     height: 64, // 方块高度
-    pos: { x: 140, y: 200 }, // 初始位置
+    position: { x: 140, y: 200 }, // 初始位置
     scale: { x: 0.5, y: 0.5 }, // 将方块缩放到原始大小的一半
     anchor: { x: 0.5, y: 0.5 }, // 设置锚点在方块中心，影响旋转和缩放的中心点
     parent: scene, // 添加到场景中
@@ -82,7 +82,7 @@ async function test() {
     url: "assets/box.png",
     width: 64,
     height: 64,
-    pos: { x: 400, y: 200 },
+    position: { x: 400, y: 200 },
     scale: { x: 0.5, y: 0.5 },
     anchor: { x: 0.5, y: 0.5 },
     angle: 45,
@@ -102,7 +102,7 @@ async function test() {
     url: "assets/box.png",
     width: 64,
     height: 64,
-    pos: { x: 500, y: 200 },
+    position: { x: 500, y: 200 },
     scale: { x: 0.5, y: 0.5 },
     anchor: { x: 0.5, y: 0.5 },
     parent: scene,
@@ -120,7 +120,7 @@ async function test() {
     url: "assets/ball.png", // 图片的路径
     width: 40, // 图片的宽度
     height: 40, // 图片的高度
-    pos: { x: 80, y: 0 }, // 图片在游戏画面中的位置
+    position: { x: 80, y: 0 }, // 图片在游戏画面中的位置
     anchor: { x: 0.5, y: 0.5 }, // 图片的锚点，用于旋转和缩放
     parent: scene, // 图片的父对象，这里是游戏的舞台
     scripts: [
@@ -150,7 +150,7 @@ async function test() {
   triangle.lineTo(0, 50); // 画线到第三个点
   triangle.closePath(); // 闭合路径
   triangle.fill({ color: "#ff00ff" }); // 填充粉色
-  triangle.pos.set(600, 300); // 设置位置
+  triangle.position.set(600, 300); // 设置位置
   triangle.angle = 5; // 设置旋转角度
   scene.addChild(triangle); // 添加到场景
 
@@ -179,7 +179,7 @@ async function test() {
     url: "assets/brick.png",
     width: 128,
     height: 128,
-    pos: { x: 100, y: 450 },
+    position: { x: 100, y: 450 },
     scale: { x: 0.5, y: 0.5 },
     anchor: { x: 0.5, y: 0.5 },
     parent: scene,
@@ -195,7 +195,7 @@ async function test() {
   const ground = new Canvas();
   ground.rect(0, 0, 700, 40); // 创建一个700x40像素的矩形作为地面
   ground.fill({ color: "#ff8800" }); // 使用橙色填充地面
-  ground.pos.set(0, 500); // 设置地面的位置
+  ground.position.set(0, 500); // 设置地面的位置
   ground.angle = 5; // 使地面略微倾斜5度
   scene.addChild(ground);
 
@@ -212,7 +212,7 @@ async function test() {
   const chain = new Canvas();
   chain.moveTo(0, 0).lineTo(100, 10).lineTo(200, 50).lineTo(400, 0); // 绘制折线
   chain.stroke({ color: "#ff8800", width: 2 }); // 设置线条颜色和宽度
-  chain.pos.set(0, 100); // 设置位置
+  chain.position.set(0, 100); // 设置位置
   chain.angle = 5; // 设置角度
   scene.addChild(chain);
 

@@ -3,7 +3,7 @@
   "type": "Scene",
   "props": {
     "label": "test",
-    "pos": { "x": 0, "y": 0 },
+    "position": { "x": 0, "y": 0 },
     "scale": { "x": 1, "y": 1 },
     "angle": 0,
     "width": 720,
@@ -18,7 +18,7 @@
       "props": {
         "url": "assets/apple.png",
         "label": "apple",
-        "pos": { "x": 120, "y": 400 },
+        "position": { "x": 120, "y": 400 },
         "scale": { "x": 0.48387870788574083, "y": 0.48387870788573745 },
         "angle": 0,
         "width": 320,
@@ -34,7 +34,7 @@
       "props": {
         "url": "assets/brick.png",
         "label": "brick",
-        "pos": { "x": 283.55798339843625, "y": -1.2609558105469818 },
+        "position": { "x": 283.55798339843625, "y": -1.2609558105469818 },
         "angle": 0,
         "width": 128,
         "height": 128,
@@ -50,7 +50,7 @@
       "props": {
         "url": "assets/apple2.png",
         "label": "apple2",
-        "pos": { "x": 69.64007568359051, "y": 146.67922973632716 },
+        "position": { "x": 69.64007568359051, "y": 146.67922973632716 },
         "scale": { "x": 1, "y": 1 },
         "angle": 0,
         "width": 50,
@@ -65,7 +65,7 @@
       "props": {
         "url": "assets/strawberry.png",
         "label": "strawberry",
-        "pos": { "x": 406.86645507812204, "y": 309.38897705077994 },
+        "position": { "x": 406.86645507812204, "y": 309.38897705077994 },
         "scale": { "x": 0.5454565429687499, "y": 0.5454565429687499 },
         "angle": 0,
         "width": 350,
@@ -78,9 +78,8 @@
       "scripts": [
         {
           "id": "script51",
-          "type": "Script",
+          "script": "TestScript",
           "props": {
-            "script": "TestScript",
             "label": "test-script"
           }
         }
