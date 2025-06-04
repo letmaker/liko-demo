@@ -1,6 +1,6 @@
 // 使用liko测试物理系统能力
 
-import { App, Sprite, Scene, RigidBody, Canvas, Text, type LikoPointerEvent } from "../../../liko/src";
+import { App, Sprite, Scene, RigidBody, Canvas, Text, type LikoPointerEvent } from "liko";
 
 // 主测试函数，使用 async 因为需要等待资源加载
 async function test() {

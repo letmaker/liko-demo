@@ -1,4 +1,4 @@
-import { App, Canvas, EventType, Text, utils } from "../../../liko/src";
+import { App, Canvas, EventType, Text, utils } from "liko";
 
 // 设置文字默认大小为30像素，便于统一管理和后续修改
 const FONT_SIZE = 30;

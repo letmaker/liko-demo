@@ -1,4 +1,4 @@
-import { App, Canvas, Rectangle, RigidBody, Scene, Sprite, Text } from "../../../liko/src";
+import { App, Canvas, Rectangle, RigidBody, Scene, Sprite, Text } from "liko";
 
 async function test() {
   // 创建一个游戏应用实例

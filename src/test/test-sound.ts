@@ -1,4 +1,4 @@
-import { App, music, sound, Text } from "../../../liko/src";
+import { App, music, sound, Text } from "liko";
 
 /**
  * 这是一个测试声音功能的示例程序

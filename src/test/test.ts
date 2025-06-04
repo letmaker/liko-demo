@@ -1,4 +1,4 @@
-import { App, Scene, Text, Canvas } from "../../../liko/src";
+import { App, Scene, Text, Canvas } from "liko";
 
 const json = {
   id: "1",

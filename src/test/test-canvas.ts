@@ -1,4 +1,4 @@
-import { App, Canvas, EventType, Texture, utils } from "../../../liko/src";
+import { App, Canvas, EventType, Texture, utils } from "liko";
 
 // 定义线条宽度常量
 const lineWidth = 10;

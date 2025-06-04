@@ -1,4 +1,4 @@
-import { App, Canvas, RigidBody, Scene, type IPoint } from "../../../liko/src";
+import { App, Canvas, RigidBody, Scene, type IPoint } from "liko";
 
 /**
  * 物理引擎关节演示

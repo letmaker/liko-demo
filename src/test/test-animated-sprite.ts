@@ -1,4 +1,4 @@
-import { AnimatedSprite, App, Ease, EventType, loader, Text, type Texture, Tween } from "../../../liko/src";
+import { AnimatedSprite, App, Ease, EventType, loader, Text, type Texture, Tween } from "liko";
 
 async function test() {
   const app = new App();

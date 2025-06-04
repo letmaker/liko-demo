@@ -1,5 +1,5 @@
 // 使用liko引擎绘制文本并显示"Hello World"
-import { App, Text } from "../../../liko/src";
+import { App, Text } from "liko";
 
 /**
  * 测试函数 - 初始化应用并显示文本

@@ -1,6 +1,6 @@
 // 这个示例展示了如何使用 liko 引擎来制作动画效果
 
-import { App, Sprite, Tween, EventType, Timer } from "../../../liko/src";
+import { App, Sprite, Tween, EventType, Timer } from "liko";
 
 async function test() {
   // 创建一个新的游戏应用实例

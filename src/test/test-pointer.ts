@@ -1,5 +1,5 @@
 // 使用liko引擎绘制文本并显示"Hello World"
-import { App, Text, Canvas } from "../../../liko/src";
+import { App, Text, Canvas } from "liko";
 
 async function test() {
   // 创建应用实例
