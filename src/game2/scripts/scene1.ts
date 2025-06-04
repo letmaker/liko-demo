@@ -2,10 +2,10 @@ import { type INodeData, Script, type Text } from "liko";
 import * as gameOverData from "../scene/game-over.json";
 
 export class Scene1 extends Script {
-  enemyCreateInterval = 2;
+  enemyCreateInterval = 0.5;
   enemyCreateTime = 0;
 
-  bossCreateInterval = 15;
+  bossCreateInterval = 20;
   bossCreateTime = 0;
   bossState = false;
 

@@ -49,8 +49,8 @@
               "description": "主角飞机控制脚本，处理移动、射击和生命值",
               "props": {
                 "label": "Hero",
-                "hp": 1,
-                "fireRate": 3
+                "hp": 10,
+                "fireRate": 5
               }
             }
           ]

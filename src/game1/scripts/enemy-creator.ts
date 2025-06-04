@@ -23,7 +23,7 @@ export class EnemyCreator extends Script {
    * 设置定时器，每2秒创建一个敌人
    */
   onAwake(): void {
-    setInterval(() => this._createEnemy(), 2000);
+    setInterval(() => this._createEnemy(), 1000);
   }
 
   /**

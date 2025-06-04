@@ -6,7 +6,9 @@ export class Hero extends Script {
   private _rigidBody?: RigidBody;
 
   bulletId = "100";
-  fireRate = 3;
+  // 这里的值会被 scene1.json 中的 props 覆盖
+  fireRate = 1;
+  // 这里的值会被 scene1.json 中的 props 覆盖
   hp = 1;
 
   onAwake(): void {
