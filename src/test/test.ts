@@ -1,4 +1,4 @@
-import { App, Scene } from "../../../liko/src";
+import { App, Scene, Text, Canvas } from "../../../liko/src";
 
 const json = {
   id: "1",
@@ -33,6 +33,21 @@ async function test() {
   const scene = new Scene();
   scene.fromJson(json);
   app.stage.addChild(scene);
+
+  const text = new Text();
+  // text.text = "";
+  scene.addChild(text);
+
+  const canvas = new Canvas();
+  canvas.rect(0, 0, 100, 100);
+  canvas.fill({ color: "red" });
+  canvas.stroke({ color: "blue", width: 2 });
+
+  canvas.beginPath();
+  canvas.circle(100, 100, 50);
+  canvas.fill({ color: "green" });
+  canvas.stroke({ color: "yellow", width: 2 });
+  scene.addChild(canvas);
 }
 
 test();
