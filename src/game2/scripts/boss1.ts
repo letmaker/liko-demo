@@ -6,7 +6,7 @@ export class Boss1 extends Script {
 
   bulletTimer = 0;
   bulletFireRate = 1;
-  bulletCount = 6;
+  bulletCount = 8;
   bulletSpeed = 2;
 
   onAwake(): void {
