@@ -4,6 +4,7 @@ const tests = {
   animatedSprite: () => import("./test/test-animated-sprite"),
   text: () => import("./test/test-text"),
   canvas: () => import("./test/test-canvas"),
+  shape: () => import("./test/test-shape"),
   scene: () => import("./test/test-scene"),
   sound: () => import("./test/test-sound"),
   tween: () => import("./test/test-tween"),

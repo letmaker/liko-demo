@@ -10,5 +10,8 @@
     "*.scene": "json",
     "*.atlas": "json"
   },
-  "cSpell.words": ["liko"]
+  "cSpell.words": ["liko"],
+  "[typescript]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  }
 }

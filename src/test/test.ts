@@ -1,53 +1,43 @@
-import { App, Scene, Text, Canvas } from "liko";
-
-const json = {
-  id: "1",
-  type: "Scene",
-  props: {
-    label: "scene1",
-    width: 480,
-    height: 700,
-    description: "飞机射击游戏第一关",
-  },
-  children: [
-    {
-      id: "999",
-      type: "Text",
-      description: "显示积分",
-      props: {
-        label: "score",
-        text: "积分：0",
-        position: { x: 100, y: 100 },
-        fontSize: 30,
-        width: 100,
-        height: 30,
-      },
-    },
-  ],
-};
+import { App, Sprite, Shape } from "../../../liko/src";
 
 async function test() {
   const app = new App();
-  await app.init({ width: 800, height: 800 });
+  await app.init({ width: 800, height: 800, bgColor: 0x333333 });
 
-  const scene = new Scene();
-  scene.fromJson(json);
-  app.stage.addChild(scene);
+  new Sprite({
+    label: "apple",
+    // 白色图片
+    url: "assets/blank.png",
+    scale: { x: 0.5, y: 0.5 },
+    anchor: { x: 0.5, y: 0.5 },
+    position: { x: 400, y: 400 },
+    parent: app.stage,
+    tintColor: "#ffff00",
+  });
 
-  const text = new Text();
-  // text.text = "";
-  scene.addChild(text);
+  new Shape({
+    label: "circle",
+    drawCircle: {
+      x: 100,
+      y: 100,
+      radius: 50,
+      fill: "#ffff00",
+    },
+    position: { x: 200, y: 100 },
+    parent: app.stage,
+  });
 
-  const canvas = new Canvas();
-  canvas.rect(0, 0, 100, 100);
-  canvas.fill({ color: "red" });
-  canvas.stroke({ color: "blue", width: 2 });
-
-  canvas.beginPath();
-  canvas.circle(100, 100, 50);
-  canvas.fill({ color: "green" });
-  canvas.stroke({ color: "yellow", width: 2 });
-  scene.addChild(canvas);
+  new Shape({
+    label: "circle",
+    drawCircle: {
+      x: 100,
+      y: 100,
+      radius: 50,
+      fill: "#ff0000",
+    },
+    position: { x: 400, y: 100 },
+    parent: app.stage,
+  });
 }
 
 test();
