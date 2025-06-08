@@ -1,4 +1,4 @@
-import { App, Canvas, EventType, Sprite, Shape } from "../../../liko/src";
+import { App, Canvas, EventType, Sprite, Shape } from "liko";
 
 async function test() {
   const app = new App();

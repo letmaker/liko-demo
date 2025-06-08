@@ -1,4 +1,4 @@
-import { App, Canvas, RigidBody, Scene, type IPoint } from "liko";
+import { App, Canvas, RigidBody, Scene, Shape, type IPoint } from "liko";
 
 /**
  * 物理引擎关节演示
@@ -123,6 +123,33 @@ function createPulleyJoint(scene: Scene) {
       ],
     });
     ball1.addScript(rigidBody1);
+  });
+
+  const debugLine = new Shape();
+  debugLine.drawLine({
+    points: [anchor1.position, anchor2.position],
+    color: "#ffff00",
+  });
+  scene.addChild(debugLine);
+
+  const debugLine1 = new Shape();
+  scene.addChild(debugLine1);
+
+  scene.on("update", () => {
+    debugLine1.drawLine({
+      points: [anchor1.position, ball1.position],
+      color: "#ffff00",
+    });
+  });
+
+  const debugLine2 = new Shape();
+  scene.addChild(debugLine2);
+
+  scene.on("update", () => {
+    debugLine2.drawLine({
+      points: [anchor2.position, ball2.position],
+      color: "#ffff00",
+    });
   });
 }
 
@@ -262,16 +289,16 @@ function createRopeJoint(scene: Scene, grRigidBody: RigidBody, position: IPoint,
     ropeJoint.addScript(rigidBody);
   });
 
-  // const start = distanceJoint.position.clone();
-  // const debugLine = new Canvas();
-  // scene.addChild(debugLine);
+  const start = ropeJoint.position.clone();
+  const debugLine = new Shape();
+  scene.addChild(debugLine);
 
-  // scene.on("update", () => {
-  //   debugLine.clear();
-  //   debugLine.moveTo(start.x, start.y);
-  //   debugLine.lineTo(distanceJoint.position.x, distanceJoint.position.y);
-  //   debugLine.stroke({ color: "#ffff00", width: 2 });
-  // });
+  scene.on("update", () => {
+    debugLine.drawLine({
+      points: [start, ropeJoint.position],
+      color: "#ffff00",
+    });
+  });
 }
 
 /**
@@ -374,16 +401,16 @@ function createDistanceJoint(scene: Scene, grRigidBody: RigidBody, position: IPo
     distanceJoint.addScript(rigidBody);
   });
 
-  // const start = distanceJoint.position.clone();
-  // const debugLine = new Canvas();
-  // scene.addChild(debugLine);
+  const start = distanceJoint.position.clone();
+  const debugLine = new Shape();
+  scene.addChild(debugLine);
 
-  // scene.on("update", () => {
-  //   debugLine.clear();
-  //   debugLine.moveTo(start.x, start.y);
-  //   debugLine.lineTo(distanceJoint.position.x, distanceJoint.position.y);
-  //   debugLine.stroke({ color: "#ffff00", width: 2 });
-  // });
+  scene.on("update", () => {
+    debugLine.drawLine({
+      points: [start, distanceJoint.position],
+      color: "#ffff00",
+    });
+  });
 }
 
 /**
