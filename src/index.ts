@@ -14,6 +14,8 @@ const tests = {
   physicsJoint: () => import("./test/test-physics-joint"),
   game2: () => import("./game2"),
   test: () => import("./test/test"),
+  ai: () => import("./test/test-ai-overview"),
+  camera: () => import("./test/test-camera"),
 };
 
 const testNames = Object.keys(tests).filter((key) => key !== "test");
