@@ -18,14 +18,14 @@ async function test() {
     frameRate: 10,
   }).play();
 
-  const jumpTextures = await loader.load<Texture[]>("assets/sheet/girl-jump.json", "sheet");
-  const runTextures = await loader.load<Texture[]>("assets/sheet/girl-run.json", "sheet");
+  const jumpTextures = await loader.load<Texture[]>("assets/sheet/girl-jump.atlas", "sheet");
+  const runTextures = await loader.load<Texture[]>("assets/sheet/girl-run.atlas", "sheet");
   if (!runTextures || !jumpTextures) {
     return;
   }
 
   new AnimatedSprite({
-    url: "assets/sheet/fire-rotated.json",
+    url: "assets/sheet/fire-rotated.atlas",
     parent: app.stage,
     position: { x: 250, y: 290 },
     frameRate: 20,

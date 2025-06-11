@@ -317,7 +317,7 @@ async function likoEngineOverview() {
 
   // JSON Sheet动画精灵 - Fire
   new AnimatedSprite({
-    url: "assets/sheet/fire-rotated.json",
+    url: "assets/sheet/fire-rotated.atlas",
     parent: mainScene,
     position: { x: 280, y: 360 },
     scale: { x: 0.6, y: 0.6 },
@@ -335,8 +335,8 @@ async function likoEngineOverview() {
   });
 
   // 可交互动画精灵 - Girl (加载纹理数组)
-  const jumpTextures = await loader.load<Texture[]>("assets/sheet/girl-jump.json", "sheet");
-  const runTextures = await loader.load<Texture[]>("assets/sheet/girl-run.json", "sheet");
+  const jumpTextures = await loader.load<Texture[]>("assets/sheet/girl-jump.atlas", "sheet");
+  const runTextures = await loader.load<Texture[]>("assets/sheet/girl-run.atlas", "sheet");
 
   if (runTextures && jumpTextures) {
     const interactiveGirl = new AnimatedSprite({
