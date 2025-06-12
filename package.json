@@ -1,5 +1,6 @@
 {
   "name": "liko-demo",
+  "description": "Liko游戏引擎的演示和测试项目，展示引擎的各种功能包括精灵、动画、物理引擎、音频等",
   "license": "MIT",
   "version": "1.0.0",
   "type": "module",

@@ -9,35 +9,45 @@ import {
   Script,
   Sprite,
   Text,
-} from "../../../liko/src";
+} from "liko";
 
+/**
+ * 相机跟随测试示例
+ * 演示了相机跟随目标、查看目标、碰撞检测等功能
+ */
 async function test() {
+  // 创建应用实例
   const app = new App();
+
+  // 初始化应用配置
   await app.init({
-    width: 800,
-    height: 600,
-    bgColor: 0x333333,
+    width: 800, // 窗口宽度
+    height: 600, // 窗口高度
+    bgColor: 0x333333, // 背景色
     physics: {
-      enabled: true,
-      debug: true,
+      enabled: true, // 启用物理引擎
+      debug: true, // 显示物理调试信息
     },
   });
 
+  // 创建游戏场景（比窗口更宽，用于演示相机跟随）
   const scene = new Scene({
-    width: 1600,
-    height: 600,
+    width: 1600, // 场景宽度
+    height: 600, // 场景高度
     parent: app.stage,
   });
 
+  // 创建背景精灵
   new Sprite({
     url: "assets/background.png",
     scale: { x: 2.2, y: 2.2 },
-    repeat: true,
+    repeat: true, // 重复平铺
     width: 750,
     height: 256,
     parent: scene,
   });
 
+  // 创建地面精灵（静态刚体）
   const ground = new Sprite({
     url: "assets/ground.png",
     repeat: true,
@@ -48,11 +58,12 @@ async function test() {
     scripts: [
       new RigidBody({
         label: "ground",
-        rigidType: "static",
+        rigidType: "static", // 静态刚体，不受物理力影响
       }),
     ],
   });
 
+  // 创建蓝色方块障碍物
   new Sprite({
     url: "assets/block_blue.png",
     position: { x: 0, y: 450 },
@@ -67,22 +78,27 @@ async function test() {
     ],
   });
 
+  // 创建可点击的标志，用于演示相机切换视角
   const apple = new Sprite({
     url: "assets/sign_exit.png",
     position: { x: 350, y: 472 },
     parent: scene,
     onClick: () => {
+      // 点击时暂时取消跟随，切换到目标位置
       if (scene.camera.followEnabled) {
         const pos = flag.localToWorld({ x: 0, y: 0 });
         scene.camera.followEnabled = false;
         scene.camera.lookAt(pos.x, pos.y);
 
+        // 1秒后恢复跟随
         setTimeout(() => {
           scene.camera.followEnabled = true;
         }, 1000);
       }
     },
   });
+
+  // 添加提示文本
   new Text({
     text: "点我查看目标",
     textColor: "red",
@@ -91,6 +107,7 @@ async function test() {
     parent: apple,
   });
 
+  // 创建金币平台
   new Sprite({
     url: "assets/block_coin.png",
     position: { x: 500, y: 400 },
@@ -105,6 +122,7 @@ async function test() {
     ],
   });
 
+  // 创建可收集的金币（传感器碰撞体）
   new Sprite({
     url: "assets/coin_gold.png",
     position: { x: 514, y: 350 },
@@ -120,13 +138,14 @@ async function test() {
             shapeType: "circle",
             radius: 20,
             offset: { x: 0, y: 0 },
-            isSensor: true,
+            isSensor: true, // 传感器，只检测碰撞不产生物理反应
           },
         ],
       }),
     ],
   });
 
+  // 更多金币平台和金币
   new Sprite({
     url: "assets/block_coin.png",
     position: { x: 650, y: 300 },
@@ -163,6 +182,7 @@ async function test() {
     ],
   });
 
+  // 创建危险的尖刺陷阱
   new Sprite({
     url: "assets/block_spikes.png",
     position: { x: 900, y: 450 },
@@ -177,6 +197,7 @@ async function test() {
     ],
   });
 
+  // 更多金币
   new Sprite({
     url: "assets/coin_gold.png",
     position: { x: 1000, y: 400 },
@@ -221,6 +242,7 @@ async function test() {
     ],
   });
 
+  // 创建终点旗帜
   const flag = new Sprite({
     url: "assets/flag_green.png",
     position: { x: 1500, y: 472 },
@@ -235,14 +257,16 @@ async function test() {
     ],
   });
 
+  // 创建装饰性NPC动画
   new AnimatedSprite({
     url: "assets/sheet/fliggy.atlas",
     parent: scene,
-    position: { x: 300, y: 528 },
+    position: { x: 150, y: 528 },
     anchor: { x: 0.5, y: 1 },
     frameRate: 20,
   }).play();
 
+  // 创建玩家角色（可控制的动画精灵）
   const girl = new AnimatedSprite({
     url: "assets/boy/idle.atlas",
     parent: scene,
@@ -253,17 +277,17 @@ async function test() {
     height: 128,
     scripts: [
       new RigidBody({
-        rigidType: "dynamic",
+        rigidType: "dynamic", // 动态刚体，受物理力影响
         shapes: [
           {
             shapeType: "box",
             width: 40,
             height: 78,
-            offset: { x: 44, y: 50 },
+            offset: { x: 44, y: 50 }, // 调整碰撞体位置
           },
         ],
       }),
-      new Hero(),
+      new Hero(), // 添加英雄控制脚本
     ],
   }).play();
 
@@ -275,47 +299,68 @@ async function test() {
   // debug.fill({ color: "rgba(0,255,0,0.5)" });
   // girl.addChild(debug);
 
+  // 设置相机边界和跟随目标
   scene.camera.worldBounds = new Rectangle(0, 0, ground.width, ground.height);
-  scene.camera.followTarget(girl, { followX: true, followY: false });
+  scene.camera.followTarget(girl, { followX: true, followY: false }); // 只在X轴跟随
 }
 
+// 启动测试
 test();
 
+/**
+ * 英雄角色控制脚本
+ * 处理玩家输入、移动、跳跃、攻击和碰撞事件
+ */
 class Hero extends Script<AnimatedSprite> {
-  private _jumping = false;
-  private _dead = false;
+  private _jumping = false; // 是否正在跳跃
+  private _dead = false; // 是否已死亡
 
+  /**
+   * 键盘按下事件处理
+   */
   onKeyDown(e: KeyboardEvent): void {
     if (this._dead) return;
 
+    // W键跳跃
     if (e.key === "w" && !this._jumping) {
       this._jumping = true;
       const rigidBody = this.target.findScript<RigidBody>({ Class: RigidBody });
-      rigidBody?.applyLinearImpulse({ x: 0, y: -18 });
+      rigidBody?.applyLinearImpulse({ x: 0, y: -18 }); // 施加向上的冲量
       this.target.url = "assets/boy/jump.atlas";
-    } else if (e.key === "j") {
+    }
+    // J键攻击
+    else if (e.key === "j") {
       this.target.url = "assets/boy/attack3.atlas";
       this.target.once(EventType.ended, () => {
-        // TODO 这里好像无法看到最后一帧
+        // 攻击动画结束后回到待机状态
         this.target.url = "assets/boy/idle.atlas";
       });
     }
   }
 
+  /**
+   * 每帧更新处理
+   */
   onUpdate(): void {
     if (this._dead) return;
 
     const stage = this.target?.stage;
     const rigidBody = this.target.findScript<RigidBody>({ Class: RigidBody });
+
+    // A键左移
     if (stage?.keyboard.hasKeydown("a")) {
-      this.target.scale.x = -1;
+      this.target.scale.x = -1; // 翻转精灵方向
       rigidBody?.setLinearVelocity(-3);
       this.target.url = "assets/boy/run.atlas";
-    } else if (stage?.keyboard.hasKeydown("d")) {
+    }
+    // D键右移
+    else if (stage?.keyboard.hasKeydown("d")) {
       this.target.scale.x = 1;
       rigidBody?.setLinearVelocity(3);
       this.target.url = "assets/boy/run.atlas";
-    } else {
+    }
+    // 无按键时停止移动
+    else {
       rigidBody?.setLinearVelocity(0);
       // if (!this._jumping) {
       //   this.target.url = "assets/boy/idle.atlas";
@@ -323,19 +368,27 @@ class Hero extends Script<AnimatedSprite> {
     }
   }
 
+  /**
+   * 碰撞开始事件处理
+   */
   onCollisionStart(e: ICollision): void {
     if (this._dead) return;
 
+    // 碰到地面或方块时结束跳跃状态
     if (e.other.label === "ground" || e.other.label === "block") {
       this._jumping = false;
       this.target.url = "assets/boy/idle.atlas";
-    } else if (e.other.label === "icon") {
+    }
+    // 收集金币
+    else if (e.other.label === "icon") {
       e.other.target.destroy();
-    } else if (e.other.label === "spikes") {
+    }
+    // 碰到尖刺时死亡
+    else if (e.other.label === "spikes") {
       this._dead = true;
       this.target.url = "assets/boy/dead.atlas";
       this.target.on(EventType.ended, () => {
-        this.target.stop();
+        this.target.stop(); // 停止动画
       });
       console.log("game over");
     }

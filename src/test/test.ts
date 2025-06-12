@@ -1,4 +1,5 @@
-import { App, Sprite, Shape } from "../../../liko/src";
+// 内部测试用例
+import { App, Sprite, Shape } from "liko";
 
 async function test() {
   const app = new App();
