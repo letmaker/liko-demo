@@ -9,7 +9,7 @@ import {
   Script,
   Sprite,
   Text,
-} from "liko";
+} from "../../../liko/src";
 
 /**
  * 相机跟随测试示例
@@ -258,13 +258,13 @@ async function test() {
   });
 
   // 创建装饰性NPC动画
-  new AnimatedSprite({
-    url: "assets/sheet/fliggy.atlas",
-    parent: scene,
-    position: { x: 150, y: 528 },
-    anchor: { x: 0.5, y: 1 },
-    frameRate: 20,
-  }).play();
+  // new AnimatedSprite({
+  //   url: "assets/sheet/fliggy.atlas",
+  //   parent: scene,
+  //   position: { x: 150, y: 528 },
+  //   anchor: { x: 0.5, y: 1 },
+  //   frameRate: 20,
+  // }).play();
 
   // 创建玩家角色（可控制的动画精灵）
   const girl = new AnimatedSprite({
@@ -389,8 +389,31 @@ class Hero extends Script<AnimatedSprite> {
       this.target.url = "assets/boy/dead.atlas";
       this.target.on(EventType.ended, () => {
         this.target.stop(); // 停止动画
+        this.showRestartButton(); // 显示重新开始按钮
       });
       console.log("game over");
     }
+  }
+
+  /**
+   * 显示重新开始按钮
+   */
+  showRestartButton(): void {
+    // 创建游戏结束文本
+    new Text({
+      text: "游戏结束\n\n按 R 键重新开始",
+      textColor: "red",
+      fontSize: 36,
+      position: { x: 400, y: 300 },
+      anchor: { x: 0.5, y: 0.5 },
+      parent: this.target.stage,
+    });
+
+    // 监听键盘事件重新开始游戏
+    this.target.stage?.on("keydown", (e: KeyboardEvent) => {
+      if (e.key === "r" || e.key === "R") {
+        window.location.reload();
+      }
+    });
   }
 }
