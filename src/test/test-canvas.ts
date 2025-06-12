@@ -273,12 +273,12 @@ async function test() {
   hoverStroke.position.set(500, 850);
   app.stage.addChild(hoverStroke);
   // 添加鼠标悬停效果
-  hoverStroke.on(EventType.pointerover, () => {
+  hoverStroke.on(EventType.pointerOver, () => {
     hoverStroke.clear();
     hoverStroke.circle(50, 50, 50);
     hoverStroke.stroke({ color: "#ff0000", width: lineWidth });
   });
-  hoverStroke.on(EventType.pointerout, () => {
+  hoverStroke.on(EventType.pointerOut, () => {
     hoverStroke.clear();
     hoverStroke.circle(50, 50, 50);
     hoverStroke.fill({ color: "#ff0000" });
@@ -292,12 +292,12 @@ async function test() {
   hoverChangeShape.position.set(650, 850);
   app.stage.addChild(hoverChangeShape);
   // 添加鼠标悬停效果
-  hoverChangeShape.on(EventType.pointerover, () => {
+  hoverChangeShape.on(EventType.pointerOver, () => {
     hoverChangeShape.clear();
     hoverChangeShape.rect(0, 0, 100, 100);
     hoverChangeShape.stroke({ color: "#ff0000", width: lineWidth });
   });
-  hoverChangeShape.on(EventType.pointerout, () => {
+  hoverChangeShape.on(EventType.pointerOut, () => {
     hoverChangeShape.clear();
     hoverChangeShape.circle(50, 50, 50);
     hoverChangeShape.stroke({ color: "#ff0000", width: lineWidth });
@@ -318,7 +318,7 @@ function showBounds(app: App) {
   // 遍历舞台上的所有子元素
   for (const child of app.stage.children) {
     // 当鼠标移入元素时
-    child.on(EventType.pointerover, () => {
+    child.on(EventType.pointerOver, () => {
       // 获取元素在世界坐标系和本地坐标系中的边界
       const lb = child.getLocalBounds();
       const wb = child.getWorldBounds();
@@ -334,7 +334,7 @@ function showBounds(app: App) {
     });
 
     // 当鼠标移出元素时，移除边界框
-    child.on(EventType.pointerout, () => {
+    child.on(EventType.pointerOut, () => {
       app.stage.removeChild(bounds);
     });
   }

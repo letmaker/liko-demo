@@ -144,7 +144,7 @@ async function test() {
     stroke: "#0000ff",
   });
 
-  mouseShape.on(EventType.pointerover, () => {
+  mouseShape.on(EventType.pointerOver, () => {
     mouseShape.drawCircle({
       x: 50,
       y: 50,
@@ -155,7 +155,7 @@ async function test() {
     });
   });
 
-  mouseShape.on(EventType.pointerout, () => {
+  mouseShape.on(EventType.pointerOut, () => {
     mouseShape.drawCircle({
       x: 50,
       y: 50,
@@ -190,7 +190,7 @@ function showBounds(app: App) {
   const bounds = new Canvas();
 
   for (const child of app.stage.children) {
-    child.on(EventType.pointerover, () => {
+    child.on(EventType.pointerOver, () => {
       const lb = child.getLocalBounds();
       const wb = child.getWorldBounds();
       console.log("local bounds", lb);
@@ -202,7 +202,7 @@ function showBounds(app: App) {
       app.stage.addChild(bounds);
     });
 
-    child.on(EventType.pointerout, () => {
+    child.on(EventType.pointerOut, () => {
       app.stage.removeChild(bounds);
     });
   }

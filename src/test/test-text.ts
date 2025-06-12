@@ -220,7 +220,7 @@ function showBounds(app: App) {
   // 遍历舞台上的所有元素
   for (const child of app.stage.children) {
     // 当鼠标移动到元素上方时触发
-    child.on(EventType.pointerover, () => {
+    child.on(EventType.pointerOver, () => {
       // 获取元素在自身坐标系中的边界信息（不考虑位置和旋转等变换）
       const lb = child.getLocalBounds();
       // 获取元素在舞台坐标系中的实际边界信息（考虑了位置、旋转等变换）
@@ -240,7 +240,7 @@ function showBounds(app: App) {
     });
 
     // 当鼠标离开元素时，移除边界框
-    child.on(EventType.pointerout, () => {
+    child.on(EventType.pointerOut, () => {
       app.stage.removeChild(bounds);
     });
   }

@@ -145,17 +145,17 @@ async function likoEngineOverview() {
   });
 
   // 添加交互事件
-  interactiveSprite.on("pointerover", () => {
+  interactiveSprite.on(EventType.pointerOver, () => {
     interactiveSprite.scale.set(0.5);
     interactiveSprite.tintColor = 0xff6b6b;
   });
 
-  interactiveSprite.on("pointerout", () => {
+  interactiveSprite.on(EventType.pointerOut, () => {
     interactiveSprite.scale.set(0.4);
     interactiveSprite.tintColor = 0xffffff;
   });
 
-  interactiveSprite.on("click", () => {
+  interactiveSprite.on(EventType.click, () => {
     // 播放音效
     sound.play("assets/sound/bullet.mp3", 0.5);
 
@@ -238,7 +238,7 @@ async function likoEngineOverview() {
   });
 
   let frameIndex = 0;
-  switchableSprite.on("click", async () => {
+  switchableSprite.on(EventType.click, async () => {
     // 切换到下一个纹理
     frameIndex = frameIndex === 1 ? 0 : 1;
     if (girlTexture && boyTexture) {
@@ -435,7 +435,7 @@ async function likoEngineOverview() {
   });
 
   // 为物理方块添加点击事件 - 施加向上的力
-  physicsBox.on("click", () => {
+  physicsBox.on(EventType.click, () => {
     const rigidBody = physicsBox.findScript<RigidBody>({ Class: RigidBody });
     if (rigidBody) {
       // 施加向上的力
@@ -468,7 +468,7 @@ async function likoEngineOverview() {
   mainScene.addChild(physicsBall);
 
   // 为物理小球添加点击事件 - 增加向上的速度
-  physicsBall.on("click", () => {
+  physicsBall.on(EventType.click, () => {
     const rigidBody = physicsBall.findScript<RigidBody>({ Class: RigidBody });
     if (rigidBody) {
       // 直接设置向上的线性速度
@@ -687,11 +687,11 @@ async function likoEngineOverview() {
 
   drawInteractiveShape("#e74c3c");
 
-  interactiveCanvas.on("pointerover", () => {
+  interactiveCanvas.on(EventType.pointerOver, () => {
     drawInteractiveShape("#2ecc71");
   });
 
-  interactiveCanvas.on("pointerout", () => {
+  interactiveCanvas.on(EventType.pointerOut, () => {
     drawInteractiveShape("#e74c3c");
   });
 
@@ -888,7 +888,7 @@ async function likoEngineOverview() {
     });
 
     // 鼠标悬停时变成圆形
-    interactiveShape.on("pointerover", () => {
+    interactiveShape.on(EventType.pointerOver, () => {
       interactiveShape.drawCircle({
         x: 25,
         y: 25,
@@ -900,7 +900,7 @@ async function likoEngineOverview() {
     });
 
     // 鼠标离开时恢复矩形
-    interactiveShape.on("pointerout", () => {
+    interactiveShape.on(EventType.pointerOut, () => {
       interactiveShape.drawCircle({
         x: 25,
         y: 25,
@@ -954,7 +954,7 @@ async function likoEngineOverview() {
     position: { x: 50, y: 830 },
   });
 
-  musicButton.on("click", () => {
+  musicButton.on(EventType.click, () => {
     music.play("assets/sound/bg.mp3").fadeIn(2);
     musicButton.text = "🎵 音乐播放中...";
   });
@@ -967,7 +967,7 @@ async function likoEngineOverview() {
     position: { x: 220, y: 830 },
   });
 
-  stopMusicButton.on("click", () => {
+  stopMusicButton.on(EventType.click, () => {
     music.stopAll();
     musicButton.text = "🎵 播放背景音乐";
   });
@@ -989,7 +989,7 @@ async function likoEngineOverview() {
 
   // 10. 全局事件处理
   // 点击场景添加粒子效果
-  mainScene.on("click", (event: LikoPointerEvent) => {
+  mainScene.on(EventType.click, (event: LikoPointerEvent) => {
     createParticleEffect(event.pointer.x, event.pointer.y);
     // 播放点击音效
     sound.play("assets/sound/bullet.mp3", 0.3);

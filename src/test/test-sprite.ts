@@ -107,7 +107,7 @@ function showBounds(app: App) {
   const bounds = new Canvas();
 
   for (const child of app.stage.children) {
-    child.on(EventType.pointerover, () => {
+    child.on(EventType.pointerOver, () => {
       const lb = child.getLocalBounds();
       const wb = child.getWorldBounds();
       console.log("local bounds", lb);
@@ -119,7 +119,7 @@ function showBounds(app: App) {
       app.stage.addChild(bounds);
     });
 
-    child.on(EventType.pointerout, () => {
+    child.on(EventType.pointerOut, () => {
       app.stage.removeChild(bounds);
     });
   }
