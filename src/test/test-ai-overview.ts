@@ -31,6 +31,7 @@ async function likoEngineOverview() {
     width: 1200, // 增加窗口宽度以容纳更好的布局
     height: 960, // 增加窗口高度以容纳动画示例
     bgColor: 0x2c3e50, // 设置背景颜色（深蓝灰色）
+    container: "gameContainer", // 游戏容器节点或者名称
     physics: {
       // 物理引擎配置(如果需要再开启，不需要无需配置)
       enabled: true, // 启用物理系统
@@ -195,6 +196,10 @@ async function likoEngineOverview() {
     props: { angle: 360 },
     duration: 3,
     repeat: 0, // 无限重复
+    onUpdate: (progress: number) => {
+      // 计算当前旋转角度
+      rotatingSprite.angle = progress * 360;
+    },
   }).play();
 
   // 浮动动画精灵
@@ -410,6 +415,181 @@ async function likoEngineOverview() {
     textAlign: "center",
     position: { x: 560, y: 460 },
     anchor: { x: 0.5, y: 0 },
+    parent: mainScene,
+  });
+
+  // ========== 拖动系统演示区域 (y: 350-450) ==========
+
+  // 区域标题
+  new Text({
+    text: "拖动系统",
+    textColor: "#e67e22",
+    fontSize: 20,
+    fontWeight: "bold",
+    position: { x: 900, y: 160 },
+    parent: mainScene,
+  });
+
+  // 可拖动精灵
+  const draggableSprite = new Sprite({
+    url: "assets/strawberry.png",
+    width: 50,
+    height: 50,
+    anchor: { x: 0.5, y: 0.5 },
+    position: { x: 950, y: 220 },
+    parent: mainScene,
+  });
+
+  // 可拖动Shape
+  const draggableShape = new Shape({
+    label: "draggableShape",
+    drawRect: {
+      x: -25,
+      y: -25,
+      width: 50,
+      height: 50,
+      fill: "#3498db",
+      stroke: "#2980b9",
+      strokeWidth: 3,
+    },
+    anchor: { x: 0.5, y: 0.5 },
+    position: { x: 1050, y: 220 },
+    parent: mainScene,
+  });
+
+  // 可拖动的带物理的对象
+  const draggablePhysicsSprite = new Sprite({
+    url: "assets/apple.png",
+    width: 40,
+    height: 40,
+    anchor: { x: 0.5, y: 0.5 },
+    position: { x: 1000, y: 320 },
+    parent: mainScene,
+    scripts: [
+      new RigidBody({
+        rigidType: "dynamic",
+        friction: 0.8,
+        restitution: 0.3,
+        allowRotation: false, // 禁用旋转使拖动更平滑
+      }),
+    ],
+  });
+
+  // 拖动功能实现
+  function makeDraggable(target: any, isPhysics = false) {
+    let isDragging = false;
+    const dragOffset = { x: 0, y: 0 };
+    let rigidBody: RigidBody | null = null;
+
+    if (isPhysics) {
+      rigidBody = target.findScript({ Class: RigidBody }) as RigidBody;
+    }
+
+    // 开始拖动
+    target.on(EventType.pointerDown, (event: LikoPointerEvent) => {
+      isDragging = true;
+      dragOffset.x = event.pointer.x - target.position.x;
+      dragOffset.y = event.pointer.y - target.position.y;
+
+      // 视觉反馈
+      target.scale.set(1.1);
+      if (target.tintColor !== undefined) {
+        target.tintColor = 0xffff99;
+      }
+
+      // 如果是物理对象，暂时设为kinematic类型以便拖动
+      if (rigidBody) {
+        rigidBody.rigidType = "kinematic";
+      }
+
+      // 播放拖动开始音效
+      sound.play("assets/sound/bullet.mp3", 0.2);
+    });
+
+    // 拖动中
+    app.stage.on(EventType.pointerMove, (event: LikoPointerEvent) => {
+      if (isDragging) {
+        const newX = event.pointer.x - dragOffset.x;
+        const newY = event.pointer.y - dragOffset.y;
+
+        // 限制在场景范围内
+        const clampedX = Math.max(25, Math.min(1175, newX));
+        const clampedY = Math.max(25, Math.min(925, newY));
+
+        if (rigidBody) {
+          // 物理对象使用刚体移动
+          rigidBody.setPosition(clampedX, clampedY);
+        } else {
+          // 普通对象直接设置位置
+          target.position.set(clampedX, clampedY);
+        }
+      }
+    });
+
+    // 结束拖动
+    app.stage.on(EventType.pointerUp, () => {
+      if (isDragging) {
+        console.log("pointerUp");
+        isDragging = false;
+
+        // 恢复视觉效果
+        target.scale.set(1.0);
+        if (target.tintColor !== undefined) {
+          target.tintColor = 0xffffff;
+        }
+
+        // 如果是物理对象，恢复为dynamic类型
+        if (rigidBody) {
+          rigidBody.rigidType = "dynamic";
+        }
+
+        // 播放拖动结束音效
+        sound.play("assets/sound/bullet.mp3", 0.3);
+      }
+    });
+  }
+
+  // 启用拖动功能
+  makeDraggable(draggableSprite);
+  makeDraggable(draggableShape);
+  makeDraggable(draggablePhysicsSprite, true);
+
+  // 说明文本
+  new Text({
+    text: "可拖动精灵",
+    textColor: "#95a5a6",
+    fontSize: 12,
+    textAlign: "center",
+    position: { x: 950, y: 250 },
+    anchor: { x: 0.5, y: 0 },
+    parent: mainScene,
+  });
+
+  new Text({
+    text: "可拖动Shape",
+    textColor: "#95a5a6",
+    fontSize: 12,
+    textAlign: "center",
+    position: { x: 1050, y: 250 },
+    anchor: { x: 0.5, y: 0 },
+    parent: mainScene,
+  });
+
+  new Text({
+    text: "可拖动物理对象",
+    textColor: "#95a5a6",
+    fontSize: 12,
+    textAlign: "center",
+    position: { x: 1000, y: 350 },
+    anchor: { x: 0.5, y: 0 },
+    parent: mainScene,
+  });
+
+  new Text({
+    text: "拖动功能：鼠标按下并拖动对象",
+    textColor: "#95a5a6",
+    fontSize: 14,
+    position: { x: 900, y: 380 },
     parent: mainScene,
   });
 

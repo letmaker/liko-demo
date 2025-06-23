@@ -1,10 +1,14 @@
 import { RigidBody, Script, sound } from "liko";
 
+// 敌人脚本，用于控制敌人的行为
 export class Enemy1 extends Script {
+  // 血量，会在属性面板中显示
   hp = 1;
+  // 速度，会在属性面板中显示
   speed = 1;
 
   onAwake(): void {
+    // 添加刚体组件，用于控制敌人的运动
     const rigidBody = new RigidBody({
       rigidType: "dynamic",
       linearVelocity: { x: 0, y: this.speed },
@@ -16,6 +20,7 @@ export class Enemy1 extends Script {
     this.target.addScript(rigidBody);
   }
 
+  // 碰撞后减少血量
   onCollisionStart(): void {
     this.hp--;
     if (this.hp <= 0) {

@@ -21,6 +21,7 @@ const tests = {
   test: () => import("./test/test"), // 内部测试
   ai: () => import("./test/test-ai-overview"), // AI功能概览
   camera: () => import("./test/test-camera"), // 摄像机功能
+  particle: () => import("./test/test-particle"), // 粒子系统
 };
 
 // 过滤掉 'test' 项，获取所有测试案例名称

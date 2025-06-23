@@ -9,7 +9,8 @@ import {
   Script,
   Sprite,
   Text,
-} from "../../../liko/src";
+  Tween,
+} from "liko";
 
 /**
  * 相机跟随测试示例
@@ -26,7 +27,8 @@ async function test() {
     bgColor: 0x333333, // 背景色
     physics: {
       enabled: true, // 启用物理引擎
-      debug: true, // 显示物理调试信息
+      gravity: { x: 0, y: 40 },
+      // debug: true, // 显示物理调试信息
     },
   });
 
@@ -183,12 +185,13 @@ async function test() {
   });
 
   // 创建危险的尖刺陷阱
-  new Sprite({
+  const spikes = new Sprite({
     url: "assets/block_spikes.png",
-    position: { x: 900, y: 450 },
+    position: { x: 900, y: 500 },
     parent: scene,
     width: 64,
     height: 64,
+    anchor: { x: 0.5, y: 0.5 },
     scripts: [
       new RigidBody({
         label: "spikes",
@@ -196,6 +199,7 @@ async function test() {
       }),
     ],
   });
+  Tween.to({ target: spikes, props: { scale: { x: 0.9, y: 0.9 } }, duration: 0.5, repeat: 0, yoyo: true }).play();
 
   // 更多金币
   new Sprite({
@@ -258,13 +262,13 @@ async function test() {
   });
 
   // 创建装饰性NPC动画
-  // new AnimatedSprite({
-  //   url: "assets/sheet/fliggy.atlas",
-  //   parent: scene,
-  //   position: { x: 150, y: 528 },
-  //   anchor: { x: 0.5, y: 1 },
-  //   frameRate: 20,
-  // }).play();
+  new AnimatedSprite({
+    url: "assets/sheet/fliggy.atlas",
+    parent: scene,
+    position: { x: 150, y: 528 },
+    anchor: { x: 0.5, y: 1 },
+    frameRate: 20,
+  }).play();
 
   // 创建玩家角色（可控制的动画精灵）
   const girl = new AnimatedSprite({
@@ -284,6 +288,7 @@ async function test() {
             width: 40,
             height: 78,
             offset: { x: 44, y: 50 }, // 调整碰撞体位置
+            friction: 0, // 设置摩擦力为 0，否则跳跃的时候，会和障碍物粘在一起
           },
         ],
       }),
@@ -325,7 +330,7 @@ class Hero extends Script<AnimatedSprite> {
     if (e.key === "w" && !this._jumping) {
       this._jumping = true;
       const rigidBody = this.target.findScript<RigidBody>({ Class: RigidBody });
-      rigidBody?.applyLinearImpulse({ x: 0, y: -18 }); // 施加向上的冲量
+      rigidBody?.applyLinearImpulse({ x: 0, y: -20 }); // 施加向上的冲量
       this.target.url = "assets/boy/jump.atlas";
     }
     // J键攻击
@@ -350,13 +355,13 @@ class Hero extends Script<AnimatedSprite> {
     // A键左移
     if (stage?.keyboard.hasKeydown("a")) {
       this.target.scale.x = -1; // 翻转精灵方向
-      rigidBody?.setLinearVelocity(-3);
+      rigidBody?.setLinearVelocity(-6);
       this.target.url = "assets/boy/run.atlas";
     }
     // D键右移
     else if (stage?.keyboard.hasKeydown("d")) {
       this.target.scale.x = 1;
-      rigidBody?.setLinearVelocity(3);
+      rigidBody?.setLinearVelocity(6);
       this.target.url = "assets/boy/run.atlas";
     }
     // 无按键时停止移动
