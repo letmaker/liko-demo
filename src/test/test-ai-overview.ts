@@ -20,8 +20,10 @@ import {
   loader,
   Ease,
   EventType,
+  ParticleSystem,
   type Texture,
   type LikoPointerEvent,
+  type LikoNode,
 } from "liko";
 
 async function likoEngineOverview() {
@@ -36,14 +38,12 @@ async function likoEngineOverview() {
       // 物理引擎配置(如果需要再开启，不需要无需配置)
       enabled: true, // 启用物理系统
       debug: false, // 关闭调试显示
-      boundaryArea: new Rectangle(0, 0, 1200, 950).pad(50), // 设置物理边界
+      boundaryArea: new Rectangle(0, 0, 1200, 950).pad(50), // 设置物理边界，超出边界后，物理对象会被销毁
     },
   });
 
   // 2. 场景管理
   const mainScene = new Scene({ width: 1200, height: 950, parent: app.stage });
-
-  // ========== 顶部标题区域 (y: 0-80) ==========
 
   // 3. 文本渲染系统
   // 主标题 - 展示基本文本功能
@@ -59,8 +59,6 @@ async function likoEngineOverview() {
     parent: mainScene,
   });
 
-  // ========== 文本功能演示区域 (y: 80-140) ==========
-
   // 渐变文本 - 展示高级文本效果
   new Text({
     text: "支持渐变色文本效果",
@@ -71,7 +69,7 @@ async function likoEngineOverview() {
     ]),
     fontSize: 22,
     fontWeight: "bold",
-    position: { x: 50, y: 100 },
+    position: { x: 50, y: 120 },
     parent: mainScene,
   });
 
@@ -84,19 +82,23 @@ async function likoEngineOverview() {
   strokeText.fontWeight = "bold";
   strokeText.textStrokeWidth = 3;
   strokeText.textStrokeColor = "#ffffff";
-  strokeText.position.set(400, 100);
+  strokeText.position.set(450, 120);
   mainScene.addChild(strokeText);
 
-  // 功能说明文本
-  new Text({
-    text: "文本渲染功能：支持渐变、描边、对齐等效果",
-    textColor: "#bdc3c7",
+  // 动态更改文本
+  const timerText = new Text({
+    text: "运行时间: 0秒",
     fontSize: 16,
-    position: { x: 700, y: 100 },
+    textColor: "red",
     parent: mainScene,
+    position: { x: 650, y: 125 },
   });
 
-  // ========== 左侧精灵和交互演示区域 (y: 160-480) ==========
+  const startTime = Date.now();
+  app.stage.timer.setInterval(1, () => {
+    const elapsed = Math.floor((Date.now() - startTime) / 1000);
+    timerText.text = `运行时间: ${elapsed}秒`;
+  });
 
   // 区域标题
   new Text({
@@ -104,7 +106,7 @@ async function likoEngineOverview() {
     textColor: "#f1c40f",
     fontSize: 20,
     fontWeight: "bold",
-    position: { x: 50, y: 160 },
+    position: { x: 50, y: 180 },
     parent: mainScene,
   });
 
@@ -115,15 +117,7 @@ async function likoEngineOverview() {
     width: 150,
     height: 100,
     alpha: 0.8,
-    position: { x: 50, y: 190 },
-    parent: mainScene,
-  });
-
-  new Text({
-    text: "静态精灵",
-    textColor: "#95a5a6",
-    fontSize: 14,
-    position: { x: 50, y: 300 },
+    position: { x: 50, y: 210 },
     parent: mainScene,
   });
 
@@ -132,25 +126,14 @@ async function likoEngineOverview() {
   interactiveSprite.url = "assets/apple.png";
   interactiveSprite.scale.set(0.4);
   interactiveSprite.anchor = { x: 0.5, y: 0.5 };
-  interactiveSprite.position.set(300, 220);
+  interactiveSprite.position.set(300, 240);
   mainScene.addChild(interactiveSprite);
-
-  new Text({
-    text: "可交互精灵\n(悬停和点击)",
-    textColor: "#95a5a6",
-    fontSize: 14,
-    textAlign: "center",
-    position: { x: 300, y: 300 },
-    anchor: { x: 0.5, y: 0 },
-    parent: mainScene,
-  });
 
   // 添加交互事件
   interactiveSprite.on(EventType.pointerOver, () => {
-    interactiveSprite.scale.set(0.5);
+    interactiveSprite.scale.set(0.45);
     interactiveSprite.tintColor = 0xff6b6b;
   });
-
   interactiveSprite.on(EventType.pointerOut, () => {
     interactiveSprite.scale.set(0.4);
     interactiveSprite.tintColor = 0xffffff;
@@ -164,7 +147,6 @@ async function likoEngineOverview() {
     Tween.to({
       target: interactiveSprite,
       props: {
-        scale: { x: 0.6, y: 0.6 },
         angle: "+360",
       },
       duration: 0.5,
@@ -176,17 +158,7 @@ async function likoEngineOverview() {
     url: "assets/strawberry.png",
     scale: { x: 0.4, y: 0.4 },
     anchor: { x: 0.5, y: 0.5 },
-    position: { x: 500, y: 240 },
-    parent: mainScene,
-  });
-
-  new Text({
-    text: "旋转动画精灵",
-    textColor: "#95a5a6",
-    fontSize: 14,
-    textAlign: "center",
-    position: { x: 500, y: 320 },
-    anchor: { x: 0.5, y: 0 },
+    position: { x: 450, y: 240 },
     parent: mainScene,
   });
 
@@ -208,17 +180,7 @@ async function likoEngineOverview() {
     width: 56,
     height: 78,
     anchor: { x: 0.5, y: 0.5 },
-    position: { x: 650, y: 240 },
-    parent: mainScene,
-  });
-
-  new Text({
-    text: "浮动动画精灵",
-    textColor: "#95a5a6",
-    fontSize: 14,
-    textAlign: "center",
-    position: { x: 650, y: 320 },
-    anchor: { x: 0.5, y: 0 },
+    position: { x: 600, y: 240 },
     parent: mainScene,
   });
 
@@ -237,7 +199,7 @@ async function likoEngineOverview() {
   const switchableSprite = new Sprite({
     texture: boyTexture,
     anchor: { x: 0.5, y: 0.5 },
-    position: { x: 800, y: 240 },
+    position: { x: 750, y: 240 },
     scale: { x: 0.8, y: 0.8 },
     parent: mainScene,
   });
@@ -251,9 +213,7 @@ async function likoEngineOverview() {
       // 添加切换动画效果
       Tween.to({
         target: switchableSprite,
-        props: {
-          scale: { x: 1.0, y: 1.0 },
-        },
+        props: { scale: { x: 1.0, y: 1.0 } },
         duration: 0.2,
         yoyo: true,
         repeat: 2,
@@ -261,83 +221,41 @@ async function likoEngineOverview() {
     }
   });
 
-  new Text({
-    text: "切换纹理精灵\n(点击切换)",
-    textColor: "#95a5a6",
-    fontSize: 14,
-    textAlign: "center",
-    position: { x: 800, y: 320 },
-    anchor: { x: 0.5, y: 0 },
-    parent: mainScene,
-  });
-
-  // ========== 动画精灵(AnimatedSprite)展示区域 (y: 350-480) ==========
-
   // 动画精灵区域标题
   new Text({
     text: "动画精灵(AnimatedSprite)系统",
     textColor: "#e67e22",
     fontSize: 18,
     fontWeight: "bold",
-    position: { x: 50, y: 350 },
+    position: { x: 50, y: 320 },
     parent: mainScene,
   });
 
-  // Atlas动画精灵 - Fliggy
+  // Atlas 动画精灵 - Fliggy
   new AnimatedSprite({
     url: "assets/sheet/fliggy.atlas",
     parent: mainScene,
-    position: { x: 50, y: 400 },
+    position: { x: 50, y: 380 },
     scale: { x: 0.8, y: 0.8 },
   }).play();
 
-  new Text({
-    text: "Atlas动画\n(Fliggy)",
-    textColor: "#95a5a6",
-    fontSize: 12,
-    textAlign: "center",
-    position: { x: 80, y: 460 },
-    anchor: { x: 0.5, y: 0 },
-    parent: mainScene,
-  });
-
-  // Atlas动画精灵 - Zombie
+  // Atlas 动画精灵 - Zombie
   new AnimatedSprite({
     url: "assets/sheet/zombie.atlas",
     parent: mainScene,
-    position: { x: 170, y: 380 },
+    position: { x: 180, y: 350 },
     scale: { x: 0.4, y: 0.4 },
     frameRate: 8,
   }).play();
 
-  new Text({
-    text: "Atlas动画\n(Zombie)",
-    textColor: "#95a5a6",
-    fontSize: 12,
-    textAlign: "center",
-    position: { x: 200, y: 460 },
-    anchor: { x: 0.5, y: 0 },
-    parent: mainScene,
-  });
-
-  // JSON Sheet动画精灵 - Fire
+  // Atlas Sheet动画精灵 - Fire
   new AnimatedSprite({
     url: "assets/sheet/fire-rotated.atlas",
     parent: mainScene,
-    position: { x: 280, y: 360 },
+    position: { x: 310, y: 350 },
     scale: { x: 0.6, y: 0.6 },
     frameRate: 15,
   }).play();
-
-  new Text({
-    text: "JSON动画\n(Fire)",
-    textColor: "#95a5a6",
-    fontSize: 12,
-    textAlign: "center",
-    position: { x: 320, y: 460 },
-    anchor: { x: 0.5, y: 0 },
-    parent: mainScene,
-  });
 
   // 可交互动画精灵 - Girl (加载纹理数组)
   const jumpTextures = await loader.load<Texture[]>("assets/sheet/girl-jump.atlas", "sheet");
@@ -347,7 +265,7 @@ async function likoEngineOverview() {
     const interactiveGirl = new AnimatedSprite({
       textures: runTextures,
       parent: mainScene,
-      position: { x: 380, y: 380 },
+      position: { x: 440, y: 350 },
       scale: { x: 0.4, y: 0.4 },
       frameRate: 8,
     });
@@ -377,48 +295,7 @@ async function likoEngineOverview() {
         })
         .play();
     });
-
-    new Text({
-      text: "交互动画\n(点击跳跃)",
-      textColor: "#95a5a6",
-      fontSize: 12,
-      textAlign: "center",
-      position: { x: 440, y: 460 },
-      anchor: { x: 0.5, y: 0 },
-      parent: mainScene,
-    });
   }
-
-  // 动态帧率控制的动画精灵
-  const frameRateSprite = new AnimatedSprite({
-    url: "assets/sheet/fliggy.atlas",
-    parent: mainScene,
-    position: { x: 530, y: 400 },
-    scale: { x: 0.6, y: 0.6 },
-    frameRate: 5, // 初始较慢帧率
-  });
-  frameRateSprite.play();
-
-  // 创建帧率变化动画
-  Tween.to({
-    target: frameRateSprite,
-    props: { frameRate: 20 },
-    duration: 3,
-    yoyo: true,
-    repeat: 0,
-  }).play();
-
-  new Text({
-    text: "动态帧率\n(5→20→5fps)",
-    textColor: "#95a5a6",
-    fontSize: 12,
-    textAlign: "center",
-    position: { x: 560, y: 460 },
-    anchor: { x: 0.5, y: 0 },
-    parent: mainScene,
-  });
-
-  // ========== 拖动系统演示区域 (y: 350-450) ==========
 
   // 区域标题
   new Text({
@@ -426,7 +303,7 @@ async function likoEngineOverview() {
     textColor: "#e67e22",
     fontSize: 20,
     fontWeight: "bold",
-    position: { x: 900, y: 160 },
+    position: { x: 900, y: 180 },
     parent: mainScene,
   });
 
@@ -436,7 +313,7 @@ async function likoEngineOverview() {
     width: 50,
     height: 50,
     anchor: { x: 0.5, y: 0.5 },
-    position: { x: 950, y: 220 },
+    position: { x: 950, y: 250 },
     parent: mainScene,
   });
 
@@ -444,8 +321,8 @@ async function likoEngineOverview() {
   const draggableShape = new Shape({
     label: "draggableShape",
     drawRect: {
-      x: -25,
-      y: -25,
+      x: 0,
+      y: 0,
       width: 50,
       height: 50,
       fill: "#3498db",
@@ -453,7 +330,7 @@ async function likoEngineOverview() {
       strokeWidth: 3,
     },
     anchor: { x: 0.5, y: 0.5 },
-    position: { x: 1050, y: 220 },
+    position: { x: 1050, y: 250 },
     parent: mainScene,
   });
 
@@ -461,9 +338,9 @@ async function likoEngineOverview() {
   const draggablePhysicsSprite = new Sprite({
     url: "assets/apple.png",
     width: 40,
-    height: 40,
+    height: 46,
     anchor: { x: 0.5, y: 0.5 },
-    position: { x: 1000, y: 320 },
+    position: { x: 1000, y: 300 },
     parent: mainScene,
     scripts: [
       new RigidBody({
@@ -476,7 +353,7 @@ async function likoEngineOverview() {
   });
 
   // 拖动功能实现
-  function makeDraggable(target: any, isPhysics = false) {
+  function makeDraggable(target: LikoNode, isPhysics = false) {
     let isDragging = false;
     const dragOffset = { x: 0, y: 0 };
     let rigidBody: RigidBody | null = null;
@@ -529,7 +406,6 @@ async function likoEngineOverview() {
     // 结束拖动
     app.stage.on(EventType.pointerUp, () => {
       if (isDragging) {
-        console.log("pointerUp");
         isDragging = false;
 
         // 恢复视觉效果
@@ -554,47 +430,6 @@ async function likoEngineOverview() {
   makeDraggable(draggableShape);
   makeDraggable(draggablePhysicsSprite, true);
 
-  // 说明文本
-  new Text({
-    text: "可拖动精灵",
-    textColor: "#95a5a6",
-    fontSize: 12,
-    textAlign: "center",
-    position: { x: 950, y: 250 },
-    anchor: { x: 0.5, y: 0 },
-    parent: mainScene,
-  });
-
-  new Text({
-    text: "可拖动Shape",
-    textColor: "#95a5a6",
-    fontSize: 12,
-    textAlign: "center",
-    position: { x: 1050, y: 250 },
-    anchor: { x: 0.5, y: 0 },
-    parent: mainScene,
-  });
-
-  new Text({
-    text: "可拖动物理对象",
-    textColor: "#95a5a6",
-    fontSize: 12,
-    textAlign: "center",
-    position: { x: 1000, y: 350 },
-    anchor: { x: 0.5, y: 0 },
-    parent: mainScene,
-  });
-
-  new Text({
-    text: "拖动功能：鼠标按下并拖动对象",
-    textColor: "#95a5a6",
-    fontSize: 14,
-    position: { x: 900, y: 380 },
-    parent: mainScene,
-  });
-
-  // ========== 右侧物理系统演示区域 (y: 160-480) ==========
-
   // 5. 物理系统
   // 动态物理方块
   const physicsBox = new Sprite({
@@ -603,7 +438,7 @@ async function likoEngineOverview() {
     height: 50,
     anchor: { x: 0.5, y: 0.5 },
     parent: mainScene,
-    position: { x: 850, y: 80 },
+    position: { x: 850, y: 120 },
     scripts: [
       new RigidBody({
         rigidType: "dynamic",
@@ -631,7 +466,7 @@ async function likoEngineOverview() {
   physicsBall.width = 35;
   physicsBall.height = 35;
   physicsBall.anchor = { x: 0.5, y: 0.5 };
-  physicsBall.position.set(950, 80);
+  physicsBall.position.set(950, 120);
   physicsBall.scripts = [
     new RigidBody({
       rigidType: "dynamic",
@@ -658,58 +493,13 @@ async function likoEngineOverview() {
     }
   });
 
-  new Text({
-    text: "动态物理对象\n(点击方块施加力，点击小球设置速度)",
-    textColor: "#95a5a6",
-    fontSize: 14,
-    textAlign: "center",
-    position: { x: 900, y: 800 },
-    anchor: { x: 0.5, y: 0 },
-    parent: mainScene,
-  });
-
-  // 旋转的Shape
-  const rotatingShape = new Shape({
-    label: "rotatingShape",
-    drawPolygon: {
-      points: [
-        { x: 0, y: -15 },
-        { x: 12, y: 8 },
-        { x: -12, y: 8 },
-      ],
-      fill: "#e74c3c",
-      stroke: "#c0392b",
-      strokeWidth: 2,
-    },
-    anchor: { x: 0.5, y: 0.5 },
-    position: { x: 780, y: 695 },
-    parent: mainScene,
-  });
-
-  Tween.to({
-    target: rotatingShape,
-    props: { angle: 360 },
-    duration: 4,
-    repeat: 0,
-  }).play();
-
-  new Text({
-    text: "旋转Shape",
-    textColor: "#95a5a6",
-    fontSize: 12,
-    position: { x: 750, y: 725 },
-    parent: mainScene,
-  });
-
-  // ========== Canvas绘图功能展示区域 (y: 500-720) ==========
-
   // 区域标题
   new Text({
     text: "Canvas绘图系统",
     textColor: "#9b59b6",
     fontSize: 20,
     fontWeight: "bold",
-    position: { x: 50, y: 500 },
+    position: { x: 50, y: 460 },
     parent: mainScene,
   });
 
@@ -732,16 +522,8 @@ async function likoEngineOverview() {
   customCanvas.closePath();
   customCanvas.fill({ color: "#2ecc71" });
 
-  customCanvas.position.set(50, 530);
+  customCanvas.position.set(50, 490);
   mainScene.addChild(customCanvas);
-
-  new Text({
-    text: "基本图形",
-    textColor: "#95a5a6",
-    fontSize: 14,
-    position: { x: 50, y: 620 },
-    parent: mainScene,
-  });
 
   // 高级Canvas绘图 - 描边图形
   const strokeCanvas = new Canvas();
@@ -758,20 +540,11 @@ async function likoEngineOverview() {
   strokeCanvas.circle(210, 35, 25);
   strokeCanvas.stroke({ color: "#e74c3c", width: 2, dash: [5, 3] });
 
-  strokeCanvas.position.set(300, 530);
+  strokeCanvas.position.set(310, 490);
   mainScene.addChild(strokeCanvas);
 
-  new Text({
-    text: "描边效果",
-    textColor: "#95a5a6",
-    fontSize: 14,
-    position: { x: 300, y: 620 },
-    parent: mainScene,
-  });
-
-  // 复杂路径绘制
+  // 复杂路径绘制 - 绘制五角星
   const pathCanvas = new Canvas();
-  // 绘制五角星
   pathCanvas.beginPath();
   const outerRadius = 22;
   const innerRadius = outerRadius * 0.382;
@@ -794,7 +567,7 @@ async function likoEngineOverview() {
   pathCanvas.fill({ color: "#f1c40f" });
   pathCanvas.stroke({ color: "#e67e22", width: 2 });
 
-  // 绘制贝塞尔曲线
+  // 绘制贝塞尔曲线 - 椭圆形
   pathCanvas.beginPath();
   pathCanvas.moveTo(100, 15);
   pathCanvas.quadraticCurveTo(140, 0, 180, 15);
@@ -803,16 +576,8 @@ async function likoEngineOverview() {
   pathCanvas.quadraticCurveTo(60, 35, 100, 15);
   pathCanvas.fill({ color: "#3498db" });
 
-  pathCanvas.position.set(580, 530);
+  pathCanvas.position.set(570, 490);
   mainScene.addChild(pathCanvas);
-
-  new Text({
-    text: "复杂路径",
-    textColor: "#95a5a6",
-    fontSize: 14,
-    position: { x: 580, y: 620 },
-    parent: mainScene,
-  });
 
   // 渐变和图案Canvas
   const gradientCanvas = new Canvas();
@@ -838,16 +603,8 @@ async function likoEngineOverview() {
     ]),
   });
 
-  gradientCanvas.position.set(830, 530);
+  gradientCanvas.position.set(830, 490);
   mainScene.addChild(gradientCanvas);
-
-  new Text({
-    text: "渐变效果",
-    textColor: "#95a5a6",
-    fontSize: 14,
-    position: { x: 830, y: 620 },
-    parent: mainScene,
-  });
 
   // 交互式Canvas - 悬停改变颜色
   const interactiveCanvas = new Canvas();
@@ -875,18 +632,8 @@ async function likoEngineOverview() {
     drawInteractiveShape("#e74c3c");
   });
 
-  interactiveCanvas.position.set(1020, 530);
+  interactiveCanvas.position.set(1020, 490);
   mainScene.addChild(interactiveCanvas);
-
-  new Text({
-    text: "交互Canvas",
-    textColor: "#95a5a6",
-    fontSize: 14,
-    position: { x: 1020, y: 620 },
-    parent: mainScene,
-  });
-
-  // ========== Shape几何图形展示区域 (y: 640-790) ==========
 
   // 区域标题
   new Text({
@@ -894,7 +641,7 @@ async function likoEngineOverview() {
     textColor: "#1abc9c",
     fontSize: 20,
     fontWeight: "bold",
-    position: { x: 50, y: 640 },
+    position: { x: 50, y: 580 },
     parent: mainScene,
   });
 
@@ -912,15 +659,7 @@ async function likoEngineOverview() {
       stroke: "#2980b9",
       strokeWidth: 2,
     },
-    position: { x: 50, y: 670 },
-    parent: mainScene,
-  });
-
-  new Text({
-    text: "矩形",
-    textColor: "#95a5a6",
-    fontSize: 12,
-    position: { x: 50, y: 725 },
+    position: { x: 50, y: 620 },
     parent: mainScene,
   });
 
@@ -935,15 +674,7 @@ async function likoEngineOverview() {
       stroke: "#c0392b",
       strokeWidth: 3,
     },
-    position: { x: 150, y: 670 },
-    parent: mainScene,
-  });
-
-  new Text({
-    text: "圆形",
-    textColor: "#95a5a6",
-    fontSize: 12,
-    position: { x: 150, y: 725 },
+    position: { x: 140, y: 620 },
     parent: mainScene,
   });
 
@@ -960,15 +691,7 @@ async function likoEngineOverview() {
       stroke: "#27ae60",
       strokeWidth: 2,
     },
-    position: { x: 250, y: 680 },
-    parent: mainScene,
-  });
-
-  new Text({
-    text: "圆角矩形",
-    textColor: "#95a5a6",
-    fontSize: 12,
-    position: { x: 250, y: 725 },
+    position: { x: 230, y: 620 },
     parent: mainScene,
   });
 
@@ -984,15 +707,7 @@ async function likoEngineOverview() {
       stroke: "#e67e22",
       strokeWidth: 2,
     },
-    position: { x: 350, y: 680 },
-    parent: mainScene,
-  });
-
-  new Text({
-    text: "椭圆",
-    textColor: "#95a5a6",
-    fontSize: 12,
-    position: { x: 350, y: 725 },
+    position: { x: 330, y: 620 },
     parent: mainScene,
   });
 
@@ -1009,15 +724,7 @@ async function likoEngineOverview() {
       stroke: "#8e44ad",
       strokeWidth: 2,
     },
-    position: { x: 450, y: 670 },
-    parent: mainScene,
-  });
-
-  new Text({
-    text: "多边形",
-    textColor: "#95a5a6",
-    fontSize: 12,
-    position: { x: 450, y: 725 },
+    position: { x: 430, y: 610 },
     parent: mainScene,
   });
 
@@ -1035,22 +742,14 @@ async function likoEngineOverview() {
       color: "#34495e",
       lineWidth: 4,
     },
-    position: { x: 550, y: 670 },
-    parent: mainScene,
-  });
-
-  new Text({
-    text: "线条",
-    textColor: "#95a5a6",
-    fontSize: 12,
-    position: { x: 550, y: 725 },
+    position: { x: 530, y: 610 },
     parent: mainScene,
   });
 
   // 动态Shape - 鼠标交互改变形状
   new Shape({
     label: "interactiveShape",
-    position: { x: 650, y: 670 },
+    position: { x: 650, y: 610 },
     parent: mainScene,
   });
 
@@ -1092,15 +791,173 @@ async function likoEngineOverview() {
     });
   }
 
+  // 区域标题
   new Text({
-    text: "交互Shape",
-    textColor: "#95a5a6",
-    fontSize: 12,
-    position: { x: 650, y: 725 },
+    text: "粒子系统(ParticleSystem)",
+    textColor: "#e67e22",
+    fontSize: 20,
+    fontWeight: "bold",
+    position: { x: 50, y: 700 },
     parent: mainScene,
   });
 
-  // ========== 底部控制和状态区域 (y: 800-950) ==========
+  // 粒子示例1: 使用plist配置的火焰效果
+  const fireParticle = new ParticleSystem({
+    url: "assets/particle/fire.plist",
+    parent: mainScene,
+    position: { x: 120, y: 750 },
+    autoPlay: true,
+  });
+
+  // 火焰控制按钮
+  const fireControlButton = new Text({
+    text: "⏸️ 暂停",
+    fontSize: 14,
+    textColor: "#e74c3c",
+    position: { x: 180, y: 750 },
+    parent: mainScene,
+  });
+
+  fireControlButton.on(EventType.click, () => {
+    if (fireParticle.isPlaying && !fireParticle.isPaused) {
+      fireParticle.pause();
+      fireControlButton.text = "▶️ 播放";
+    } else if (fireParticle.isPaused) {
+      fireParticle.resume();
+      fireControlButton.text = "⏸️ 暂停";
+    } else {
+      fireParticle.play();
+      fireControlButton.text = "⏸️ 暂停";
+    }
+    sound.play("assets/sound/bullet.mp3", 0.3);
+  });
+
+  // 粒子示例2: 动态配置的交互粒子系统
+  const interactiveParticle = new ParticleSystem({
+    parent: mainScene,
+    position: { x: 350, y: 750 },
+    autoPlay: true,
+    config: {
+      // 重力设置：影响粒子的加速度
+      gravityX: 0, // 水平重力为0，粒子不会左右偏移
+      gravityY: 150, // 垂直重力150，粒子会加速向下落
+
+      // 发射角度设置
+      angle: 270, // 270度表示向下发射（0度为右，90度为下，180度为左，270度为上）
+      angleVariance: 15, // 角度随机变化范围±15度，增加自然感
+
+      // 颜色设置：RGBA格式，值范围0-1
+      startColor: { r: 0.3, g: 0.6, b: 1.0, a: 1.0 }, // 开始时的蓝色（模拟水）
+      finishColor: { r: 1, g: 0.3, b: 0.8, a: 0.0 }, // 结束时的粉色并逐渐透明
+
+      // 粒子大小设置
+      startParticleSize: 8, // 粒子初始大小
+      finishParticleSize: 12, // 粒子结束时的大小（比初始大小大，模拟水滴扩散）
+
+      // 发射速率：每秒发射的粒子数量
+      emissionRate: 50,
+
+      // 粒子生命周期设置
+      particleLifespan: 2.0, // 每个粒子存活3秒
+      particleLifespanVariance: 0.5, // 生命周期随机变化±0.5秒
+
+      // 初始速度：粒子发射时的速度
+      speed: 100, // 初始速度100像素/秒
+    },
+  });
+
+  // 动态修改粒子属性
+  let particleColorIndex = 0;
+  const particleColors = [
+    { start: { r: 0.2, g: 0.8, b: 1.0, a: 1.0 }, end: { r: 1.0, g: 0.2, b: 0.8, a: 0.0 } }, // 青到粉
+    { start: { r: 1.0, g: 0.3, b: 0.1, a: 1.0 }, end: { r: 1.0, g: 0.8, b: 0.0, a: 0.0 } }, // 红到黄
+    { start: { r: 0.1, g: 1.0, b: 0.3, a: 1.0 }, end: { r: 0.8, g: 1.0, b: 0.1, a: 0.0 } }, // 绿到浅绿
+    { start: { r: 0.8, g: 0.2, b: 1.0, a: 1.0 }, end: { r: 1.0, g: 0.6, b: 0.8, a: 0.0 } }, // 紫到粉
+  ];
+
+  // 每3秒自动切换颜色
+  app.stage.timer.setInterval(3, () => {
+    const colorSet = particleColors[particleColorIndex % particleColors.length];
+    interactiveParticle.setStartColor(colorSet.start);
+    interactiveParticle.setEndColor(colorSet.end);
+    particleColorIndex++;
+  });
+
+  // 鼠标悬停改变发射方向
+  interactiveParticle.on(EventType.pointerOver, () => {
+    interactiveParticle.setAngle(90, 30); // 向上发射
+    interactiveParticle.setEmissionRate(80); // 增加发射速率
+  });
+
+  interactiveParticle.on(EventType.pointerOut, () => {
+    interactiveParticle.setAngle(270, 45); // 向下发射
+    interactiveParticle.setEmissionRate(50); // 恢复发射速率
+  });
+
+  // 点击创建爆炸效果
+  interactiveParticle.on(EventType.click, () => {
+    // 临时创建爆炸粒子
+    const burstParticle = new ParticleSystem({
+      parent: mainScene,
+      position: { x: interactiveParticle.position.x, y: interactiveParticle.position.y },
+    });
+
+    // 设置爆炸效果
+    burstParticle.setStartColor({ r: 1.0, g: 0.8, b: 0.0, a: 1.0 }); // 金黄色
+    burstParticle.setEndColor({ r: 1.0, g: 0.2, b: 0.0, a: 0.0 }); // 透明红色
+    burstParticle.setParticleSize(15, 5); // 从大到小
+    burstParticle.setEmissionRate(200); // 高发射速率
+    burstParticle.setParticleLifespan(1.0); // 较短生命周期
+    burstParticle.setAngle(0, 360); // 全方向发射
+    burstParticle.play();
+
+    // 播放爆炸音效
+    sound.play("assets/sound/bullet.mp3", 0.8);
+
+    // 1.5秒后清理爆炸粒子
+    setTimeout(() => {
+      burstParticle.stop();
+      mainScene.removeChild(burstParticle);
+    }, 1500);
+  });
+
+  // 粒子系统状态显示
+  const particleStatusText = new Text({
+    text: "粒子状态: 火焰: 0, 交互: 0, 鼠标: 0",
+    textColor: "#95a5a6",
+    fontSize: 12,
+    position: { x: 400, y: 750 },
+    parent: mainScene,
+  });
+
+  // 每2秒更新粒子状态
+  app.stage.timer.setInterval(2, () => {
+    particleStatusText.text = `粒子状态: 火焰: ${fireParticle.particleCount}, 交互: ${interactiveParticle.particleCount}, 鼠标: ${mouseTrailParticle.particleCount}`;
+  });
+
+  // 粒子示例3: 跟随鼠标的粒子系统
+  const mouseTrailParticle = new ParticleSystem({
+    parent: mainScene,
+    position: { x: 600, y: 400 }, // 初始位置
+    autoPlay: true,
+  });
+
+  // 设置跟随鼠标的粒子属性
+  mouseTrailParticle.setStartColor({ r: 0.8, g: 0.2, b: 0.8, a: 1.0 }); // 紫色
+  mouseTrailParticle.setEndColor({ r: 0.2, g: 0.8, b: 0.8, a: 0.0 }); // 透明青色
+  mouseTrailParticle.setParticleSize(6, 2); // 大小从6到2
+  mouseTrailParticle.setEmissionRate(30); // 发射速率
+  mouseTrailParticle.setParticleLifespan(1.5, 0.3); // 生命周期
+  mouseTrailParticle.setGravity(0, 20); // 轻微向下的重力
+  mouseTrailParticle.setAngle(90, 60); // 向上发射，角度有变化
+  mouseTrailParticle.play();
+
+  // 监听鼠标移动事件，让粒子跟随鼠标
+  app.stage.on(EventType.pointerMove, (event: LikoPointerEvent) => {
+    if (event.pointer) {
+      mouseTrailParticle.position.set(event.pointer.x, event.pointer.y);
+    }
+  });
 
   // 静态地面（物理边界）
   const ground = new Canvas();
@@ -1152,28 +1009,7 @@ async function likoEngineOverview() {
     musicButton.text = "🎵 播放背景音乐";
   });
 
-  // 9. 计时器系统
-  const timerText = new Text({
-    text: "运行时间: 0秒",
-    fontSize: 16,
-    textColor: "#bdc3c7",
-    parent: mainScene,
-    position: { x: 50, y: 922 },
-  });
-
-  const startTime = Date.now();
-  app.stage.timer.setInterval(1, () => {
-    const elapsed = Math.floor((Date.now() - startTime) / 1000);
-    timerText.text = `运行时间: ${elapsed}秒`;
-  });
-
   // 10. 全局事件处理
-  // 点击场景添加粒子效果
-  mainScene.on(EventType.click, (event: LikoPointerEvent) => {
-    createParticleEffect(event.pointer.x, event.pointer.y);
-    // 播放点击音效
-    sound.play("assets/sound/bullet.mp3", 0.3);
-  });
 
   // 键盘事件处理
   document.addEventListener("keydown", (event) => {
@@ -1188,38 +1024,6 @@ async function likoEngineOverview() {
         break;
     }
   });
-
-  // 辅助函数
-  function createParticleEffect(x: number, y: number) {
-    for (let i = 0; i < 8; i++) {
-      const particle = new Shape();
-      particle.drawCircle({
-        x: 0,
-        y: 0,
-        radius: Math.random() * 4 + 2,
-        fill: `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`,
-      });
-      particle.position.set(x, y);
-      mainScene.addChild(particle);
-
-      // 粒子动画
-      Tween.to({
-        target: particle,
-        props: {
-          position: {
-            x: x + (Math.random() - 0.5) * 150,
-            y: y + (Math.random() - 0.5) * 150,
-          },
-          alpha: 0,
-          scale: { x: 0, y: 0 },
-        },
-        duration: 1,
-        onComplete: () => {
-          mainScene.removeChild(particle);
-        },
-      }).play();
-    }
-  }
 }
 
 // 启动示例
