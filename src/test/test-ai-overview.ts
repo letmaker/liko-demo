@@ -1,6 +1,5 @@
 /**
- * Liko游戏引擎功能综合示例
- * 这个示例主要用于AI理解Liko引擎的能力和使用方式
+ * Liko游戏引擎功能综合示例 - AI学习参考
  */
 import {
   App,
@@ -11,6 +10,7 @@ import {
   Canvas,
   Shape,
   RigidBody,
+  Texture,
   Tween,
   Timer,
   music,
@@ -21,18 +21,17 @@ import {
   Ease,
   EventType,
   ParticleSystem,
-  type Texture,
   type LikoPointerEvent,
   type LikoNode,
 } from "liko";
 
 async function likoEngineOverview() {
-  // 1. 应用程序初始化
+  // 1. 应用初始化 - 基础配置
   const app = new App();
   await app.init({
-    width: 1200, // 增加窗口宽度以容纳更好的布局
-    height: 960, // 增加窗口高度以容纳动画示例
-    bgColor: 0x2c3e50, // 设置背景颜色（深蓝灰色）
+    width: 1200,
+    height: 960,
+    bgColor: 0x2c3e50,
     container: "gameContainer", // 游戏容器节点或者名称
     physics: {
       // 物理引擎配置(如果需要再开启，不需要无需配置)
@@ -42,11 +41,10 @@ async function likoEngineOverview() {
     },
   });
 
-  // 2. 场景管理
+  // 2. 场景创建
   const mainScene = new Scene({ width: 1200, height: 950, parent: app.stage });
 
-  // 3. 文本渲染系统
-  // 主标题 - 展示基本文本功能
+  // 3. 文本渲染 - 基本用法
   new Text({
     label: "title",
     text: "Liko引擎功能展示\nLiko Game Engine Features",
@@ -55,11 +53,11 @@ async function likoEngineOverview() {
     fontWeight: "bold",
     textAlign: "center",
     position: { x: 600, y: 40 },
-    anchor: { x: 0.5, y: 0.5 },
+    anchor: { x: 0.5, y: 0.5 }, // 锚点设置
     parent: mainScene,
   });
 
-  // 渐变文本 - 展示高级文本效果
+  // 渐变文本 - 使用utils.createLinearGradient
   new Text({
     text: "支持渐变色文本效果",
     textColor: utils.createLinearGradient({ startX: 0, endX: 250, startY: 0, endY: 0 }, [
@@ -73,7 +71,7 @@ async function likoEngineOverview() {
     parent: mainScene,
   });
 
-  // 描边文本
+  // 描边文本 - 两种创建方式对比
   const strokeText = new Text();
   strokeText.label = "strokeText";
   strokeText.text = "描边文本效果";
@@ -85,7 +83,7 @@ async function likoEngineOverview() {
   strokeText.position.set(450, 120);
   mainScene.addChild(strokeText);
 
-  // 动态更改文本
+  // 动态文本更新 - 使用Timer
   const timerText = new Text({
     text: "运行时间: 0秒",
     fontSize: 16,
@@ -100,7 +98,6 @@ async function likoEngineOverview() {
     timerText.text = `运行时间: ${elapsed}秒`;
   });
 
-  // 区域标题
   new Text({
     text: "精灵系统与动画",
     textColor: "#f1c40f",
@@ -110,8 +107,7 @@ async function likoEngineOverview() {
     parent: mainScene,
   });
 
-  // 4. 精灵(Sprite)系统
-  // 静态精灵
+  // 4. 精灵系统 - 静态精灵
   new Sprite({
     url: "assets/bg2.webp",
     width: 150,
@@ -121,7 +117,7 @@ async function likoEngineOverview() {
     parent: mainScene,
   });
 
-  // 可交互精灵
+  // 可交互精灵 - 事件处理示例
   const interactiveSprite = new Sprite();
   interactiveSprite.url = "assets/apple.png";
   interactiveSprite.scale.set(0.4);
@@ -129,10 +125,10 @@ async function likoEngineOverview() {
   interactiveSprite.position.set(300, 240);
   mainScene.addChild(interactiveSprite);
 
-  // 添加交互事件
+  // 鼠标事件绑定
   interactiveSprite.on(EventType.pointerOver, () => {
     interactiveSprite.scale.set(0.45);
-    interactiveSprite.tintColor = 0xff6b6b;
+    interactiveSprite.tintColor = 0xff6b6b; // 颜色着色
   });
   interactiveSprite.on(EventType.pointerOut, () => {
     interactiveSprite.scale.set(0.4);
@@ -140,20 +136,16 @@ async function likoEngineOverview() {
   });
 
   interactiveSprite.on(EventType.click, () => {
-    // 播放音效
-    sound.play("assets/sound/bullet.mp3", 0.5);
-
-    // 创建点击动画
+    sound.play("assets/sound/bullet.mp3", 0.5); // 音效播放
+    // Tween动画 - 旋转效果
     Tween.to({
       target: interactiveSprite,
-      props: {
-        angle: "+360",
-      },
+      props: { angle: "+360" }, // 相对值使用"+"前缀
       duration: 0.5,
     }).play();
   });
 
-  // 动画演示精灵
+  // Tween动画系统示例
   const rotatingSprite = new Sprite({
     url: "assets/strawberry.png",
     scale: { x: 0.4, y: 0.4 },
@@ -162,19 +154,18 @@ async function likoEngineOverview() {
     parent: mainScene,
   });
 
-  // 7. 动画系统(Tween) - 连续旋转动画
+  // 连续旋转动画 - 无限循环
   Tween.to({
     target: rotatingSprite,
     props: { angle: 360 },
     duration: 3,
-    repeat: 0, // 无限重复
+    repeat: 0, // 0表示无限重复
     onUpdate: (progress: number) => {
-      // 计算当前旋转角度
       rotatingSprite.angle = progress * 360;
     },
   }).play();
 
-  // 浮动动画精灵
+  // 往复动画 - yoyo效果
   const floatingSprite = new Sprite({
     url: "assets/girl.png",
     width: 56,
@@ -184,16 +175,15 @@ async function likoEngineOverview() {
     parent: mainScene,
   });
 
-  // 上下浮动动画
   Tween.to({
     target: floatingSprite,
     props: { position: { y: 180 } },
     duration: 2,
     repeat: 0,
-    yoyo: true,
+    yoyo: true, // 往复运动
   }).play();
 
-  // 点击切换纹理的精灵
+  // 纹理切换 - loader加载与动态更换
   const boyTexture = await loader.load<Texture>("assets/boy.png");
   const girlTexture = await loader.load<Texture>("assets/girl.png");
   const switchableSprite = new Sprite({
@@ -206,11 +196,10 @@ async function likoEngineOverview() {
 
   let frameIndex = 0;
   switchableSprite.on(EventType.click, async () => {
-    // 切换到下一个纹理
     frameIndex = frameIndex === 1 ? 0 : 1;
     if (girlTexture && boyTexture) {
       switchableSprite.texture = switchableSprite.texture === boyTexture ? girlTexture : boyTexture;
-      // 添加切换动画效果
+      // 缩放动画效果
       Tween.to({
         target: switchableSprite,
         props: { scale: { x: 1.0, y: 1.0 } },
@@ -221,7 +210,6 @@ async function likoEngineOverview() {
     }
   });
 
-  // 动画精灵区域标题
   new Text({
     text: "动画精灵(AnimatedSprite)系统",
     textColor: "#e67e22",
@@ -231,7 +219,7 @@ async function likoEngineOverview() {
     parent: mainScene,
   });
 
-  // Atlas 动画精灵 - Fliggy
+  // 动画精灵 - Atlas文件加载
   new AnimatedSprite({
     url: "assets/sheet/fliggy.atlas",
     parent: mainScene,
@@ -239,16 +227,15 @@ async function likoEngineOverview() {
     scale: { x: 0.8, y: 0.8 },
   }).play();
 
-  // Atlas 动画精灵 - Zombie
+  // 控制帧率的动画精灵
   new AnimatedSprite({
     url: "assets/sheet/zombie.atlas",
     parent: mainScene,
     position: { x: 180, y: 350 },
     scale: { x: 0.4, y: 0.4 },
-    frameRate: 8,
+    frameRate: 8, // 帧率控制
   }).play();
 
-  // Atlas Sheet动画精灵 - Fire
   new AnimatedSprite({
     url: "assets/sheet/fire-rotated.atlas",
     parent: mainScene,
@@ -257,7 +244,7 @@ async function likoEngineOverview() {
     frameRate: 15,
   }).play();
 
-  // 可交互动画精灵 - Girl (加载纹理数组)
+  // 动态切换动画纹理 - 使用纹理数组
   const jumpTextures = await loader.load<Texture[]>("assets/sheet/girl-jump.atlas", "sheet");
   const runTextures = await loader.load<Texture[]>("assets/sheet/girl-run.atlas", "sheet");
 
@@ -271,14 +258,12 @@ async function likoEngineOverview() {
     });
     interactiveGirl.play();
 
-    // 点击切换动画
     interactiveGirl.on(EventType.click, () => {
       if (interactiveGirl.textures === jumpTextures) return;
 
-      // 切换到跳跃动画
-      interactiveGirl.textures = jumpTextures;
+      interactiveGirl.textures = jumpTextures; // 切换纹理组
 
-      // 跳跃动画
+      // 跳跃动画配合
       Tween.to({
         target: interactiveGirl,
         props: {
@@ -290,14 +275,12 @@ async function likoEngineOverview() {
         repeat: 2,
       })
         .onAllComplete(() => {
-          // 动画完成后切换回跑步动画
-          interactiveGirl.textures = runTextures;
+          interactiveGirl.textures = runTextures; // 动画完成后恢复
         })
         .play();
     });
   }
 
-  // 区域标题
   new Text({
     text: "拖动系统",
     textColor: "#e67e22",
@@ -307,7 +290,7 @@ async function likoEngineOverview() {
     parent: mainScene,
   });
 
-  // 可拖动精灵
+  // 拖拽系统实现 - 三种不同对象类型
   const draggableSprite = new Sprite({
     url: "assets/strawberry.png",
     width: 50,
@@ -317,7 +300,6 @@ async function likoEngineOverview() {
     parent: mainScene,
   });
 
-  // 可拖动Shape
   const draggableShape = new Shape({
     label: "draggableShape",
     drawRect: {
@@ -334,7 +316,7 @@ async function likoEngineOverview() {
     parent: mainScene,
   });
 
-  // 可拖动的带物理的对象
+  // 带物理的拖拽对象
   const draggablePhysicsSprite = new Sprite({
     url: "assets/apple.png",
     width: 40,
@@ -352,7 +334,7 @@ async function likoEngineOverview() {
     ],
   });
 
-  // 拖动功能实现
+  // 通用拖拽功能实现
   function makeDraggable(target: LikoNode, isPhysics = false) {
     let isDragging = false;
     const dragOffset = { x: 0, y: 0 };
@@ -378,12 +360,8 @@ async function likoEngineOverview() {
       if (rigidBody) {
         rigidBody.rigidType = "kinematic";
       }
-
-      // 播放拖动开始音效
-      sound.play("assets/sound/bullet.mp3", 0.2);
     });
 
-    // 拖动中
     app.stage.on(EventType.pointerMove, (event: LikoPointerEvent) => {
       if (isDragging) {
         const newX = event.pointer.x - dragOffset.x;
@@ -407,31 +385,23 @@ async function likoEngineOverview() {
     app.stage.on(EventType.pointerUp, () => {
       if (isDragging) {
         isDragging = false;
-
-        // 恢复视觉效果
         target.scale.set(1.0);
         if (target.tintColor !== undefined) {
           target.tintColor = 0xffffff;
         }
 
-        // 如果是物理对象，恢复为dynamic类型
         if (rigidBody) {
-          rigidBody.rigidType = "dynamic";
+          rigidBody.rigidType = "dynamic"; // 恢复物理模拟
         }
-
-        // 播放拖动结束音效
-        sound.play("assets/sound/bullet.mp3", 0.3);
       }
     });
   }
 
-  // 启用拖动功能
   makeDraggable(draggableSprite);
   makeDraggable(draggableShape);
   makeDraggable(draggablePhysicsSprite, true);
 
-  // 5. 物理系统
-  // 动态物理方块
+  // 5. 物理系统 - RigidBody组件
   const physicsBox = new Sprite({
     url: "assets/box.png",
     width: 50,
@@ -449,18 +419,16 @@ async function likoEngineOverview() {
     ],
   });
 
-  // 为物理方块添加点击事件 - 施加向上的力
+  // 物理力的施加
   physicsBox.on(EventType.click, () => {
     const rigidBody = physicsBox.findScript<RigidBody>({ Class: RigidBody });
     if (rigidBody) {
-      // 施加向上的力
-      rigidBody.applyForceToCenter({ x: 0, y: -800 });
-      // 播放音效
+      rigidBody.applyForceToCenter({ x: 0, y: -800 }); // 施加向上的力
       sound.play("assets/sound/bullet.mp3", 0.7);
     }
   });
 
-  // 物理小球
+  // 圆形物理刚体 - 自定义形状
   const physicsBall = new Sprite();
   physicsBall.url = "assets/ball.png";
   physicsBall.width = 35;
@@ -482,18 +450,15 @@ async function likoEngineOverview() {
   ];
   mainScene.addChild(physicsBall);
 
-  // 为物理小球添加点击事件 - 增加向上的速度
+  // 设置线性速度
   physicsBall.on(EventType.click, () => {
     const rigidBody = physicsBall.findScript<RigidBody>({ Class: RigidBody });
     if (rigidBody) {
-      // 直接设置向上的线性速度
-      rigidBody.linearVelocity = { x: 0, y: -15 };
-      // 播放音效
+      rigidBody.linearVelocity = { x: 0, y: -15 }; // 直接设置速度
       sound.play("assets/sound/bullet.mp3", 0.7);
     }
   });
 
-  // 区域标题
   new Text({
     text: "Canvas绘图系统",
     textColor: "#9b59b6",
@@ -503,18 +468,17 @@ async function likoEngineOverview() {
     parent: mainScene,
   });
 
-  // 6. Canvas绘图系统
-  // 基本几何图形绘制
+  // 6. Canvas绘图 - 基本图形API
   const customCanvas = new Canvas();
-  // 绘制填充圆形
+  // 圆形
   customCanvas.beginPath();
   customCanvas.circle(40, 40, 25);
   customCanvas.fill({ color: "#e74c3c" });
-  // 绘制填充矩形
+  // 矩形
   customCanvas.beginPath();
   customCanvas.rect(90, 20, 50, 35);
   customCanvas.fill({ color: "#3498db" });
-  // 绘制三角形路径
+  // 三角形路径
   customCanvas.beginPath();
   customCanvas.moveTo(170, 20);
   customCanvas.lineTo(210, 20);
@@ -525,7 +489,7 @@ async function likoEngineOverview() {
   customCanvas.position.set(50, 490);
   mainScene.addChild(customCanvas);
 
-  // 高级Canvas绘图 - 描边图形
+  // Canvas描边与虚线
   const strokeCanvas = new Canvas();
   // 描边圆角矩形
   strokeCanvas.beginPath();
@@ -535,7 +499,8 @@ async function likoEngineOverview() {
   strokeCanvas.beginPath();
   strokeCanvas.ellipse(130, 35, 35, 20, 0, 2 * Math.PI);
   strokeCanvas.stroke({ color: "#f39c12", width: 3 });
-  // 虚线圆形
+
+  // 虚线效果
   strokeCanvas.beginPath();
   strokeCanvas.circle(210, 35, 25);
   strokeCanvas.stroke({ color: "#e74c3c", width: 2, dash: [5, 3] });
@@ -543,7 +508,7 @@ async function likoEngineOverview() {
   strokeCanvas.position.set(310, 490);
   mainScene.addChild(strokeCanvas);
 
-  // 复杂路径绘制 - 绘制五角星
+  // 复杂路径绘制 - 五角星与贝塞尔曲线
   const pathCanvas = new Canvas();
   pathCanvas.beginPath();
   const outerRadius = 22;
@@ -551,6 +516,7 @@ async function likoEngineOverview() {
   const centerX = 35;
   const centerY = 35;
 
+  // 五角星路径
   for (let i = 0; i < 10; i++) {
     const angle = (Math.PI / 5) * i - Math.PI / 2;
     const radius = i % 2 === 0 ? outerRadius : innerRadius;
@@ -567,7 +533,7 @@ async function likoEngineOverview() {
   pathCanvas.fill({ color: "#f1c40f" });
   pathCanvas.stroke({ color: "#e67e22", width: 2 });
 
-  // 绘制贝塞尔曲线 - 椭圆形
+  // 贝塞尔曲线示例
   pathCanvas.beginPath();
   pathCanvas.moveTo(100, 15);
   pathCanvas.quadraticCurveTo(140, 0, 180, 15);
@@ -579,9 +545,9 @@ async function likoEngineOverview() {
   pathCanvas.position.set(570, 490);
   mainScene.addChild(pathCanvas);
 
-  // 渐变和图案Canvas
+  // 渐变效果 - 线性渐变与径向渐变
   const gradientCanvas = new Canvas();
-  // 线性渐变矩形
+  // 线性渐变
   gradientCanvas.beginPath();
   gradientCanvas.rect(10, 10, 80, 35);
   gradientCanvas.fill({
@@ -592,9 +558,9 @@ async function likoEngineOverview() {
     ]),
   });
 
-  // 径向渐变圆形
+  // 径向渐变
   gradientCanvas.beginPath();
-  gradientCanvas.circle(130, 27, 22);
+  gradientCanvas.circle(130, 30, 25);
   gradientCanvas.fill({
     color: utils.createRadialGradient({ startX: 130, startY: 27, startRadius: 0, endX: 130, endY: 27, endRadius: 22 }, [
       { offset: 0, color: "#ffffff" },
@@ -603,15 +569,27 @@ async function likoEngineOverview() {
     ]),
   });
 
-  gradientCanvas.position.set(830, 490);
+  gradientCanvas.position.set(810, 490);
   mainScene.addChild(gradientCanvas);
 
-  // 交互式Canvas - 悬停改变颜色
+  // 裁剪蒙版 - 圆形头像效果
+  const texture = await Texture.createFromUrl("assets/bg2.webp");
+  if (!texture) return;
+  const clippedImage = new Canvas();
+  clippedImage.clear();
+  clippedImage.beginPath();
+  clippedImage.circle(25, 25, 25).clip(); // 设置裁剪区域
+  clippedImage.drawImage(texture, 0, 0, 150, 100);
+  clippedImage.closePath();
+  clippedImage.position.set(990, 490);
+  app.stage.addChild(clippedImage);
+
+  // 交互式Canvas - 动态重绘
   const interactiveCanvas = new Canvas();
   const drawInteractiveShape = (fillColor: string) => {
     interactiveCanvas.clear();
     interactiveCanvas.beginPath();
-    // 绘制一个复杂的花朵形状
+    // 花朵形状绘制
     for (let i = 0; i < 8; i++) {
       const angle = (i * Math.PI) / 4;
       const x = 40 + 25 * Math.cos(angle);
@@ -632,10 +610,9 @@ async function likoEngineOverview() {
     drawInteractiveShape("#e74c3c");
   });
 
-  interactiveCanvas.position.set(1020, 490);
+  interactiveCanvas.position.set(1080, 490);
   mainScene.addChild(interactiveCanvas);
 
-  // 区域标题
   new Text({
     text: "Shape几何图形系统",
     textColor: "#1abc9c",
@@ -645,9 +622,7 @@ async function likoEngineOverview() {
     parent: mainScene,
   });
 
-  // 6.5 几何图形绘制系统(Shape)
-  // 基础几何图形展示
-  // 矩形
+  // 7. Shape几何图形 - 基础图形API
   new Shape({
     label: "basicRect",
     drawRect: {
@@ -711,7 +686,7 @@ async function likoEngineOverview() {
     parent: mainScene,
   });
 
-  // 多边形 - 三角形
+  // 多边形 - 点数组定义形状
   new Shape({
     label: "triangle",
     drawPolygon: {
@@ -746,17 +721,15 @@ async function likoEngineOverview() {
     parent: mainScene,
   });
 
-  // 动态Shape - 鼠标交互改变形状
+  // 动态Shape - 运行时重绘
   new Shape({
     label: "interactiveShape",
     position: { x: 650, y: 610 },
     parent: mainScene,
   });
 
-  // 获取动态Shape
   const interactiveShape = mainScene.findChild<Shape>({ label: "interactiveShape" });
   if (interactiveShape) {
-    // 初始绘制一个矩形
     interactiveShape.drawCircle({
       x: 25,
       y: 25,
@@ -766,7 +739,6 @@ async function likoEngineOverview() {
       strokeWidth: 2,
     });
 
-    // 鼠标悬停时变成圆形
     interactiveShape.on(EventType.pointerOver, () => {
       interactiveShape.drawCircle({
         x: 25,
@@ -778,7 +750,6 @@ async function likoEngineOverview() {
       });
     });
 
-    // 鼠标离开时恢复矩形
     interactiveShape.on(EventType.pointerOut, () => {
       interactiveShape.drawCircle({
         x: 25,
@@ -791,7 +762,6 @@ async function likoEngineOverview() {
     });
   }
 
-  // 区域标题
   new Text({
     text: "粒子系统(ParticleSystem)",
     textColor: "#e67e22",
@@ -801,7 +771,7 @@ async function likoEngineOverview() {
     parent: mainScene,
   });
 
-  // 粒子示例1: 使用plist配置的火焰效果
+  // 8. 粒子系统 - plist配置文件加载
   const fireParticle = new ParticleSystem({
     url: "assets/particle/fire.plist",
     parent: mainScene,
@@ -809,7 +779,7 @@ async function likoEngineOverview() {
     autoPlay: true,
   });
 
-  // 火焰控制按钮
+  // 粒子控制按钮
   const fireControlButton = new Text({
     text: "⏸️ 暂停",
     fontSize: 14,
@@ -832,7 +802,7 @@ async function likoEngineOverview() {
     sound.play("assets/sound/bullet.mp3", 0.3);
   });
 
-  // 粒子示例2: 动态配置的交互粒子系统
+  // 动态配置粒子系统 - config对象配置
   const interactiveParticle = new ParticleSystem({
     parent: mainScene,
     position: { x: 350, y: 750 },
@@ -866,16 +836,15 @@ async function likoEngineOverview() {
     },
   });
 
-  // 动态修改粒子属性
+  // 动态修改粒子属性 - setter方法使用
   let particleColorIndex = 0;
   const particleColors = [
-    { start: { r: 0.2, g: 0.8, b: 1.0, a: 1.0 }, end: { r: 1.0, g: 0.2, b: 0.8, a: 0.0 } }, // 青到粉
-    { start: { r: 1.0, g: 0.3, b: 0.1, a: 1.0 }, end: { r: 1.0, g: 0.8, b: 0.0, a: 0.0 } }, // 红到黄
-    { start: { r: 0.1, g: 1.0, b: 0.3, a: 1.0 }, end: { r: 0.8, g: 1.0, b: 0.1, a: 0.0 } }, // 绿到浅绿
-    { start: { r: 0.8, g: 0.2, b: 1.0, a: 1.0 }, end: { r: 1.0, g: 0.6, b: 0.8, a: 0.0 } }, // 紫到粉
+    { start: { r: 0.2, g: 0.8, b: 1.0, a: 1.0 }, end: { r: 1.0, g: 0.2, b: 0.8, a: 0.0 } },
+    { start: { r: 1.0, g: 0.3, b: 0.1, a: 1.0 }, end: { r: 1.0, g: 0.8, b: 0.0, a: 0.0 } },
+    { start: { r: 0.1, g: 1.0, b: 0.3, a: 1.0 }, end: { r: 0.8, g: 1.0, b: 0.1, a: 0.0 } },
+    { start: { r: 0.8, g: 0.2, b: 1.0, a: 1.0 }, end: { r: 1.0, g: 0.6, b: 0.8, a: 0.0 } },
   ];
 
-  // 每3秒自动切换颜色
   app.stage.timer.setInterval(3, () => {
     const colorSet = particleColors[particleColorIndex % particleColors.length];
     interactiveParticle.setStartColor(colorSet.start);
@@ -890,11 +859,11 @@ async function likoEngineOverview() {
   });
 
   interactiveParticle.on(EventType.pointerOut, () => {
-    interactiveParticle.setAngle(270, 45); // 向下发射
-    interactiveParticle.setEmissionRate(50); // 恢复发射速率
+    interactiveParticle.setAngle(270, 45);
+    interactiveParticle.setEmissionRate(50);
   });
 
-  // 点击创建爆炸效果
+  // 临时粒子效果 - 爆炸效果
   interactiveParticle.on(EventType.click, () => {
     // 临时创建爆炸粒子
     const burstParticle = new ParticleSystem({
@@ -902,16 +871,14 @@ async function likoEngineOverview() {
       position: { x: interactiveParticle.position.x, y: interactiveParticle.position.y },
     });
 
-    // 设置爆炸效果
-    burstParticle.setStartColor({ r: 1.0, g: 0.8, b: 0.0, a: 1.0 }); // 金黄色
-    burstParticle.setEndColor({ r: 1.0, g: 0.2, b: 0.0, a: 0.0 }); // 透明红色
-    burstParticle.setParticleSize(15, 5); // 从大到小
-    burstParticle.setEmissionRate(200); // 高发射速率
-    burstParticle.setParticleLifespan(1.0); // 较短生命周期
+    burstParticle.setStartColor({ r: 1.0, g: 0.8, b: 0.0, a: 1.0 });
+    burstParticle.setEndColor({ r: 1.0, g: 0.2, b: 0.0, a: 0.0 });
+    burstParticle.setParticleSize(15, 5);
+    burstParticle.setEmissionRate(200);
+    burstParticle.setParticleLifespan(1.0);
     burstParticle.setAngle(0, 360); // 全方向发射
     burstParticle.play();
 
-    // 播放爆炸音效
     sound.play("assets/sound/bullet.mp3", 0.8);
 
     // 1.5秒后清理爆炸粒子
@@ -921,7 +888,7 @@ async function likoEngineOverview() {
     }, 1500);
   });
 
-  // 粒子系统状态显示
+  // 粒子状态监控
   const particleStatusText = new Text({
     text: "粒子状态: 火焰: 0, 交互: 0, 鼠标: 0",
     textColor: "#95a5a6",
@@ -930,36 +897,35 @@ async function likoEngineOverview() {
     parent: mainScene,
   });
 
-  // 每2秒更新粒子状态
   app.stage.timer.setInterval(2, () => {
     particleStatusText.text = `粒子状态: 火焰: ${fireParticle.particleCount}, 交互: ${interactiveParticle.particleCount}, 鼠标: ${mouseTrailParticle.particleCount}`;
   });
 
-  // 粒子示例3: 跟随鼠标的粒子系统
+  // 跟随鼠标的粒子系统
   const mouseTrailParticle = new ParticleSystem({
     parent: mainScene,
-    position: { x: 600, y: 400 }, // 初始位置
+    position: { x: 600, y: 400 },
     autoPlay: true,
   });
 
-  // 设置跟随鼠标的粒子属性
-  mouseTrailParticle.setStartColor({ r: 0.8, g: 0.2, b: 0.8, a: 1.0 }); // 紫色
-  mouseTrailParticle.setEndColor({ r: 0.2, g: 0.8, b: 0.8, a: 0.0 }); // 透明青色
-  mouseTrailParticle.setParticleSize(6, 2); // 大小从6到2
-  mouseTrailParticle.setEmissionRate(30); // 发射速率
-  mouseTrailParticle.setParticleLifespan(1.5, 0.3); // 生命周期
-  mouseTrailParticle.setGravity(0, 20); // 轻微向下的重力
-  mouseTrailParticle.setAngle(90, 60); // 向上发射，角度有变化
+  // 链式设置粒子属性
+  mouseTrailParticle.setStartColor({ r: 0.8, g: 0.2, b: 0.8, a: 1.0 });
+  mouseTrailParticle.setEndColor({ r: 0.2, g: 0.8, b: 0.8, a: 0.0 });
+  mouseTrailParticle.setParticleSize(6, 2);
+  mouseTrailParticle.setEmissionRate(30);
+  mouseTrailParticle.setParticleLifespan(1.5, 0.3);
+  mouseTrailParticle.setGravity(0, 20);
+  mouseTrailParticle.setAngle(90, 60);
   mouseTrailParticle.play();
 
-  // 监听鼠标移动事件，让粒子跟随鼠标
+  // 鼠标跟随事件
   app.stage.on(EventType.pointerMove, (event: LikoPointerEvent) => {
     if (event.pointer) {
       mouseTrailParticle.position.set(event.pointer.x, event.pointer.y);
     }
   });
 
-  // 静态地面（物理边界）
+  // 静态物理边界
   const ground = new Canvas();
   ground.rect(0, 0, 1200, 30);
   ground.fill({ color: "#34495e" });
@@ -972,7 +938,6 @@ async function likoEngineOverview() {
     }),
   );
 
-  // 控制区域标题
   new Text({
     text: "控制面板",
     textColor: "#ecf0f1",
@@ -982,7 +947,7 @@ async function likoEngineOverview() {
     parent: mainScene,
   });
 
-  // 8. 音频系统
+  // 9. 音频系统 - music与sound
   const musicButton = new Text({
     text: "🎵 播放背景音乐",
     fontSize: 16,
@@ -992,7 +957,7 @@ async function likoEngineOverview() {
   });
 
   musicButton.on(EventType.click, () => {
-    music.play("assets/sound/bg.mp3").fadeIn(2);
+    music.play("assets/sound/bg.mp3").fadeIn(2); // 淡入效果
     musicButton.text = "🎵 音乐播放中...";
   });
 
@@ -1005,16 +970,14 @@ async function likoEngineOverview() {
   });
 
   stopMusicButton.on(EventType.click, () => {
-    music.stopAll();
+    music.stopAll(); // 停止所有音乐
     musicButton.text = "🎵 播放背景音乐";
   });
 
-  // 10. 全局事件处理
-
-  // 键盘事件处理
+  // 10. 全局事件处理 - 键盘事件
   document.addEventListener("keydown", (event) => {
     switch (event.key) {
-      case " ": // 空格键暂停/恢复所有动画
+      case " ": // 空格键控制Timer系统
         event.preventDefault();
         if (Timer.system.paused) {
           Timer.system.resume();
