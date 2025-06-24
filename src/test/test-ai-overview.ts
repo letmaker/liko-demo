@@ -975,7 +975,7 @@ async function likoEngineOverview() {
   });
 
   // 10. 全局事件处理 - 键盘事件
-  document.addEventListener("keydown", (event) => {
+  app.stage.on(EventType.keydown, (event: KeyboardEvent) => {
     switch (event.key) {
       case " ": // 空格键控制Timer系统
         event.preventDefault();
