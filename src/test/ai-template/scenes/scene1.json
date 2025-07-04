@@ -35,17 +35,24 @@
         "url": "game3/images/hero.png",
         "width": 60,
         "height": 100,
-        "position": { "x": 252.16571044922242, "y": 495.64471435547597 },
+        "position": { "x": 252, "y": 495 },
         "scale": { "x": 1, "y": 1 },
         "anchor": { "x": 0.5, "y": 0.5 },
         "angle": 0
       },
       "scripts": [
         {
-          "id": "4",
+          "id": "30",
           "script": "scripts/hero.ts",
           "props": {
             "label": "Hero"
+          }
+        },
+        {
+          "id": "31",
+          "script": "scripts/joystick.ts",
+          "props": {
+            "label": "Joystick"
           }
         }
       ]

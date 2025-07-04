@@ -2,8 +2,10 @@ import { Rectangle, type IAppOptions, type INodeData } from "liko";
 
 // 导入脚本
 import "./scripts/hero.ts";
+import "./scripts/joystick.ts";
 import "./scripts/monster.ts";
 import "./scripts/monster-creator.ts";
+
 // 导入场景
 import scene1 from "./scenes/scene1.json";
 
