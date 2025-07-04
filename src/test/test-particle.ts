@@ -1,4 +1,4 @@
-import { App, EventType, type LikoPointerEvent, ParticleSystem } from "liko";
+import { App, EventType, type LikoPointerEvent, loader, ParticleSystem, type Texture } from "liko";
 
 /**
  * 粒子系统使用示例
@@ -93,6 +93,8 @@ async function test() {
   // 演示高强度、短时间的粒子效果
   console.log("=== 示例3: 爆炸效果 动态控制 ===");
 
+  const fireTexture = await loader.load<Texture>("assets/particle/fire.png");
+
   /**
    * 爆炸粒子系统
    * 特点：高发射率、强烈的颜色对比、粒子从大到小
@@ -101,6 +103,7 @@ async function test() {
     parent: app.stage,
     position: { x: 650, y: 300 }, // 屏幕右侧
     autoPlay: true,
+    texture: fireTexture, // 根据需要，可以指定粒子纹理，不指定默认为白色方块纹理
     config: {
       // 爆炸效果的典型颜色：从亮橙红色到透明黄色
       startColor: { r: 1.0, g: 0.3, b: 0.1, a: 1.0 }, // 明亮的橙红色

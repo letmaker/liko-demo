@@ -802,11 +802,13 @@ async function likoEngineOverview() {
     sound.play("assets/sound/bullet.mp3", 0.3);
   });
 
+  const iconTexture = await loader.load<Texture>("assets/particle/coins.png");
   // 动态配置粒子系统 - config对象配置
   const interactiveParticle = new ParticleSystem({
     parent: mainScene,
     position: { x: 350, y: 750 },
     autoPlay: true,
+    texture: iconTexture, // 根据需要，可以指定粒子纹理，不指定默认为白色方块纹理
     config: {
       // 重力设置：影响粒子的加速度
       gravityX: 0, // 水平重力为0，粒子不会左右偏移
@@ -821,8 +823,8 @@ async function likoEngineOverview() {
       finishColor: { r: 1, g: 0.3, b: 0.8, a: 0.0 }, // 结束时的粉色并逐渐透明
 
       // 粒子大小设置
-      startParticleSize: 8, // 粒子初始大小
-      finishParticleSize: 12, // 粒子结束时的大小（比初始大小大，模拟水滴扩散）
+      startParticleSize: 10, // 粒子初始大小
+      finishParticleSize: 20, // 粒子结束时的大小（比初始大小大，模拟水滴扩散）
 
       // 发射速率：每秒发射的粒子数量
       emissionRate: 50,
