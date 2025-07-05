@@ -48,11 +48,20 @@ export class Monster extends Script {
     const other = e.other;
     if (other?.label === "bullet") {
       this.hp--;
+      // 显示击中效果
+      this.showHitEffect();
       if (this.hp <= 0) {
         this.createDeathParticleEffect();
         this.target.destroy();
       }
     }
+  }
+
+  private showHitEffect(): void {
+    this.target.tintColor = "rgba(255, 0, 0, 0.5)";
+    setTimeout(() => {
+      this.target.tintColor = "white";
+    }, 100);
   }
 
   private async createDeathParticleEffect(): Promise<void> {
