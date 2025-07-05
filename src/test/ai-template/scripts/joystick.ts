@@ -11,6 +11,7 @@ export class Joystick extends Script {
   onStagePointerDown(e: LikoPointerEvent): void {
     this._pressed = true;
     this._center.set(e.pointer.x, e.pointer.y);
+    this.signal("startMove");
   }
 
   onStagePointerMove(e: LikoPointerEvent): void {
@@ -44,6 +45,7 @@ export class Joystick extends Script {
   onStagePointerUp(): void {
     this._pressed = false;
     this.signal("joystickMove", { velocityX: 0, velocityY: 0 });
+    this.signal("stopMove");
   }
 }
 

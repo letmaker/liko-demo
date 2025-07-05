@@ -34,9 +34,9 @@
       "type": "Sprite",
       "props": {
         "label": "hero",
-        "url": "game3/images/hero.png",
-        "width": 60,
-        "height": 100,
+        "url": "game3/images/hero_walk_a.png",
+        "width": 72,
+        "height": 97,
         "position": { "x": 252, "y": 495 },
         "scale": { "x": 1, "y": 1 },
         "anchor": { "x": 0.5, "y": 0.5 },
