@@ -6,7 +6,7 @@ export class Joystick extends Script {
   private _maxRadius = 100;
 
   // 公有属性，将来可以在编辑器内修改，不要太快
-  moveSpeed = 10;
+  moveSpeed = 5;
 
   onStagePointerDown(e: LikoPointerEvent): void {
     this._pressed = true;

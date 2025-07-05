@@ -5,6 +5,7 @@ import "./scripts/hero.ts";
 import "./scripts/joystick.ts";
 import "./scripts/monster.ts";
 import "./scripts/monster-creator.ts";
+import "./scripts/bullet-skill.ts";
 
 // 导入场景
 import scene1 from "./scenes/scene1.json";
@@ -18,7 +19,7 @@ export const config: { app: IAppOptions; scenes: INodeData[] } = {
     physics: {
       // 物理引擎是否开启，根据需要打开
       enabled: true,
-      debug: false,
+      debug: true,
       // 物理边界区域，对象碰到后会被销毁，根据需要调整
       boundaryArea: new Rectangle(0, 0, 750, 1334).pad(200),
     },

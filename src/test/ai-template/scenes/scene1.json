@@ -11,7 +11,9 @@
       "id": "1",
       "script": "scripts/monster-creator.ts",
       "props": {
-        "label": "MonsterCreator"
+        "label": "MonsterCreator",
+        "maxMonster": 10,
+        "createInterval": 0.5
       }
     }
   ],
@@ -20,7 +22,7 @@
       "id": "2",
       "type": "Sprite",
       "props": {
-        "label": "背景",
+        "label": "background",
         "url": "game3/images/background.jpeg",
         "width": 750,
         "height": 1334,
@@ -54,6 +56,16 @@
           "props": {
             "label": "Joystick"
           }
+        },
+        {
+          "id": "32",
+          "script": "scripts/bullet-skill.ts",
+          "props": {
+            "label": "BulletSkill",
+            "url": "game3/images/bullet.png",
+            "width": 10,
+            "height": 10
+          }
         }
       ]
     },
@@ -78,20 +90,6 @@
           }
         }
       ]
-    },
-    {
-      "id": "7",
-      "type": "Sprite",
-      "props": {
-        "label": "bullet",
-        "url": "game3/images/bullet.png",
-        "editorOnly": true,
-        "width": 10,
-        "height": 10,
-        "position": { "x": 200, "y": 300 },
-        "scale": { "x": 1, "y": 1 },
-        "angle": 0
-      }
     }
   ]
 }
