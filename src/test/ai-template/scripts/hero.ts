@@ -20,18 +20,29 @@ export class Hero extends Script {
 
   onSignal(signal: string, data?: Record<string, any>): void {
     if (signal === "joystickMove") {
-      this._rigidBody?.setLinearVelocity(data?.tx || 0, data?.ty || 0);
+      this._rigidBody?.setLinearVelocity(data?.velocityX || 0, data?.velocityY || 0);
     }
   }
 
   onCollisionStart(): void {
     this.hp--;
     if (this.hp <= 0) {
-      this._die();
+      this.handleDeath();
+    } else {
+      this.showHitEffect();
     }
   }
 
-  private _die(): void {
+  showHitEffect(): void {
+    this.target.tintColor = "rgba(255, 0, 0, 0.5)";
+    setTimeout(() => {
+      if (this.target) {
+        this.target.tintColor = "white";
+      }
+    }, 100);
+  }
+
+  handleDeath(): void {
     this.signal("heroDead", { dead: true });
     sound.play("game3/sounds/fail.mp3");
     this.target.destroy();

@@ -22,7 +22,7 @@ export class Joystick extends Script {
 
     // 如果距离太小，停止移动
     if (distance < 5) {
-      this.signal("joystickMove", { tx: 0, ty: 0 });
+      this.signal("joystickMove", { velocityX: 0, velocityY: 0 });
       return;
     }
 
@@ -36,14 +36,14 @@ export class Joystick extends Script {
 
     // 发送移动信号
     this.signal("joystickMove", {
-      tx: directionX * this.moveSpeed * speedMultiplier,
-      ty: directionY * this.moveSpeed * speedMultiplier,
+      velocityX: directionX * this.moveSpeed * speedMultiplier,
+      velocityY: directionY * this.moveSpeed * speedMultiplier,
     });
   }
 
   onStagePointerUp(): void {
     this._pressed = false;
-    this.signal("joystickMove", { tx: 0, ty: 0 });
+    this.signal("joystickMove", { velocityX: 0, velocityY: 0 });
   }
 }
 

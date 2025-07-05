@@ -13,13 +13,21 @@ import {
 export class Monster extends Script {
   private _hero?: Sprite;
   private _rigidBody?: RigidBody;
-  private _fireTexture?: Texture;
+  private _explosionTexture?: Texture;
 
-  speed = 100;
+  moveSpeed = 100;
   hp = 2;
 
-  async onAwake(): Promise<void> {
-    // 添加刚体
+  hitEffectDuration = 100;
+  explosionDuration = 300;
+
+  onAwake() {
+    this.setupRigidBody();
+    this.findHero();
+    this.loadExplosionTexture();
+  }
+
+  setupRigidBody(): void {
     this._rigidBody = new RigidBody({
       rigidType: "dynamic",
       gravityScale: 0,
@@ -27,49 +35,62 @@ export class Monster extends Script {
       categoryAccepted: ["heroBullet", "hero"],
     });
     this.target.addScript(this._rigidBody);
+  }
 
+  findHero(): void {
     this._hero = this.scene?.findChild<Sprite>({ label: "hero" });
-    // 预加载粒子纹理，避免在创建粒子系统时加载
-    this._fireTexture = await loader.load<Texture>("game3/images/fire.png");
+  }
+
+  async loadExplosionTexture(): Promise<void> {
+    this._explosionTexture = await loader.load<Texture>("game3/images/fire.png");
   }
 
   onUpdate(delta: number): void {
-    // 朝着主角移动
-    const hero = this._hero;
-    if (hero) {
-      const direction = Point.TEMP.copyFrom(hero.position).sub(this.target.position);
-      const speed = direction.normalize().multiply(this.speed * delta);
-      this._rigidBody?.setLinearVelocity(speed.x, speed.y);
+    this.moveTowardsHero(delta);
+  }
+
+  moveTowardsHero(delta: number): void {
+    if (!this._hero || !this._rigidBody) return;
+
+    const direction = Point.TEMP.copyFrom(this._hero.position).sub(this.target.position);
+    const velocity = direction.normalize().multiply(this.moveSpeed * delta);
+    this._rigidBody.setLinearVelocity(velocity.x, velocity.y);
+  }
+
+  onCollisionStart(collision: ICollision): void {
+    if (collision.other?.label === "bullet") {
+      this.handleBulletHit();
     }
   }
 
-  onCollisionStart(e: ICollision): void {
-    // 检查碰撞对象
-    const other = e.other;
-    if (other?.label === "bullet") {
-      this.hp--;
-      // 显示击中效果
-      this.showHitEffect();
-      if (this.hp <= 0) {
-        this.createDeathParticleEffect();
-        this.target.destroy();
-      }
+  handleBulletHit(): void {
+    this.hp--;
+    this.showHitEffect();
+
+    if (this.hp <= 0) {
+      this.die();
     }
   }
 
-  private showHitEffect(): void {
+  showHitEffect(): void {
     this.target.tintColor = "rgba(255, 0, 0, 0.5)";
     setTimeout(() => {
-      this.target.tintColor = "white";
-    }, 100);
+      if (this.target) {
+        this.target.tintColor = "white";
+      }
+    }, this.hitEffectDuration);
   }
 
-  private async createDeathParticleEffect(): Promise<void> {
-    // 创建爆炸粒子系统
-    const deathParticle = new ParticleSystem({
+  die() {
+    this.createExplosionEffect();
+    this.target.destroy();
+  }
+
+  createExplosionEffect() {
+    const explosionParticles = new ParticleSystem({
       parent: this.scene,
       position: { x: this.target.position.x, y: this.target.position.y },
-      texture: this._fireTexture, // 根据需要，可以指定粒子纹理，不指定默认为白色方块纹理
+      texture: this._explosionTexture, // 根据需要，可以指定粒子纹理，不指定默认为白色方块纹理
       config: {
         // 重力设置
         gravityX: 0,
@@ -100,13 +121,13 @@ export class Monster extends Script {
       },
     });
 
-    deathParticle.play();
+    explosionParticles.play();
 
     // 0.5秒后清理粒子系统
     setTimeout(() => {
-      deathParticle.stop();
-      deathParticle.removeSelf();
-    }, 300);
+      explosionParticles.stop();
+      explosionParticles.removeSelf();
+    }, this.explosionDuration);
   }
 }
 
